@@ -1,3 +1,25 @@
-{% for new in news %}
-    {{ new }}
-{% endfor %}
+{% extends "base.html" %}
+{% block title %} News Information Extraciton {% endblock title %}
+
+{% block nav_index_home %}
+class="nav-link active btn-primary"
+{% endblock nav_index_home%}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+    <div class="col-md-6">
+        {% for new in news %}
+            {{ new }}
+        {% endfor %}
+    </div>
+
+    <div class="col-md-6">
+        {% for new in news %}
+            {{ new }}
+        {% endfor %}
+    </div>
+    </div>
+</div>
+
+{% endblock content %}
