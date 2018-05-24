@@ -25,16 +25,21 @@ data_extractor = DataExtractor(pos_tagged_sentences, news_story)
 sentences = news.split_story()
 data_extractor.day(news_story)
 
-print("From the modular component")
-print("--------------------------------")
-print(data_extractor.location())
-print(data_extractor.death_number())
-print(data_extractor.injury_number())
-
-# injuries = data_extractor.injury(nltk.sent_tokenize(news_story))
-
-print("\nThe vehicles involved are:")
-data_extractor.vehicle()
+print("Extracting")
+record = rssdata(header= "Heading",
+                 body= news_story.replace("\n", ""),
+                 death= data_extractor.deaths(nltk.sent_tokenize(news_story)),
+                 death_no = data_extractor.death_number(),
+                 injury = data_extractor.injury(nltk.sent_tokenize(news_story)),
+                 injury_no = data_extractor.injury_number(),
+                 location = data_extractor.location(),
+                 vehicle_no = data_extractor.vehicle(),
+                 date = None,
+                 day = data_extractor.day(news_story)
+               )
+print("Saving")
+record.save()
+print("Saved")
 
 def index(request):
     return render(request, 'index.html',

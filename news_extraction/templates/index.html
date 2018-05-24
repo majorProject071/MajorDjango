@@ -1,25 +1,90 @@
 {% extends "base.html" %}
 {% block title %} News Information Extraciton {% endblock title %}
 
-{% block nav_index_home %}
-class="nav-link active btn-primary"
-{% endblock nav_index_home%}
+{% block nav_index_home %} class="nav-link active btn-primary" {% endblock nav_index_home%}
 
 {% block content %}
 <div class="container">
     <div class="row">
     <div class="col-md-6">
-        {% for new in news %}
-            {{ new }}
+        <div class="pre-scrollable">
+        {% for article in news %}
+          <ul>
+            <li class='listed' style='list-style:none;'>
+              <p id={{ article.id }} class="head"> <a href="#" style="color:#4b0082">{{article.header}}:</a><br>
+              <a>{{article.date}}</a>
+            </p>
+            </li>
+          </ul>
         {% endfor %}
+        </div>
     </div>
 
     <div class="col-md-6">
-        {% for new in news %}
-            {{ new }}
-        {% endfor %}
+      <p id='summary'> Click on one of the news </p>
     </div>
     </div>
 </div>
-
 {% endblock content %}
+
+
+{% block javascript %}
+<style>
+.listed{
+  background-color: rgb(169, 210, 237);
+  color:#000;
+  padding: 5px;
+  border-radius: 15px;
+  margin: 5px;
+}
+
+div.center {text-align: center;}
+
+.pre-scrollable {
+    max-height: 700px;
+    overflow-y: scroll;
+}
+</style>
+
+<script>
+$(document).ready(function(){
+console.log("hello");
+  function present_summary(){
+    var accidentNews ={};
+    {% for article in news %}
+    {% if article.id is not None %}
+    accidentNews[{{article.id}}] = {
+        location : "{{ article.location }}",
+        death : "{{ article.death }}",
+        death_no : "{{ article.death_no }}",
+        injury:"{{ article.injury}}",
+        injury_no:"{{ article.injury_no}}",
+        vehicle_no:"{{ article.vehicle_no }}",
+        date:"{{ article.date }}",
+        day:"{{ article.day }}",
+        body:"{{article.body}}",
+    };
+
+    {% else %}
+
+    accidentNews[0] = {};
+    {% endif %}
+    {% endfor %}
+
+    $('.head').each(function(){
+      $(this).click(function(){
+        var news = accidentNews[this.id];
+        $('#summary').replaceWith("<div id='summary'><h2> Extracted items </h2> <p><strong> Death: </strong>" + news.death +  "</p>        <p><strong> Death Number: </strong>" + news.death_no +  "</p>        <p><strong> Injury: </strong>" + news.injury +"</p>        <p><strong> Injury Number: </strong>" + news.injury_no +"</p>        <p><strong> Vehicle Involved: </strong>" + news.vehicle_no +"</p>        <p><strong>Location: </strong>" + news.location +"</p>        <p><strong> Date: </strong>"+ news.date +"</p>        <p><strong> Day: </strong>"+ news.day +"</p>        <h4>Full news</h4>"+ news.body+ "</div>");
+  });
+
+  $('#no').click(function () {
+    $('#summary').replaceWith("<h2 id='summary'> No Summary Information</h2>");
+  })
+    });
+  }
+  present_summary();
+});
+
+</script>
+
+{% endblock javascript %}
