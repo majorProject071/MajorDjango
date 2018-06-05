@@ -10,6 +10,7 @@ class rssdata(models.Model):
     injury = models.CharField(blank=True, max_length=100, null=True)
     injury_no = models.IntegerField(blank=True, null=True)
     location = models.CharField(blank=True, max_length=100, null=True)
+    vehicle_involved = models.CharField(blank=True, max_length=100, null=True)
     vehicle_no = models.CharField(blank=True, max_length=100, null=True)
     date = models.DateField(default=date.today, blank=True, null=True)
     day = models.CharField(blank=True, max_length=100, null=True)

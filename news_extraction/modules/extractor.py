@@ -38,31 +38,41 @@ class DataExtractor:
                         locations.append(i[0])
         return(locations)
 
+
     def day(self,complete_news):
         """ Gets the day of mishap.
         """
         day_regex = re.compile('\w+day')
         day = day_regex.findall(complete_news)[0]
         print("The day when the accident occured is: \n"+day)
-
+        return day
 
 
     def vehicle(self):
         """ Gets the vehicle number from the news story.
-
-            Inputs inclue the POS tagged words from the news.
+            Inputs include the POS tagged words from the news.
             Output is the phrase containing the vehicle number.
         """
 
         vehicle_regex = "Vehicle: {<.*><CD><.*><CD>}"
         vehicle_parser = nltk.RegexpParser(vehicle_regex)
 
+        vehicles = []
         for i in self.pos_tagged_words:
             vehicle = vehicle_parser.parse(i)
             for i in vehicle.subtrees(filter=lambda x:x.label() == 'Vehicle'):
+                vehicle = ""
                 for p in i.leaves():
-                    print(p[0], end=' ')
-                print("\n")
+                    vehicle = vehicle + str(p[0]) + " "
+                    # vehicle = vehicle[:-1]
+                    # print("\n")
+                vehicles.append(vehicle[:-1])
+        return (vehicles)
+
+
+    def vehicle_involved(self):
+        pass
+
 
     def deaths(self,sentences):
         """ Gets the number of deaths from the news story.
@@ -88,6 +98,7 @@ class DataExtractor:
             for i in deaths.subtrees(filter = lambda x:x.label() == 'Deaths'):
                 print(i.leaves())
 
+
     def injury(self,sentences):
         has_injuries = [sent for sent in sentences if("injured" or "injury"
                         or "injuries" or "injur") in nltk.word_tokenize(sent)]
@@ -107,6 +118,7 @@ class DataExtractor:
         injury_occurence = injury_parser.parse(injury_pos_tagged)
         print(injury_occurence)
 
+
     def death_number(self):
         death = death_no(self.splitted_sentences)
         if death == "None":
@@ -121,6 +133,7 @@ class DataExtractor:
         # print("\n No of dead people: " + str(deathNo))
         return(deathNo)
 
+
     def injury_number(self):
         injury = injury_no(self.splitted_sentences)
         if injury == "None":
@@ -132,5 +145,4 @@ class DataExtractor:
         # print("Injury No:")
         # print(injury, actualinjury, injuryNo)
         # print("\n No of injured people: " + str(injuryNo))
-
         return(injuryNo)

@@ -33,6 +33,8 @@ record = rssdata(header= "Heading",
                  injury = data_extractor.injury(nltk.sent_tokenize(news_story)),
                  injury_no = data_extractor.injury_number(),
                  location = data_extractor.location(),
+                 vehicle_involved = data_extractor.vehicle_involved(),
+                 # vehicle_involved = None,
                  vehicle_no = data_extractor.vehicle(),
                  date = None,
                  day = data_extractor.day(news_story)

@@ -94,4 +94,3 @@ news_similarity()
 #             print("News are different (location)")
 #     else:
 #         print("News are different (date)")
-
