@@ -14,7 +14,7 @@ news_story = """A woman died after being hit by a bus in Sinamangal of Kathmandu
 The victim has been identified as Goshan Mikrani Begham (49) of Sarlahi.
 Critically injured in the incident, she was rushed to the Bansbari-based Neuro Hospital where she breathed her last during the course of treatment, police said.
 The incident took place at around 7 am yesterday.
-Police said that they have impounded the vehicle Ba 2 Kha 7085 and arrested its driver for investigation."""
+Police said that they have impounded the vehicle Ba 2 Kha 7085 and Ko 2 Pa 7086 and arrested its driver for investigation."""
 
 news = Tokenize(news_story)
 splited_sentences = nltk.sent_tokenize(news_story)

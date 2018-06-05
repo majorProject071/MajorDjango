@@ -44,7 +44,7 @@ class DataExtractor:
         """
         day_regex = re.compile('\w+day')
         day = day_regex.findall(complete_news)[0]
-        print("The day when the accident occured is: \n"+day)
+        # print("The day when the accident occured is: \n"+day)
         return day
 
 
@@ -71,7 +71,32 @@ class DataExtractor:
 
 
     def vehicle_involved(self):
-        pass
+        vehicle_regex = "Vehicle: {<.*><CD><.*><CD>}"
+        vehicle_parser = nltk.RegexpParser(vehicle_regex)
+
+        vehicle_code = []
+        for i in self.pos_tagged_words:
+            vehicle = vehicle_parser.parse(i)
+            for i in vehicle.subtrees(filter=lambda x: x.label() == 'Vehicle'):
+                vehicle_code.append(i.leaves()[2][0])
+        # print(vehicle_code)
+
+        vehicle = []
+        for vcode in vehicle_code:
+            if vcode == 'Kha':
+                vehicle.append('Bus')
+            elif vcode == 'Pa':
+                vehicle.append('Bike')
+            elif vcode == 'Ba':
+                vehicle.append('Bike')
+            elif vcode == 'Cha':
+                vehicle.append('Car')
+            elif vcode == 'Ya':
+                vehicle.append('Bus')
+            elif vcode == 'CD' or 'C D':
+                vehicle.append('Car')
+
+        return (vehicle)
 
 
     def deaths(self,sentences):
@@ -86,8 +111,8 @@ class DataExtractor:
         death_regex = "Deaths: {<CD>}"
         has_deaths = [sent for sent in sentences if("died" or "death") in
                         nltk.word_tokenize(sent)]
-        print(has_deaths)
-        print(has_deaths[0].split("and"))
+        #print(has_deaths)
+        #print(has_deaths[0].split("and"))
         # death_regex = r"""
         #     Deaths:
         #     """
@@ -96,18 +121,18 @@ class DataExtractor:
         for i in self.pos_tagged_words:
             deaths = death_parser.parse(i)
             for i in deaths.subtrees(filter = lambda x:x.label() == 'Deaths'):
-                print(i.leaves())
-
+                # print(i.leaves())
+                pass
 
     def injury(self,sentences):
         has_injuries = [sent for sent in sentences if("injured" or "injury"
                         or "injuries" or "injur") in nltk.word_tokenize(sent)]
-        print(has_injuries)
+        #print(has_injuries)
 
         has_injuries_words = nltk.word_tokenize(has_injuries[0])
 
         injury_pos_tagged = nltk.pos_tag(has_injuries_words)
-        print(injury_pos_tagged)
+        #print(injury_pos_tagged)
 
         injury_regex = r"""
                       INjury:
@@ -116,7 +141,7 @@ class DataExtractor:
                   """
         injury_parser = nltk.RegexpParser(injury_regex)
         injury_occurence = injury_parser.parse(injury_pos_tagged)
-        print(injury_occurence)
+        #print(injury_occurence)
 
 
     def death_number(self):
