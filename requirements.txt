@@ -1,0 +1,12 @@
+beautifulsoup4==4.3.2
+cssselect==0.9.1
+Django==1.11.12
+feedparser==5.2.1
+nltk==3.2.5
+numpy==1.14.1
+Pillow==2.5.1
+pkg-resources==0.0.0
+practNLPTools==1.0
+pytz==2018.4
+PyYAML==3.11
+six==1.11.0
