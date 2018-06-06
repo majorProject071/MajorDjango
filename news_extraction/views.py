@@ -10,7 +10,22 @@ from modules.tagger import Tagger
 from modules.extractor import DataExtractor
 from modules.tokenizer import Tokenize
 
-news_story = """A woman died after being hit by a bus in Sinamangal of Kathmandu on Monday.
+
+# import spacy
+# import en_core_web_sm
+# import nltk
+# import sys
+#
+# from spacy.matcher import Matcher,PhraseMatcher
+# from spacy.attrs import POS,LOWER,IS_PUNCT
+#
+# from modules.vehicles_gazetter import VehicleInformation
+# # from spacy import displacy
+# # nlp = spacy.load('en_core_web_sm')
+# nlp = en_core_web_sm.load()
+
+#
+news_story = """A woman died after being hit by a bus in Sinamangol of Kathmandu on Monday.
 The victim has been identified as Goshan Mikrani Begham (49) of Sarlahi.
 Critically injured in the incident, she was rushed to the Bansbari-based Neuro Hospital where she breathed her last during the course of treatment, police said.
 The incident took place at around 7 am yesterday.
@@ -26,6 +41,10 @@ sentences = news.split_story()
 data_extractor.day(news_story)
 
 print("Extracting")
+
+# vehicle_information = VehicleInformation(news_story)
+# vehicle_information.make_gazetter()
+# all_vehicles = vehicle_information.find_vehicles()
 record = rssdata(header= "Heading",
                  body= news_story.replace("\n", ""),
                  death= data_extractor.deaths(nltk.sent_tokenize(news_story)),
@@ -39,6 +58,7 @@ record = rssdata(header= "Heading",
                  day = data_extractor.day(news_story)
                )
 print("Saving")
+# print(all_vehicles)
 record.save()
 print("Saved")
 
