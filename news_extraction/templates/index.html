@@ -52,7 +52,7 @@ console.log("hello");
   function present_summary(){
     var accidentNews ={};
     {% for article in news %}
-    {% if article.id is not None %}
+    {% if article.id != None %}
     accidentNews[{{article.id}}] = {
         location : "{{ article.location }}",
         death : "{{ article.death }}",
