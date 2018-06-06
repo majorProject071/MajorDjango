@@ -1,0 +1,14 @@
+{{ data }}
+<form action="{% url "graph:yeargraph" %}" method="post">
+  {% csrf_token %}
+  <select name="year">
+    <option value="1">default</option>
+   {% for ad in alldata %}
+
+   <option value="{{ ad.Year }}">{{ ad.Year }}</option>
+
+
+   {% endfor %}
+  </select>
+  <input type="submit" value="Select">
+</form>

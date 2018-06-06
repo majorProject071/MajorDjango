@@ -1,4 +1,5 @@
 from __future__ import print_function
+from __future__ import division
 import nltk
 import re
 import os
@@ -16,6 +17,7 @@ class DataExtractor:
         self.pos_tagged_words = pos_tagged_words
         self.splitted_sentences = nltk.sent_tokenize(news_story)
 
+
     def location(self):
         """ Gets the location from the news story.
 
@@ -26,7 +28,7 @@ class DataExtractor:
         individual_sentences = self.splitted_sentences
 
         locations = []
-
+        main_location = ['baneshwor','koteshwor','lagankhel','Sinamangal']
         for sent in individual_sentences:
             words = nltk.word_tokenize(sent)
             if("died" or "death" or "injured" or "injury" or "injuries") in words:
@@ -36,6 +38,14 @@ class DataExtractor:
                 for i in chunked_sentence.subtrees(filter = lambda x:x.label() == 'GPE'):
                     for i in i.leaves():
                         locations.append(i[0])
+        for location in main_location:
+            for glocation in locations:
+                dist = nltk.edit_distance(glocation, location)
+                ratio = (1-(dist/len(glocation)))*100
+                if ratio >= 80:
+                    words = [w.replace(glocation, location) for w in locations]
+                    locations = words
+        print(locations)
         return(locations)
 
 
