@@ -2,7 +2,138 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="36890437-8748-435e-8fa3-3ee983d4a965" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/news_extraction/views.py" afterPath="$PROJECT_DIR$/news_extraction/views.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/ar/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/bg/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/bs/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/ca/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/ca@valencia/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/cs/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/da/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/de/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/dz/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/el/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/en_CA/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/en_GB/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/eo/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/es/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/eu/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/fi/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/fr/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/gl/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/he/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/hu/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/id/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/it/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/ja/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/ko/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/nb/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/ne/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/nl/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/oc/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/pa/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/pl/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/pt/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/pt_BR/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/ro/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/ru/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/rw/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/sk/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/sl/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/sq/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/sr/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/sr@latin/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/sv/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/tr/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/uk/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/vi/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/zh_CN/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/mo/zh_TW/LC_MESSAGES/meld.mo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/help/C/buildwebhelp.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/help/C/command-line.page" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/help/C/file-changes.page" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/help/C/file-filters.page" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/help/C/file-mode.page" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/help/C/flattened-view.page" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/help/C/folder-mode.page" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/help/C/index.page" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/help/C/introduction.page" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/help/C/keyboard-shortcuts.page" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/help/C/legal.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/help/C/missing-functionality.page" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/help/C/preferences.page" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/help/C/resolving-conflicts.page" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/help/C/text-filters.page" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/help/C/vc-mode.page" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/help/C/vc-supported.page" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/build_helpers.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/conf.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/const.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/diffgrid.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/diffmap.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/dirdiff.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/filediff.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/filemerge.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/filters.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/gutterrendererchunk.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/iohelpers.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/linkmap.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/matchers/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/matchers/diffutil.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/matchers/helpers.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/matchers/merge.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/matchers/myers.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/meldapp.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/meldbuffer.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/melddoc.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/meldwindow.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/misc.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/newdifftab.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/patchdialog.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/preferences.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/recent.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/settings.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/sourceview.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/task.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/tree.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/treehelpers.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/ui/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/ui/bufferselectors.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/ui/cellrenderers.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/ui/emblemcellrenderer.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/ui/filechooser.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/ui/findbar.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/ui/gladesupport.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/ui/gnomeglade.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/ui/gtkcompat.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/ui/historyentry.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/ui/listselector.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/ui/listwidget.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/ui/msgarea.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/ui/notebook.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/ui/notebooklabel.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/ui/statusbar.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/ui/util.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/ui/vcdialogs.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/undo.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/vc/COPYING" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/vc/README" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/vc/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/vc/_null.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/vc/_vc.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/vc/bzr.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/vc/darcs.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/vc/git.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/vc/mercurial.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/vc/svn.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/vcview.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/lib/meld/windowstate.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/scripts-3.5/meld" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/share/applications/org.gnome.meld.desktop" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/share/metainfo/org.gnome.meld.appdata.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/meld/build/share/mime/packages/org.gnome.meld.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,9 +149,34 @@
         <entry file="file://$PROJECT_DIR$/news_extraction/modules/extractor.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="16">
-              <caret line="87" column="30" lean-forward="false" selection-start-line="87" selection-start-column="30" selection-end-line="87" selection-end-column="30" />
+              <caret line="97" column="30" lean-forward="false" selection-start-line="97" selection-start-column="30" selection-end-line="97" selection-end-column="30" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
+                <marker date="1528294117874" expanded="true" signature="1819:1820" ph="..." />
+                <marker date="1528294117874" expanded="true" signature="1819:1846" ph="..." />
+                <marker date="1528294117874" expanded="true" signature="1881:2103" ph="..." />
+                <marker date="1528294117874" expanded="true" signature="2128:2898" ph="..." />
+                <marker date="1528294117874" expanded="true" signature="2137:2324" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+                <marker date="1528294117874" expanded="true" signature="2500:2872" ph="..." />
+                <marker date="1528294117874" expanded="true" signature="2625:2872" ph="..." />
+                <marker date="1528294117874" expanded="true" signature="2691:2826" ph="..." />
+                <marker date="1528294117874" expanded="true" signature="2768:2826" ph="..." />
+                <marker date="1528294117874" expanded="true" signature="2932:3835" ph="..." />
+                <marker date="1528294117874" expanded="true" signature="3111:3291" ph="..." />
+                <marker date="1528294117874" expanded="true" signature="3378:3809" ph="..." />
+                <marker date="1528294117874" expanded="true" signature="3869:4788" ph="..." />
+                <marker date="1528294117874" expanded="true" signature="3878:4080" ph="&quot;&quot;&quot;Gets the number of deaths from the news story....&quot;&quot;&quot;" />
+                <marker date="1528294117874" expanded="true" signature="4274:4374" ph="..." />
+                <marker date="1528294117874" expanded="true" signature="4384:4514" ph="..." />
+                <marker date="1528294117874" expanded="true" signature="4609:4788" ph="..." />
+                <marker date="1528294117874" expanded="true" signature="4731:4788" ph="..." />
+                <marker date="1528294117874" expanded="true" signature="4821:5549" ph="..." />
+                <marker date="1528294117874" expanded="true" signature="4846:4975" ph="..." />
+                <marker date="1528294117874" expanded="true" signature="5192:5394" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+                <marker date="1528294117874" expanded="true" signature="5579:5978" ph="..." />
+                <marker date="1528294117874" expanded="true" signature="5657:5713" ph="..." />
+                <marker date="1528294117874" expanded="true" signature="5727:5812" ph="..." />
+                <marker date="1528294117874" expanded="true" signature="5821:5954" ph="..." />
               </folding>
             </state>
           </provider>
@@ -39,10 +195,11 @@
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MajorDjango/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="8" column="1" lean-forward="false" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+            <state relative-caret-position="112">
+              <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
+                <marker date="1528294117701" expanded="true" signature="167:252" ph="..." />
               </folding>
             </state>
           </provider>
@@ -64,7 +221,7 @@
         <entry file="file://$PROJECT_DIR$/news_extraction/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="224">
-              <caret line="17" column="1" lean-forward="true" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
+              <caret line="17" column="1" lean-forward="false" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
               <folding>
                 <element signature="e#0#54#0" expanded="true" />
               </folding>
@@ -297,8 +454,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="0" width="1368" height="741" extended-state="6" />
-    <editor active="true" />
+    <frame x="-1" y="0" width="1368" height="741" extended-state="7" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18409091" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -307,7 +463,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -364,6 +520,31 @@
           <caret line="13" column="7" lean-forward="true" selection-start-line="13" selection-start-column="7" selection-end-line="13" selection-end-column="7" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
+            <marker date="1528294117874" expanded="true" signature="1819:1820" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="1819:1846" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="1881:2103" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="2128:2898" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="2137:2324" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+            <marker date="1528294117874" expanded="true" signature="2500:2872" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="2625:2872" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="2691:2826" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="2768:2826" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="2932:3835" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="3111:3291" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="3378:3809" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="3869:4788" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="3878:4080" ph="&quot;&quot;&quot;Gets the number of deaths from the news story....&quot;&quot;&quot;" />
+            <marker date="1528294117874" expanded="true" signature="4274:4374" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="4384:4514" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="4609:4788" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="4731:4788" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="4821:5549" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="4846:4975" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="5192:5394" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+            <marker date="1528294117874" expanded="true" signature="5579:5978" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="5657:5713" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="5727:5812" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="5821:5954" ph="..." />
           </folding>
         </state>
       </provider>
@@ -384,6 +565,7 @@
           <caret line="8" column="1" lean-forward="false" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
+            <marker date="1528294117701" expanded="true" signature="167:252" ph="..." />
           </folding>
         </state>
       </provider>
@@ -689,10 +871,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MajorDjango/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="8" column="1" lean-forward="false" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+        <state relative-caret-position="112">
+          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
+            <marker date="1528294117701" expanded="true" signature="167:252" ph="..." />
           </folding>
         </state>
       </provider>
@@ -718,9 +901,34 @@
     <entry file="file://$PROJECT_DIR$/news_extraction/modules/extractor.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="16">
-          <caret line="87" column="30" lean-forward="false" selection-start-line="87" selection-start-column="30" selection-end-line="87" selection-end-column="30" />
+          <caret line="97" column="30" lean-forward="false" selection-start-line="97" selection-start-column="30" selection-end-line="97" selection-end-column="30" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
+            <marker date="1528294117874" expanded="true" signature="1819:1820" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="1819:1846" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="1881:2103" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="2128:2898" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="2137:2324" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+            <marker date="1528294117874" expanded="true" signature="2500:2872" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="2625:2872" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="2691:2826" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="2768:2826" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="2932:3835" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="3111:3291" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="3378:3809" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="3869:4788" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="3878:4080" ph="&quot;&quot;&quot;Gets the number of deaths from the news story....&quot;&quot;&quot;" />
+            <marker date="1528294117874" expanded="true" signature="4274:4374" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="4384:4514" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="4609:4788" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="4731:4788" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="4821:5549" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="4846:4975" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="5192:5394" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+            <marker date="1528294117874" expanded="true" signature="5579:5978" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="5657:5713" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="5727:5812" ph="..." />
+            <marker date="1528294117874" expanded="true" signature="5821:5954" ph="..." />
           </folding>
         </state>
       </provider>
@@ -736,7 +944,7 @@
     <entry file="file://$PROJECT_DIR$/news_extraction/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="224">
-          <caret line="17" column="1" lean-forward="true" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
+          <caret line="17" column="1" lean-forward="false" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
           <folding>
             <element signature="e#0#54#0" expanded="true" />
           </folding>
