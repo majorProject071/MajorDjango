@@ -6,3 +6,4 @@ app_name = 'news_extraction'
 urlpatterns = [
     url(r'^$', views.index, name='index'),
 ]
+
