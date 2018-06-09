@@ -8,6 +8,7 @@ import sys
 from tagger import Tagger
 from tokenizer import Tokenize
 from getdeathinjury import *
+from location_tree import LocationInformation
 
 class DataExtractor:
     """ A class to extract the required data like location, month, deaths,etc.
@@ -28,7 +29,10 @@ class DataExtractor:
         individual_sentences = self.splitted_sentences
 
         locations = []
-        main_location = ['baneshwor','koteshwor','lagankhel','Sinamangal']
+        ktm_location = LocationInformation().all_ktm_locations()
+        outside_location = LocationInformation().all_locations()
+        all_locations = ktm_location + outside_location
+
         for sent in individual_sentences:
             words = nltk.word_tokenize(sent)
             if("died" or "death" or "injured" or "injury" or "injuries") in words:
@@ -38,15 +42,24 @@ class DataExtractor:
                 for i in chunked_sentence.subtrees(filter = lambda x:x.label() == 'GPE'):
                     for i in i.leaves():
                         locations.append(i[0])
-        for location in main_location:
-            for glocation in locations:
+
+        print ("after extracting all locations : " + str(locations))
+
+        return_location = []
+
+        for glocation in locations:
+            for location in all_locations:
                 dist = nltk.edit_distance(glocation, location)
                 ratio = (1-(dist/len(glocation)))*100
                 if ratio >= 80:
-                    words = [w.replace(glocation, location) for w in locations]
-                    locations = words
-        print(locations)
-        return(locations)
+                    glocation = location
+                    if glocation in ktm_location:
+                        return_location = glocation
+                    elif glocation in outside_location:
+                        return_location = glocation
+
+        print(return_location)
+        return(return_location)
 
 
     def day(self,complete_news):

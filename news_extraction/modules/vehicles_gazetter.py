@@ -12,8 +12,9 @@ vehicles = ['bus','car','truck','tipper','bike','zeep','scooter','scooty',
         'minibus','trolley']
 
 matcher = Matcher(nlp.vocab)
+
 class VehicleInformation:
-    def __init__(self,news_story):
+    def __init__(self, news_story):
         self.news_story = news_story
 
 
