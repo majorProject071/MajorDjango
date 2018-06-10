@@ -2,141 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="36890437-8748-435e-8fa3-3ee983d4a965" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.fuse_hidden00000aec00000002" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/help/C/buildwebhelp.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/help/C/command-line.page" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/help/C/file-changes.page" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/help/C/file-filters.page" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/help/C/file-mode.page" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/help/C/flattened-view.page" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/help/C/folder-mode.page" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/help/C/index.page" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/help/C/introduction.page" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/help/C/keyboard-shortcuts.page" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/help/C/legal.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/help/C/missing-functionality.page" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/help/C/preferences.page" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/help/C/resolving-conflicts.page" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/help/C/text-filters.page" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/help/C/vc-mode.page" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/help/C/vc-supported.page" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/build_helpers.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/conf.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/const.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/diffgrid.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/diffmap.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/dirdiff.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/filediff.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/filemerge.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/filters.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/gutterrendererchunk.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/iohelpers.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/linkmap.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/matchers/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/matchers/diffutil.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/matchers/helpers.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/matchers/merge.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/matchers/myers.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/meldapp.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/meldbuffer.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/melddoc.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/meldwindow.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/misc.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/newdifftab.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/patchdialog.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/preferences.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/recent.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/settings.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/sourceview.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/task.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/tree.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/treehelpers.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/ui/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/ui/bufferselectors.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/ui/cellrenderers.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/ui/emblemcellrenderer.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/ui/filechooser.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/ui/findbar.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/ui/gladesupport.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/ui/gnomeglade.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/ui/gtkcompat.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/ui/historyentry.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/ui/listselector.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/ui/listwidget.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/ui/msgarea.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/ui/notebook.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/ui/notebooklabel.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/ui/statusbar.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/ui/util.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/ui/vcdialogs.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/undo.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/vc/COPYING" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/vc/README" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/vc/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/vc/_null.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/vc/_vc.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/vc/bzr.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/vc/darcs.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/vc/git.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/vc/mercurial.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/vc/svn.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/vcview.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/lib/meld/windowstate.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/ar/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/bg/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/bs/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/ca/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/ca@valencia/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/cs/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/da/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/de/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/dz/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/el/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/en_CA/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/en_GB/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/eo/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/es/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/eu/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/fi/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/fr/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/gl/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/he/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/hu/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/id/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/it/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/ja/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/ko/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/nb/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/ne/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/nl/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/oc/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/pa/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/pl/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/pt/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/pt_BR/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/ro/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/ru/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/rw/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/sk/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/sl/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/sq/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/sr/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/sr@latin/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/sv/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/tr/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/uk/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/vi/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/zh_CN/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/mo/zh_TW/LC_MESSAGES/meld.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/scripts-3.5/meld" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/share/applications/org.gnome.meld.desktop" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/share/metainfo/org.gnome.meld.appdata.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/meld/build/share/mime/packages/org.gnome.meld.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/news_extraction/models.py" afterPath="$PROJECT_DIR$/news_extraction/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/news_extraction/urls.py" afterPath="$PROJECT_DIR$/news_extraction/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/news_extraction/views.py" afterPath="$PROJECT_DIR$/news_extraction/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/news_extraction/modules/location_tree.py" afterPath="$PROJECT_DIR$/news_extraction/modules/location_tree.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -151,8 +18,8 @@
       <file leaf-file-name="extractor.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/news_extraction/modules/extractor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-95">
-              <caret line="61" column="31" lean-forward="true" selection-start-line="61" selection-start-column="31" selection-end-line="61" selection-end-column="31" />
+            <state relative-caret-position="1072">
+              <caret line="77" column="11" lean-forward="false" selection-start-line="77" selection-start-column="11" selection-end-line="77" selection-end-column="11" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
                 <marker date="1528569046034" expanded="true" signature="2218:2219" ph="..." />
@@ -162,45 +29,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="distance.py" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/majorproject/local/lib/python2.7/site-packages/nltk/metrics/distance.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="155">
-              <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="location_tree.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="location_tree.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/news_extraction/modules/location_tree.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="397">
-              <caret line="30" column="32" lean-forward="true" selection-start-line="30" selection-start-column="32" selection-end-line="30" selection-end-column="32" />
+            <state relative-caret-position="190">
+              <caret line="77" column="37" lean-forward="true" selection-start-line="77" selection-start-column="37" selection-end-line="77" selection-end-column="37" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/news_extraction/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="30" column="49" lean-forward="true" selection-start-line="30" selection-start-column="49" selection-end-line="30" selection-end-column="49" />
+            <state relative-caret-position="368">
+              <caret line="33" column="27" lean-forward="false" selection-start-line="33" selection-start-column="27" selection-end-line="33" selection-end-column="27" />
               <folding>
                 <element signature="e#0#54#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="vehicles_gazetter.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/news_extraction/modules/vehicles_gazetter.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="344">
-              <caret line="30" column="42" lean-forward="false" selection-start-line="30" selection-start-column="32" selection-end-line="30" selection-end-column="42" />
-              <folding>
-                <element signature="e#0#12#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -249,9 +94,9 @@
         <option value="$PROJECT_DIR$/news_extraction/templates/index.html" />
         <option value="$PROJECT_DIR$/news_extraction/models.py" />
         <option value="$PROJECT_DIR$/news_extraction/modules/vehicles_gazetter.py" />
-        <option value="$PROJECT_DIR$/news_extraction/modules/location_tree.py" />
         <option value="$PROJECT_DIR$/news_extraction/views.py" />
         <option value="$PROJECT_DIR$/news_extraction/modules/extractor.py" />
+        <option value="$PROJECT_DIR$/news_extraction/modules/location_tree.py" />
       </list>
     </option>
   </component>
@@ -278,6 +123,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -324,8 +171,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -459,15 +304,16 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="0" width="1368" height="741" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19015151" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19318181" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28548387" sideWeight="0.5060698" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33387098" sideWeight="0.4939302" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22258064" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22258064" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -808,7 +654,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="112">
           <caret line="9" column="34" lean-forward="true" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -816,7 +661,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="109">
           <caret line="107" column="12" lean-forward="false" selection-start-line="107" selection-start-column="10" selection-end-line="107" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -824,7 +668,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="879">
           <caret line="291" column="0" lean-forward="false" selection-start-line="291" selection-start-column="0" selection-end-line="291" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -832,15 +675,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="280">
           <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/majorproject/local/lib/python2.7/site-packages/nltk/metrics/distance.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -848,24 +682,30 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="344">
           <caret line="30" column="42" lean-forward="false" selection-start-line="30" selection-start-column="32" selection-end-line="30" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/news_extraction/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="33" column="27" lean-forward="false" selection-start-line="33" selection-start-column="27" selection-end-line="33" selection-end-column="27" />
           <folding>
-            <element signature="e#0#12#0" expanded="true" />
+            <element signature="e#0#54#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/news_extraction/modules/location_tree.py">
+    <entry file="file://$USER_HOME$/majorproject/local/lib/python2.7/site-packages/nltk/metrics/distance.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="30" column="32" lean-forward="true" selection-start-line="30" selection-start-column="32" selection-end-line="30" selection-end-column="32" />
-          <folding />
+        <state relative-caret-position="155">
+          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/news_extraction/modules/extractor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-95">
-          <caret line="61" column="31" lean-forward="true" selection-start-line="61" selection-start-column="31" selection-end-line="61" selection-end-column="31" />
+        <state relative-caret-position="1072">
+          <caret line="77" column="11" lean-forward="false" selection-start-line="77" selection-start-column="11" selection-end-line="77" selection-end-column="11" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
             <marker date="1528569046034" expanded="true" signature="2218:2219" ph="..." />
@@ -874,13 +714,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/news_extraction/views.py">
+    <entry file="file://$PROJECT_DIR$/news_extraction/modules/location_tree.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="30" column="49" lean-forward="true" selection-start-line="30" selection-start-column="49" selection-end-line="30" selection-end-column="49" />
-          <folding>
-            <element signature="e#0#54#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="190">
+          <caret line="77" column="37" lean-forward="true" selection-start-line="77" selection-start-column="37" selection-end-line="77" selection-end-column="37" />
+          <folding />
         </state>
       </provider>
     </entry>
