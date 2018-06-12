@@ -1,0 +1,5 @@
+#all pyc files
+*.pyc
+
+#database file
+db.sqlite3
