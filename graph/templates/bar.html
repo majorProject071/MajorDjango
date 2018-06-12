@@ -156,21 +156,5 @@ g.selectAll(".text")
         return d.total;
     });
 </script>
-<div class="yeartable">
-  <table>
-    <tr>
-    <th>Location</th>
-    <th>No of Death </th>
-  </tr>
-  {% for data in newdata %}
-  <tr>
 
-    <td>{{ data.Location }}</td>
-    <td>{{ data.total }}</td>
-
-  </tr>
-  {% endfor %}
-  </table>
-
-</div>
 {% endblock content %}
