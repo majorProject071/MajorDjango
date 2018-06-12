@@ -19,19 +19,10 @@ class DataExtractor:
         self.splitted_sentences = nltk.sent_tokenize(news_story)
 
 
-    def location(self):
-        """ Gets the location from the news story.
-
-            Inputs include the parts of speech tagged words.
-            Output is the phrase containing the location of mishap.
-        """
-        # individual_sentences = nltk.sent_tokenize(news_story)
+    def location_extractor(self):
         individual_sentences = self.splitted_sentences
 
         locations = []
-        ktm_location = LocationInformation().all_ktm_locations()
-        outside_location = LocationInformation().all_locations()
-        all_locations = ktm_location + outside_location
 
         for sent in individual_sentences:
             words = nltk.word_tokenize(sent)
@@ -45,21 +36,58 @@ class DataExtractor:
 
         print ("after extracting all locations : " + str(locations))
 
+        return_value = locations
+        try:
+            if (locations[0] == "New") or (locations[0] == "Old"):
+                return_value = []
+                return_value.append(locations[0]+ " "+ locations[1])
+        except:
+            pass
+
+        print (return_value)
+
+        return (return_value)
+
+
+    def location(self):
+        """ Gets the location from the news story.
+
+            Inputs include the parts of speech tagged words.
+            Output is the phrase containing the location of mishap.
+        """
+        # individual_sentences = nltk.sent_tokenize(news_story)
+
+        ktm_location = LocationInformation().all_ktm_locations()
+        bkt_location = LocationInformation().all_bkt_locations()
+        ltp_location = LocationInformation().all_ltp_locations()
+        outside_location = LocationInformation().all_locations()
+        all_locations = ktm_location + outside_location + bkt_location + ltp_location
+
+        locations = self.location_extractor()
         return_location = []
+        max_ratio = 0
+        max_location = []
 
         for glocation in locations:
             for location in all_locations:
                 dist = nltk.edit_distance(glocation, location)
                 ratio = (1-(dist/len(glocation)))*100
-                if ratio >= 70:
-                    glocation = location
-                    if glocation in ktm_location:
-                        return_location = glocation
-                    elif glocation in outside_location:
-                        return_location = glocation
+                max_ratio = max(max_ratio, ratio)
+                if max_ratio >= 70:
+                    max_location = location
+                    if max_ratio == ratio:
+                        if max_location in ktm_location:
+                            return_location = max_location
+                        elif max_location in ltp_location:
+                            return_location = max_location
+                        elif max_location in bkt_location:
+                            return_location = max_location
+                        elif max_location in outside_location:
+                            return_location = max_location
 
         print(return_location)
         return(return_location)
+
 
 
     def day(self,complete_news):
