@@ -9,6 +9,15 @@ import nltk
 from modules.tagger import Tagger
 from modules.extractor import DataExtractor
 from modules.tokenizer import Tokenize
+import spacy
+import en_core_web_sm
+import nltk
+import sys
+
+from spacy.matcher import Matcher,PhraseMatcher
+from spacy.attrs import POS,LOWER,IS_PUNCT
+
+from modules.vehicles_gazetter import VehicleInformation
 
 
 # import spacy
@@ -25,7 +34,8 @@ from modules.tokenizer import Tokenize
 # nlp = en_core_web_sm.load()
 
 #
-news_story = """A woman died after being hit by a bus in Panchkhal of Kavre on Monday.
+nlp = en_core_web_sm.load()
+news_story = """A woman died after being hit by a bus in Baneshwor on Monday.
 The victim has been identified as Goshan Mikrani Begham (49) of Sarlahi.
 Critically injured in the incident, she was rushed to the Bansbari-based Neuro Hospital where she breathed her last during the course of treatment, police said.
 The incident took place at around 7 am yesterday.
@@ -58,6 +68,20 @@ record = rssdata(header= "Heading",
                )
 # print(all_vehicles)
 record.save()
+vehicle_information = VehicleInformation(news_story)
+vehicle_information.make_gazetter()
+all_vehicles,two_wheeler,three_wheeler,four_wheeler = vehicle_information.find_vehicles()
+
+print(all_vehicles,two_wheeler,three_wheeler,four_wheeler)
+vehicles = ""
+for vehicle in all_vehicles:
+    vehicles = vehicles + " "+ vehicle
+vehicles = vehicles[1:]
+
+print(vehicles)
+print("contains four wheeler "+ str(four_wheeler))
+print("contains two wheeler "+ str(two_wheeler))
+print("contains three wheeler " + str(three_wheeler))
 print("Saved")
 
 def index(request):
