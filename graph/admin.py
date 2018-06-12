@@ -11,3 +11,13 @@ class PostModelAdmin(admin.ModelAdmin):
     class Meta:
         model = News
 admin.site.register(News, PostModelAdmin)
+
+class PostModelAdmin(admin.ModelAdmin):
+    list_display = ["id","header","body","death","death_no","injury","injury_no","location","vehicle_involved","vehicle_no","date","day","created_at","updated_at",]
+
+    #list_display_links = ["updated"]
+
+
+    class Meta:
+        model = rssdata
+admin.site.register(rssdata, PostModelAdmin)

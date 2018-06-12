@@ -71,18 +71,18 @@ record.save()
 vehicle_information = VehicleInformation(news_story)
 vehicle_information.make_gazetter()
 all_vehicles,two_wheeler,three_wheeler,four_wheeler = vehicle_information.find_vehicles()
-
-print(all_vehicles,two_wheeler,three_wheeler,four_wheeler)
-vehicles = ""
-for vehicle in all_vehicles:
-    vehicles = vehicles + " "+ vehicle
-vehicles = vehicles[1:]
-
-print(vehicles)
-print("contains four wheeler "+ str(four_wheeler))
-print("contains two wheeler "+ str(two_wheeler))
-print("contains three wheeler " + str(three_wheeler))
-print("Saved")
+#
+# print(all_vehicles,two_wheeler,three_wheeler,four_wheeler)
+# vehicles = ""
+# for vehicle in all_vehicles:
+#     vehicles = vehicles + " "+ vehicle
+# vehicles = vehicles[1:]
+#
+# print(vehicles)
+# print("contains four wheeler "+ str(four_wheeler))
+# print("contains two wheeler "+ str(two_wheeler))
+# print("contains three wheeler " + str(three_wheeler))
+# print("Saved")
 
 def index(request):
     return render(request, 'index.html',
