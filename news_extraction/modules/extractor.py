@@ -51,7 +51,7 @@ class DataExtractor:
             for location in all_locations:
                 dist = nltk.edit_distance(glocation, location)
                 ratio = (1-(dist/len(glocation)))*100
-                if ratio >= 80:
+                if ratio >= 70:
                     glocation = location
                     if glocation in ktm_location:
                         return_location = glocation

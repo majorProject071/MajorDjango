@@ -25,7 +25,7 @@ from modules.tokenizer import Tokenize
 # nlp = en_core_web_sm.load()
 
 #
-news_story = """A woman died after being hit by a bus in Panchkhal of Kavre on Monday.
+news_story = """A woman died after being hit by a bus in Chabahal, Kathmandu on Monday.
 The victim has been identified as Goshan Mikrani Begham (49) of Sarlahi.
 Critically injured in the incident, she was rushed to the Bansbari-based Neuro Hospital where she breathed her last during the course of treatment, police said.
 The incident took place at around 7 am yesterday.
