@@ -8,13 +8,23 @@ nlp = en_core_web_sm.load()
 
 
 vehicles = ['bus','car','truck','tipper','bike','zeep','scooter','scooty',
-        'motorbike','container','SUV','tractor','moped','lorry','minivan',
-        'minibus','trolley']
+        'motorbike','motorcycle','container','SUV','tractor','moped','lorry',
+        'minivan','minibus','trolley','tempo']
+three_wheeler=set([
+'tempo','three-wheeler','three wheeler'
+])
 
+two_wheeler = set([
+'bike','scooter','scooty','motorbike','motorcycle','two-wheeler','two wheeler'
+])
+
+four_wheeler = set([
+'bus','car','truck','tipper','zeep','container','SUV','tractor','moped','lorry',
+'minivan','minibus','trolley','four-wheeler','four wheeler'
+])
 matcher = Matcher(nlp.vocab)
-
 class VehicleInformation:
-    def __init__(self, news_story):
+    def __init__(self,news_story):
         self.news_story = news_story
 
 
@@ -31,8 +41,16 @@ class VehicleInformation:
         document = unicode(self.news_story.decode('utf8'))
         doc = nlp(document)
         # matcher = Matcher(nlp.vocab)
+        is_four_wheeler=is_three_wheeler=is_two_wheeler = 0
+
 
         matches = matcher(doc)
         for ent_id, label, start, end in matches:
             vehicles_found.add(unicode(doc[start:end].text).encode('utf8'))
-        return(vehicles_found)
+        if(len(vehicles_found.intersection(two_wheeler))!=0):
+            is_two_wheeler = 1
+        if(len(vehicles_found.intersection(three_wheeler))!=0):
+            is_three_wheeler = 1
+        if(len(vehicles_found.intersection(four_wheeler))!=0):
+            is_four_wheeler = 1
+        return(vehicles_found,is_two_wheeler,is_three_wheeler,is_four_wheeler)

@@ -10,6 +10,7 @@ from django.forms import modelformset_factory
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import View
 from django.db import connections
+from geopy.geocoders import Nominatim
 
 from .models import *
 import json
@@ -17,13 +18,29 @@ from django.core import serializers
 from django.http import JsonResponse
 
 def index (request):
-    data = News.objects.values('Year').annotate( total=Sum('Death'))
+    location =  rssdata.objects.values_list('location', flat=True)
+    data = rssdata.objects.values('location').annotate(total=Sum('death_no'))
+    totalno = rssdata.objects.values('date').aggregate(total=Count('date'))
     datas = list(data)
+    latitude = []
+    print(location)
+    for locations in location:
+        print(locations)
+        geolocator = Nominatim()
+        locations = geolocator.geocode(locations)
+        locations = (locations.latitude, locations.longitude)
+        latitude.append(locations)
+    print(latitude)
+
     context={
-            'personal_detail': datas,
+            'personal_detail': json.dumps(datas),
             'data':data,
+            'latitude':latitude,
+            'totalno': totalno,
     }
     return render (request, "graph.html",context)
+
+
 
 def bar (request):
     newdata = News.objects.values('Location').annotate( total=Sum('Death')).order_by('-id')
