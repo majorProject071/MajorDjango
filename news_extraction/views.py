@@ -58,6 +58,7 @@ record = rssdata(header= "Heading",
                )
 # print(all_vehicles)
 record.save()
+print("hello")
 print("Saved")
 
 def index(request):
