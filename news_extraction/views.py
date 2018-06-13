@@ -23,23 +23,7 @@ from spacy.attrs import POS,LOWER,IS_PUNCT
 from modules.vehicles_gazetter import VehicleInformation
 from goose import Goose
 from requests import get
-import lassie
-import pprint
 
-# import spacy
-# import en_core_web_sm
-# import nltk
-# import sys
-#
-# from spacy.matcher import Matcher,PhraseMatcher
-# from spacy.attrs import POS,LOWER,IS_PUNCT
-#
-# from modules.vehicles_gazetter import VehicleInformation
-# # from spacy import displacy
-# # nlp = spacy.load('en_core_web_sm')
-# nlp = en_core_web_sm.load()
-
-#
 nlp = en_core_web_sm.load()
 
 #scrape rss feed
@@ -84,8 +68,11 @@ for i in range(0,len(text)):
     print("contains two wheeler "+ str(two_wheeler))
     print("contains three wheeler " + str(three_wheeler))
     print("Saved")
-
-
+    record = rssdata(header="Heading",
+                     body=news_story.replace("\n", ""),
+                     death=data_extractor.deaths(nltk.sent_tokenize(news_story)),
+                     )
+    print("body", record.body)
 
 news_story = """A woman died after being hit by a bus in Baneshwor on Monday.
 The victim has been identified as Goshan Mikrani Begham (49) of Sarlahi.
@@ -103,10 +90,7 @@ sentences = news.split_story()
 data_extractor.day(news_story)
 
 print("Extracting")
-#
-# vehicle_information = VehicleInformation(news_story)
-# vehicle_information.make_gazetter()
-# all_vehicles = vehicle_information.find_vehicles()
+
 record = rssdata(header= "Heading",
                  body= news_story.replace("\n", ""),
                  death= data_extractor.deaths(nltk.sent_tokenize(news_story)),
@@ -120,7 +104,6 @@ record = rssdata(header= "Heading",
                )
 
 record.save()
-<<<<<<< HEAD
 vehicle_information = VehicleInformation(news_story)
 vehicle_information.make_gazetter()
 all_vehicles,two_wheeler,three_wheeler,four_wheeler = vehicle_information.find_vehicles()
@@ -136,10 +119,8 @@ all_vehicles,two_wheeler,three_wheeler,four_wheeler = vehicle_information.find_v
 # print("contains two wheeler "+ str(two_wheeler))
 # print("contains three wheeler " + str(three_wheeler))
 # print("Saved")
-=======
 print("hello")
 print("Saved")
->>>>>>> master
 
 def index(request):
     return render(request, 'index.html',
