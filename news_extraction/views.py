@@ -120,6 +120,7 @@ record = rssdata(header= "Heading",
                )
 
 record.save()
+<<<<<<< HEAD
 vehicle_information = VehicleInformation(news_story)
 vehicle_information.make_gazetter()
 all_vehicles,two_wheeler,three_wheeler,four_wheeler = vehicle_information.find_vehicles()
@@ -135,6 +136,10 @@ all_vehicles,two_wheeler,three_wheeler,four_wheeler = vehicle_information.find_v
 # print("contains two wheeler "+ str(two_wheeler))
 # print("contains three wheeler " + str(three_wheeler))
 # print("Saved")
+=======
+print("hello")
+print("Saved")
+>>>>>>> master
 
 def index(request):
     return render(request, 'index.html',
