@@ -7,7 +7,7 @@ from spacy.attrs import POS,LOWER,IS_PUNCT,LEMMA
 nlp = en_core_web_sm.load()
 
 
-vehicles = ['bus','car','truck','tipper','bike','zeep','scooter','scooty',
+vehicles = ['bus','car','truck','tripper','bike','jeep','scooter','scooty',
         'motorbike','motorcycle','container','SUV','tractor','moped','lorry',
         'minivan','minibus','trolley','tempo']
 three_wheeler=set([
@@ -19,7 +19,7 @@ two_wheeler = set([
 ])
 
 four_wheeler = set([
-'bus','car','truck','tipper','zeep','container','SUV','tractor','moped','lorry',
+'bus','car','truck','tripper','zeep','container','SUV','tractor','moped','lorry',
 'minivan','minibus','trolley','four-wheeler','four wheeler'
 ])
 matcher = Matcher(nlp.vocab)
