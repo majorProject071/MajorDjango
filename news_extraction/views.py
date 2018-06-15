@@ -1,4 +1,3 @@
-
 from .models import *
 from forms import NameForm
 import re
@@ -96,40 +95,40 @@ data_extractor = DataExtractor(pos_tagged_sentences, news_story)
 sentences = news.split_story()
 data_extractor.day(news_story)
 
-print("Extracting")
-
-record = rssdata(header= "Heading",
-                 body= news_story.replace("\n", ""),
-                 death= data_extractor.deaths(nltk.sent_tokenize(news_story)),
-                 death_no = data_extractor.death_number(),
-                 injury = data_extractor.injury(nltk.sent_tokenize(news_story)),
-                 injury_no = data_extractor.injury_number(),
-                 location = data_extractor.location(),
-                 vehicle_involved = data_extractor.vehicle_involved(),
-                 vehicle_no = data_extractor.vehicle(),
-                 day = data_extractor.day(news_story),
-                 date = data_extractor.date(news_story),
-                 month = data_extractor.get_month(news_story),
-                 season= data_extractor.get_season(news_story),
-                 year=data_extractor.get_year(news_story),
-
-               )
-record.save()
-vehicle_information = VehicleInformation(news_story)
-vehicle_information.make_gazetter()
-all_vehicles,two_wheeler,three_wheeler,four_wheeler = vehicle_information.find_vehicles()
+# print("Extracting")
+#
+# record = rssdata(header= "Heading",
+#                  body= news_story.replace("\n", ""),
+#                  death= data_extractor.deaths(nltk.sent_tokenize(news_story)),
+#                  death_no = data_extractor.death_number(),
+#                  injury = data_extractor.injury(nltk.sent_tokenize(news_story)),
+#                  injury_no = data_extractor.injury_number(),
+#                  location = data_extractor.location(),
+#                  vehicle_involved = data_extractor.vehicle_involved(),
+#                  vehicle_no = data_extractor.vehicle(),
+#                  day = data_extractor.day(news_story),
+#                  date = data_extractor.date(news_story),
+#                  month = data_extractor.get_month(news_story),
+#                  season= data_extractor.get_season(news_story),
+#                  year=data_extractor.get_year(news_story),
+#
+#                )
+# record.save()
+# vehicle_information = VehicleInformation(news_story)
+# vehicle_information.make_gazetter()
+# all_vehicles,two_wheeler,three_wheeler,four_wheeler = vehicle_information.find_vehicles()
 
 # print(all_vehicles,two_wheeler,three_wheeler,four_wheeler)
-vehicles = ""
-for vehicle in all_vehicles:
-    vehicles = vehicles + " "+ vehicle
-vehicles = vehicles[1:]
-
-print(vehicles)
-print("contains four wheeler "+ str(four_wheeler))
-print("contains two wheeler "+ str(two_wheeler))
-print("contains three wheeler " + str(three_wheeler))
-print("Saved")
+# vehicles = ""
+# for vehicle in all_vehicles:
+#     vehicles = vehicles + " "+ vehicle
+# vehicles = vehicles[1:]
+#
+# print(vehicles)
+# print("contains four wheeler "+ str(four_wheeler))
+# print("contains two wheeler "+ str(two_wheeler))
+# print("contains three wheeler " + str(three_wheeler))
+# print("Saved")
 
 def index(request):
     return render(request, 'index.html',
@@ -143,9 +142,12 @@ def extraction(request):
             data = form.cleaned_data
 
             story = rssdata()
+            story.header = data['news_title']
             story.body = data['news_text']
             story.save()
-        return render(request, 'extraction.html', {'form': form})
+        return render(request, 'extraction.html', {'form': form,
+                                                   'news_id': story.pk,
+                                                   'article': rssdata.objects.get(pk=story.pk)})
 
     else:
         form = NameForm()
