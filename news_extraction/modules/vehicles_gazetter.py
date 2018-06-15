@@ -7,7 +7,7 @@ from spacy.attrs import POS,LOWER,IS_PUNCT,LEMMA
 nlp = en_core_web_sm.load()
 
 
-vehicles = ['bus','car','truck','tipper','bike','zeep','scooter','scooty',
+vehicles = ['bus','car','truck','tripper','bike','jeep','scooter','scooty',
         'motorbike','motorcycle','container','SUV','tractor','moped','lorry',
         'minivan','minibus','trolley','tempo']
 three_wheeler=set([
@@ -19,7 +19,7 @@ two_wheeler = set([
 ])
 
 four_wheeler = set([
-'bus','car','truck','tipper','zeep','container','SUV','tractor','moped','lorry',
+'bus','car','truck','tripper','zeep','container','SUV','tractor','moped','lorry',
 'minivan','minibus','trolley','four-wheeler','four wheeler'
 ])
 matcher = Matcher(nlp.vocab)
@@ -30,11 +30,11 @@ class VehicleInformation:
 
     def make_gazetter(self):
         for vehicle in vehicles:
-            matcher.add("Vehicles", [{LEMMA:vehicle}])
-        matcher.add("Vehicles", [{LEMMA:'two'},{IS_PUNCT:True},{LEMMA:'wheeler'}])
-        matcher.add("Vehicles", [{LEMMA:'two'},{LEMMA:'wheeler'}])
-        matcher.add("Vehicles", [{LEMMA:'four'},{IS_PUNCT:True},{LEMMA:'wheeler'}])
-        matcher.add("Vehicles", [{LEMMA:'four'},{LEMMA:'wheeler'}])
+            matcher.add_pattern("Vehicles", [{LEMMA:vehicle}])
+        matcher.add_pattern("Vehicles", [{LEMMA:'two'},{IS_PUNCT:True},{LEMMA:'wheeler'}])
+        matcher.add_pattern("Vehicles", [{LEMMA:'two'},{LEMMA:'wheeler'}])
+        matcher.add_pattern("Vehicles", [{LEMMA:'four'},{IS_PUNCT:True},{LEMMA:'wheeler'}])
+        matcher.add_pattern("Vehicles", [{LEMMA:'four'},{LEMMA:'wheeler'}])
 
     def find_vehicles(self):
         vehicles_found = set()

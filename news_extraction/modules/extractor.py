@@ -9,6 +9,11 @@ from tagger import Tagger
 from tokenizer import Tokenize
 from getdeathinjury import *
 from location_tree import LocationInformation
+import dateutil.parser
+import calendar
+
+
+from calendar import month_name
 
 class DataExtractor:
     """ A class to extract the required data like location, month, deaths,etc.
@@ -222,3 +227,50 @@ class DataExtractor:
         # print(injury, actualinjury, injuryNo)
         # print("\n No of injured people: " + str(injuryNo))
         return(injuryNo)
+
+    def date(self,complete_news):
+        dates = re.findall(r'[A-Z]\w+\s\d+[,.]\s\d+', complete_news)
+        for date in dates:
+            return(date)
+
+    def get_month(self,complete_news):
+        checkmonth = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+        date = re.findall(r'[A-Z]\w+\s\d+[,.]\s\d+', complete_news)
+        for month in checkmonth:
+            for d in date:
+                if month in d:
+                    return month
+
+    def get_season(self,complete_news):
+        checkmonth = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        spring = ['Mar', 'Apr','May']
+        summer = ['Jun', 'Jul', 'Aug']
+        autumn = ['Sep', 'Oct', 'Nov']
+        winter = ['Dec','Jan','Feb']
+        date = re.findall(r'[A-Z]\w+\s\d+[,.]\s\d+', complete_news)
+        month = []
+
+        for m in checkmonth:
+            for d in date:
+                if m in d:
+                    month.append(m)
+        for m in month:
+            for season in spring:
+                if m in season:
+                    return ("spring")
+            for season in autumn:
+                if m in season:
+                    return ("autumn")
+            for season in winter:
+                if m in season:
+                    return("winter")
+            for season in summer:
+                if m in season:
+                    return ("summer")
+
+    def get_year(self,complete_news):
+        date = str(re.findall(r'[A-Z]\w+\s\d+[,.]\s\d+', complete_news))
+        match = re.findall('\d{4}', date)
+        for year in match:
+            return year
+
