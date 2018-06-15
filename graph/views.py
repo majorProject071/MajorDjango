@@ -14,6 +14,7 @@ from geopy.geocoders import Nominatim
 
 from .models import *
 import json
+from news_extraction.models import *
 from django.core import serializers
 from django.http import JsonResponse
 
@@ -25,11 +26,12 @@ def index (request):
     latitude = []
     print(location)
     for locations in location:
-        print(locations)
-        geolocator = Nominatim()
-        locations = geolocator.geocode(locations)
-        locations = (locations.latitude, locations.longitude)
-        latitude.append(locations)
+        if locations is not '[]':
+            print(locations)
+            geolocator = Nominatim()
+            locations = geolocator.geocode(locations)
+            locations = (locations.latitude, locations.longitude)
+            latitude.append(locations)
     print(latitude)
 
     context={

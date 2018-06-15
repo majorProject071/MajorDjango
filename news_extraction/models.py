@@ -9,10 +9,13 @@ class rssdata(models.Model):
     death_no = models.IntegerField(blank=True, null=True)
     injury = models.CharField(blank=True, max_length=100, null=True)
     injury_no = models.IntegerField(blank=True, null=True)
-    location = models.CharField(blank=True, max_length=100, null=True)
+    location = models.CharField(default=None,blank=True, max_length=100, null=True)
     vehicle_involved = models.CharField(blank=True, max_length=100, null=True)
     vehicle_no = models.CharField(blank=True, max_length=100, null=True)
-    date = models.DateField(default=date.today, blank=True, null=True)
+    date = models.CharField(default=date.today, blank=True, null=True,max_length=100)
+    month = models.CharField(blank=True, max_length=100, null=True)
+    season = models.CharField(blank=True, max_length=100, null=True)
+    year = models.CharField(blank=True, max_length=100, null=True)
     day = models.CharField(blank=True, max_length=100, null=True)
 
     # Timestamps
