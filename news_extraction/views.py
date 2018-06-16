@@ -79,7 +79,8 @@ nlp = en_core_web_sm.load()
 #     print("body", record.season)
 #     print("body", record.year)
 
-sample_news_story = """In Koteshwor, A woman died after being hit by a bus on Monday.
+sample_news_heading = "Accident happened"
+sample_news_story = """In Thamel, A woman died after being hit by a bus on Monday.
     The victim has been identified as Goshan Mikrani Begham (49) of Sarlahi.
     Critically injured in the incident, she was rushed to the Bansbari-based Neuro Hospital where she breathed her last during the course of treatment, police said.
     The incident took place at around 7 am yesterday.
@@ -94,23 +95,28 @@ def extract_info(news_story):
     data_extractor = DataExtractor(pos_tagged_sentences, news_story)
     sentences = news.split_story()
     data_extractor.day(news_story)
+    return data_extractor
+
+
+def save_extracted_info(news_heading, news_story, extracted_data):
     print("Extracting")
-    record = rssdata(header= "Heading",
+    record = rssdata(header= news_heading,
                      body= news_story.replace("\n", ""),
-                     death= data_extractor.deaths(nltk.sent_tokenize(news_story)),
-                     death_no = data_extractor.death_number(),
-                     injury = data_extractor.injury(nltk.sent_tokenize(news_story)),
-                     injury_no = data_extractor.injury_number(),
-                     location = data_extractor.location(),
-                     vehicle_involved = data_extractor.vehicle_involved(),
-                     vehicle_no = data_extractor.vehicle(),
-                     day = data_extractor.day(news_story),
-                     date = data_extractor.date(news_story),
-                     month = data_extractor.get_month(news_story),
-                     season= data_extractor.get_season(news_story),
-                     year=data_extractor.get_year(news_story),
+                     death= extracted_data.deaths(nltk.sent_tokenize(news_story)),
+                     death_no = extracted_data.death_number(),
+                     injury = extracted_data.injury(nltk.sent_tokenize(news_story)),
+                     injury_no = extracted_data.injury_number(),
+                     location = extracted_data.location(),
+                     vehicle_involved = extracted_data.vehicle_involved(),
+                     vehicle_no = extracted_data.vehicle(),
+                     day = extracted_data.day(news_story),
+                     date = extracted_data.date(news_story),
+                     month = extracted_data.get_month(news_story),
+                     season= extracted_data.get_season(news_story),
+                     year=extracted_data.get_year(news_story),
                    )
     record.save()
+    return record
 
 # vehicle_information = VehicleInformation(news_story)
 # vehicle_information.make_gazetter()
@@ -129,9 +135,11 @@ def extract_info(news_story):
 # print("Saved")
 
 def index(request):
-    # extract_info(sample_news_story)
+    # extracted_data = extract_info(sample_news_story)
+    # save_extracted_info(sample_news_heading, sample_news_story, extracted_data)
     return render(request, 'index.html',
                   context={'news': rssdata.objects.all()})
+
 
 def extraction(request):
     if request.method == 'POST':
@@ -139,12 +147,10 @@ def extraction(request):
 
         if form.is_valid():
             data = form.cleaned_data
+            extracted_data = extract_info(data['news_text'])
 
-            story = rssdata()
-            story.header = data['news_title']
-            story.body = data['news_text']
-
-            story.save()
+            # If you want to save the input news
+            story = save_extracted_info(data['news_title'], data['news_text'], extracted_data)
 
         return render(request, 'extraction.html', {'form': form,
                                                    'news_id': story.pk,
