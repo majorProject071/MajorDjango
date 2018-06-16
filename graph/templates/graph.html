@@ -6,14 +6,7 @@
 {% block content %}
 
 
-<div class="dropdown">
-  <button class="dropbtn">Select year</button>
-  <div class="dropdown-content">
-    {% for ad in alldata %}
-    <a href='{% url "graph:yeargraph" ad.Year %}'>{{ ad.Year }}</a>
-    {% endfor %}
-  </div>
-</div>
+
 <div id="map">
 </div>
 
@@ -113,30 +106,26 @@ table{
 
 
       // Heatmap data: 500 Points
-      {% for lat in latitude %}
-{{ lat }}
+       function getPoints() {
 
-      function getPoints() {
-        return [
-          new google.maps.LatLng{{ lat }},
-          new google.maps.LatLng{{ lat }},
-          new google.maps.LatLng{{ lat }},
-          new google.maps.LatLng{{ lat }},
-          new google.maps.LatLng{{ lat }},
-          new google.maps.LatLng{{ lat }},
-          new google.maps.LatLng{{ lat }},
-          new google.maps.LatLng{{ lat }},
-          new google.maps.LatLng{{ lat }},
-          new google.maps.LatLng{{ lat }}
 
-        ];
+
+
+            return [
+            {% for lat in latitude %}
+            new google.maps.LatLng{{lat}},
+            {% endfor %}
+            ];
+
+
       }
-      {% endfor %}
     </script>
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0jbM6o1NAMZPhtlexx521CAj5VaQg_I4&libraries=visualization&callback=initMap">
     </script>
 {{ totalno }}
 
-
+{% for lat in latitude %}
+    {{ lat }}
+{% endfor %}
 {% endblock content %}

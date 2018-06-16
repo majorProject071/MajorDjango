@@ -24,16 +24,15 @@ def index (request):
     totalno = rssdata.objects.values('date').aggregate(total=Count('date'))
     datas = list(data)
     latitude = []
-    print(location)
+
     for locations in location:
-        if locations is not '[]':
-            print(locations)
+        if(len(locations)>2):
+            loc = locations
             geolocator = Nominatim()
-            locations = geolocator.geocode(locations)
+            locations = geolocator.geocode(loc)
             locations = (locations.latitude, locations.longitude)
             latitude.append(locations)
     print(latitude)
-
     context={
             'personal_detail': json.dumps(datas),
             'data':data,
