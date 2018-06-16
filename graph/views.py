@@ -19,10 +19,11 @@ from django.core import serializers
 from django.http import JsonResponse
 
 def index (request):
-    location =  rssdata.objects.values_list('location', flat=True)
+    location = rssdata.objects.values_list('location', flat=True)
     data = rssdata.objects.values('location').annotate(total=Sum('death_no'))
     totalno = rssdata.objects.values('date').aggregate(total=Count('date'))
     datas = list(data)
+    print datas
     latitude = []
 
     for locations in location:
@@ -33,14 +34,18 @@ def index (request):
             locations = (locations.latitude, locations.longitude)
             latitude.append(locations)
     print(latitude)
+
     context={
             'personal_detail': json.dumps(datas),
             'data':data,
             'latitude':latitude,
             'totalno': totalno,
     }
-    return render (request, "graph.html",context)
+    return render(request, "graph.html", context)
 
+
+def districts(request):
+    return render(request, "districts.html")
 
 
 def bar (request):
