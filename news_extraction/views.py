@@ -80,7 +80,7 @@ nlp = en_core_web_sm.load()
 #     print("body", record.year)
 
 
-news_story = """In Koteshwor, A woman died after being hit by a bus on Monday.
+news_story = """Jun 30, 2018-A woman died after being hit by a bus on Monday in New Baneshwor.
 The victim has been identified as Goshan Mikrani Begham (49) of Sarlahi.
 Critically injured in the incident, she was rushed to the Bansbari-based Neuro Hospital where she breathed her last during the course of treatment, police said.
 The incident took place at around 7 am yesterday.
@@ -97,38 +97,38 @@ data_extractor.day(news_story)
 
 # print("Extracting")
 #
-# record = rssdata(header= "Heading",
-#                  body= news_story.replace("\n", ""),
-#                  death= data_extractor.deaths(nltk.sent_tokenize(news_story)),
-#                  death_no = data_extractor.death_number(),
-#                  injury = data_extractor.injury(nltk.sent_tokenize(news_story)),
-#                  injury_no = data_extractor.injury_number(),
-#                  location = data_extractor.location(),
-#                  vehicle_involved = data_extractor.vehicle_involved(),
-#                  vehicle_no = data_extractor.vehicle(),
-#                  day = data_extractor.day(news_story),
-#                  date = data_extractor.date(news_story),
-#                  month = data_extractor.get_month(news_story),
-#                  season= data_extractor.get_season(news_story),
-#                  year=data_extractor.get_year(news_story),
-#
-#                )
-# record.save()
-# vehicle_information = VehicleInformation(news_story)
-# vehicle_information.make_gazetter()
-# all_vehicles,two_wheeler,three_wheeler,four_wheeler = vehicle_information.find_vehicles()
+record = rssdata(header= "Heading",
+                 body= news_story.replace("\n", ""),
+                 death= data_extractor.deaths(nltk.sent_tokenize(news_story)),
+                 death_no = data_extractor.death_number(),
+                 injury = data_extractor.injury(nltk.sent_tokenize(news_story)),
+                 injury_no = data_extractor.injury_number(),
+                 location = data_extractor.location(),
+                 vehicle_involved = data_extractor.vehicle_involved(),
+                 vehicle_no = data_extractor.vehicle(),
+                 day = data_extractor.day(news_story),
+                 date = data_extractor.date(news_story),
+                 month = data_extractor.get_month(news_story),
+                 season= data_extractor.get_season(news_story),
+                 year=data_extractor.get_year(news_story),
 
-# print(all_vehicles,two_wheeler,three_wheeler,four_wheeler)
-# vehicles = ""
-# for vehicle in all_vehicles:
-#     vehicles = vehicles + " "+ vehicle
-# vehicles = vehicles[1:]
-#
-# print(vehicles)
-# print("contains four wheeler "+ str(four_wheeler))
-# print("contains two wheeler "+ str(two_wheeler))
-# print("contains three wheeler " + str(three_wheeler))
-# print("Saved")
+               )
+record.save()
+vehicle_information = VehicleInformation(news_story)
+vehicle_information.make_gazetter()
+all_vehicles,two_wheeler,three_wheeler,four_wheeler = vehicle_information.find_vehicles()
+
+print(all_vehicles,two_wheeler,three_wheeler,four_wheeler)
+vehicles = ""
+for vehicle in all_vehicles:
+    vehicles = vehicles + " "+ vehicle
+vehicles = vehicles[1:]
+
+print(vehicles)
+print("contains four wheeler "+ str(four_wheeler))
+print("contains two wheeler "+ str(two_wheeler))
+print("contains three wheeler " + str(three_wheeler))
+print("Saved")
 
 def index(request):
     return render(request, 'index.html',
