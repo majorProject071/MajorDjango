@@ -94,10 +94,6 @@ def extract_info(news_story):
     data_extractor = DataExtractor(pos_tagged_sentences, news_story)
     sentences = news.split_story()
     data_extractor.day(news_story)
-    return data_extractor
-
-
-def save_extracted_info(news_story, data_extractor):
     print("Extracting")
     record = rssdata(header= "Heading",
                      body= news_story.replace("\n", ""),
