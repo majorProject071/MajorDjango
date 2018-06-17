@@ -17,6 +17,7 @@ class rssdata(models.Model):
     season = models.CharField(blank=True, max_length=100, null=True)
     year = models.CharField(blank=True, max_length=100, null=True)
     day = models.CharField(blank=True, max_length=100, null=True)
+    link = models.CharField(blank=True, max_length=100, null=True)
 
     # Timestamps
     created_at = models.DateTimeField(auto_now_add=True)
