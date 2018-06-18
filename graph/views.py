@@ -42,10 +42,12 @@ def index (request):
             'latitude':latitude,
             'totalno': totalno,
     }
-    return render(request, "graph.html", context)
+    return render(request, "heatmap.html", context)
 
 
 def districts(request):
+    location = rssdata.objects.values_list('location', flat=True)
+    print(location)
     return render(request, "districts.html")
 
 def check(request):

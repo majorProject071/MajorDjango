@@ -73,7 +73,8 @@ table{
        * element that contains the map. */
       #map {
         height: 70%;
-        width:70%
+        width:70%;
+        margin-left: 15%;
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
@@ -114,9 +115,5 @@ table{
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0jbM6o1NAMZPhtlexx521CAj5VaQg_I4&libraries=visualization&callback=initMap">
     </script>
-{{ totalno }}
 
-{% for lat in latitude %}
-    {{ lat }}
-{% endfor %}
 {% endblock content %}
