@@ -27,12 +27,13 @@ def index (request):
     latitude = []
 
     for locations in location:
-        if(len(locations)>2):
-            loc = locations
-            geolocator = Nominatim()
-            locations = geolocator.geocode(loc)
-            locations = (locations.latitude, locations.longitude)
-            latitude.append(locations)
+        if locations is not  None:
+            if(len(locations)>2):
+                loc = locations
+                geolocator = Nominatim()
+                locations = geolocator.geocode(loc)
+                locations = (locations.latitude, locations.longitude)
+                latitude.append(locations)
     print(latitude)
 
     context={
@@ -47,6 +48,8 @@ def index (request):
 def districts(request):
     return render(request, "districts.html")
 
+def check(request):
+    return render(request, "check.html")
 
 def bar (request):
     newdata = News.objects.values('Location').annotate( total=Sum('Death')).order_by('-id')

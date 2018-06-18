@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^bar/(?P<id>\d+)/$', views.yeargraph, name='yeargraph'),
     url(r'^bar/$', views.bar, name='bar'),
     url(r'^line/$', views.line, name='line'),
+    url(r'^check/$', views.check, name='check'),
 ]
