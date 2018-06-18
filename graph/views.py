@@ -46,15 +46,22 @@ def index (request):
 
 
 def districts(request):
-    location = rssdata.objects.values_list('location', flat=True)
-    print(location)
-    return render(request, "districts.html")
+    newdata = rssdata.objects.values('location').annotate(value=Sum('death_no')).order_by('-id')
+    data = list(newdata)
+    print(data)
+    context = {
+        'newdata': json.dumps(data),
+    }
+    return render(request, "districts.html",context)
 
 def check(request):
+    newdata = rssdata.objects.values('location').annotate(value=Sum('death_no')).order_by('-id')
+    data = list(newdata)
+    print(data)
     return render(request, "check.html")
 
 def bar (request):
-    newdata = News.objects.values('Location').annotate( total=Sum('Death')).order_by('-id')
+    newdata = rssdata.objects.values('location').annotate( total=Sum('death_no')).order_by('-id')
     alldata = News.objects.values('Year').order_by('Year').annotate( total=Count('Year'))
     alllocation = News.objects.values('Location').order_by('Location').annotate( total=Count('Location'))
     maxvalue = News.objects.values('Location').annotate( total=Sum('Death')).aggregate( maxvalue = Max('total'))

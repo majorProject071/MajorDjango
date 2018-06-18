@@ -36,22 +36,19 @@ d3.json("https://raw.githubusercontent.com/aayushrijal/Nepal-district-topojson/m
             .attr("d", path)
 
             .on("mouseover", function(d) {
-            if(valueById[d.properties.DISTRICT]){
                  d3.select(this.parentNode).append("text")
 
 
-              .attr("x", "300") // margin
-              .attr("y", "450") // vertical-align
+              .attr("x", "1000") // margin
+              .attr("y", "200") // vertical-align
               .attr("class", "mylabel")//adding a label class
               .text(function() {
-                var data = "District:"+districtById[d.properties.DISTRICT]+ "."+"\n"+"Death:"+ "" +valueById[d.properties.DISTRICT];
-                return (data);
+                return (valueById[d.properties.DISTRICT]);
 
-              }
-              );
+              });
 //                console.log(valueById[d.properties.DISTRICT])
 //                console.log(districtById[d.properties.DISTRICT])
-	        }})
+	        })
 	        .on("mouseout",function() {
             d3.selectAll(".mylabel").remove()
           })
@@ -64,6 +61,25 @@ d3.json("https://raw.githubusercontent.com/aayushrijal/Nepal-district-topojson/m
     		return "#ccc";
 
     	});
+//       function mouseover(d) {
+//       console.log(valueById[d.properties.DISTRICT])
+//            d3.select(this.parentNode).append("text")
+//              .attr("transform", function() {
+//                return "rotate(" + computeTextRotation(d) + ")";
+//              })
+//              .attr("x", function() {
+//                return y(d.y);
+//              })
+//              .attr("dx", "6") // margin
+//              .attr("dy", ".35em") // vertical-align
+//              .attr("class", "mylabel")//adding a label class
+//              .text(function() {
+//                return d.name;
+//              });
+//          }
+//          function mouseOut() {
+//            d3.selectAll(".mylabel").remove()
+//          }
 
 
 
