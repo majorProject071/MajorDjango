@@ -257,7 +257,6 @@ class LocationInformation:
         for row in RenderTree(kathmandu):
             if row.node.parent == kathmandu:
                 ktm_locations.append(row.node.name)
-        print(ktm_locations)
         return ktm_locations
 
     def all_ltp_locations(self):

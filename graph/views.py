@@ -49,40 +49,31 @@ def index (request):
 def districts(request):
     data = []
 
-    locations = rssdata.objects.values('location')
+    locations = rssdata.objects.values('location').annotate(value=Sum('death_no')).order_by('-id')
+    # print locations
     ktm_location = LocationInformation().all_ktm_locations()
     bkt_location = LocationInformation().all_bkt_locations()
     ltp_location = LocationInformation().all_ltp_locations()
     outside_location = LocationInformation().all_locations()
+    ktm_death = 0
+    ltp_death = 0
+    bkt_death = 0
 
     for location in locations:
-        for i in location:
-            if location[i] in ktm_location:
-                total_death = []
-                # print location[i]
-                district = "kathmandu"
-                # for d in rssdata.objects.filter(location=location[i]):
-                #     total_death.append(d.death_no)
-                # print total_death
-
-                # newdata = rssdata.objects.values('location').filter(location=location[i]).annotate(value=Sum('death_no')).order_by('-id')
-                # print newdata
-                # data.append(list(newdata))
-            elif location[i] in ltp_location:
-                district = "lalitpur"
-                print district
-                newdata = rssdata.objects.values('location').filter(location=district).annotate(value=Sum('death_no')).order_by('-id')
-                data.append(list(newdata))
-            elif location[i] in bkt_location:
-                district = "bhaktapur"
-                print district
-                newdata = rssdata.objects.values('location').filter(location=district).annotate(value=Sum('death_no')).order_by('-id')
-                data.append(list(newdata))
-            elif location[i] in outside_location:
-                newdata = rssdata.objects.values('location').filter(location=location[i]).annotate(value=Sum('death_no')).order_by('-id')
-                data.append(list(newdata))
-            else:
-                pass
+        if location['location'] in ktm_location:
+            ktm_death += location['value']
+            data.append({'location':'Kathmandu', 'value':ktm_death})
+        elif location['location'] in ltp_location:
+            ltp_death += location['value']
+            data.append({'location': 'Kathmandu', 'value': ltp_death})
+        elif location['location'] in bkt_location:
+            bkt_death += location['value']
+            data.append({'location': 'Kathmandu', 'value': bkt_death})
+        elif location['location'] in outside_location:
+            print location['location'].capitalize()
+            data.append({'location':location['location'].capitalize(), 'value': location['value']})
+        else:
+            pass
 
     print ("data : " + str(data))
 
