@@ -31,8 +31,8 @@ class DataExtractor:
 
         for sent in individual_sentences:
             words = nltk.word_tokenize(sent)
-            if("died" or "death" or "injured" or "injury" or "injuries") in words:
-                # print(sent)
+            if("died" or "death" or "injured" or "injury" or "injuries" or "killed") in words:
+                print(sent)
                 chunked_sentence = nltk.ne_chunk(nltk.pos_tag(nltk.word_tokenize(sent)))
                 # print(chunked_sentence)
                 for i in chunked_sentence.subtrees(filter = lambda x:x.label() == 'GPE'):
@@ -184,20 +184,22 @@ class DataExtractor:
         has_injuries = [sent for sent in sentences if("injured" or "injury"
                         or "injuries" or "injur") in nltk.word_tokenize(sent)]
         #print(has_injuries)
+        try:
+            has_injuries_words = nltk.word_tokenize(has_injuries[0])
 
-        has_injuries_words = nltk.word_tokenize(has_injuries[0])
+            injury_pos_tagged = nltk.pos_tag(has_injuries_words)
+            #print(injury_pos_tagged)
 
-        injury_pos_tagged = nltk.pos_tag(has_injuries_words)
-        #print(injury_pos_tagged)
-
-        injury_regex = r"""
-                      INjury:
-                        {<.*>+}          # Chunk everything
-                        }<CC|IN|NNS|NN|DT|WRB>+{      # Chink sequences of VBD and IN
-                  """
-        injury_parser = nltk.RegexpParser(injury_regex)
-        injury_occurence = injury_parser.parse(injury_pos_tagged)
-        #print(injury_occurence)
+            injury_regex = r"""
+                          INjury:
+                            {<.*>+}          # Chunk everything
+                            }<CC|IN|NNS|NN|DT|WRB>+{      # Chink sequences of VBD and IN
+                      """
+            injury_parser = nltk.RegexpParser(injury_regex)
+            injury_occurence = injury_parser.parse(injury_pos_tagged)
+            #print(injury_occurence)
+        except:
+            pass
 
 
     def death_number(self):
@@ -216,17 +218,20 @@ class DataExtractor:
 
 
     def injury_number(self):
-        injury = injury_no(self.splitted_sentences)
-        if injury == "None":
-            actualinjury = "None"
-            injuryNo = 0
-        else:
-            actualinjury = remove_date(injury)
-            injuryNo = convertNum(injury)
-        # print("Injury No:")
-        # print(injury, actualinjury, injuryNo)
-        # print("\n No of injured people: " + str(injuryNo))
-        return(injuryNo)
+        try:
+            injury = injury_no(self.splitted_sentences)
+            if injury == "None":
+                actualinjury = "None"
+                injuryNo = 0
+            else:
+                actualinjury = remove_date(injury)
+                injuryNo = convertNum(injury)
+            # print("Injury No:")
+            # print(injury, actualinjury, injuryNo)
+            # print("\n No of injured people: " + str(injuryNo))
+            return(injuryNo)
+        except:
+            pass
 
     def date(self,complete_news):
         dates = re.findall(r'[A-Z]\w+\s\d+[,.]\s\d+', complete_news)

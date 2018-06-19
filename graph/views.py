@@ -15,6 +15,7 @@ from geopy.geocoders import Nominatim
 from .models import *
 import json
 from news_extraction.models import *
+from news_extraction.modules.location_tree import LocationInformation
 from django.core import serializers
 from django.http import JsonResponse
 
@@ -46,13 +47,49 @@ def index (request):
 
 
 def districts(request):
-    newdata = rssdata.objects.values('location').annotate(value=Sum('death_no')).order_by('-id')
-    data = list(newdata)
-    print(data)
+    data = []
+
+    locations = rssdata.objects.values('location')
+    ktm_location = LocationInformation().all_ktm_locations()
+    bkt_location = LocationInformation().all_bkt_locations()
+    ltp_location = LocationInformation().all_ltp_locations()
+    outside_location = LocationInformation().all_locations()
+
+    for location in locations:
+        for i in location:
+            if location[i] in ktm_location:
+                total_death = []
+                # print location[i]
+                district = "kathmandu"
+                # for d in rssdata.objects.filter(location=location[i]):
+                #     total_death.append(d.death_no)
+                # print total_death
+
+                # newdata = rssdata.objects.values('location').filter(location=location[i]).annotate(value=Sum('death_no')).order_by('-id')
+                # print newdata
+                # data.append(list(newdata))
+            elif location[i] in ltp_location:
+                district = "lalitpur"
+                print district
+                newdata = rssdata.objects.values('location').filter(location=district).annotate(value=Sum('death_no')).order_by('-id')
+                data.append(list(newdata))
+            elif location[i] in bkt_location:
+                district = "bhaktapur"
+                print district
+                newdata = rssdata.objects.values('location').filter(location=district).annotate(value=Sum('death_no')).order_by('-id')
+                data.append(list(newdata))
+            elif location[i] in outside_location:
+                newdata = rssdata.objects.values('location').filter(location=location[i]).annotate(value=Sum('death_no')).order_by('-id')
+                data.append(list(newdata))
+            else:
+                pass
+
+    print ("data : " + str(data))
+
     context = {
         'newdata': json.dumps(data),
     }
-    return render(request, "districts.html",context)
+    return render(request, "districts.html", context)
 
 def check(request):
     newdata = rssdata.objects.values('location').annotate(value=Sum('death_no')).order_by('-id')
