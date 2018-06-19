@@ -43,6 +43,9 @@ for i in range(0,len(links)):
         texts = article.cleaned_text
         news_story = texts.encode('utf-8')
         news = Tokenize(news_story)
+        # news.get_date()
+        # day,month,year,news_story = news.get_date()
+        # news = Tokenize(news_story)
         splited_sentences = nltk.sent_tokenize(news_story)
         tokenized_words = news.split_words()
         tagger = Tagger(tokenized_words)
@@ -58,8 +61,9 @@ for i in range(0,len(links)):
         for vehicle in all_vehicles:
             vehicles = vehicles + " "+ vehicle
         vehicles = vehicles[1:]
-    #     #
-
+    #
+        # print(day)
+        # print(month,year)
         record = rssdata(header=title[i],
                          body=news_story.replace("\n", ""),
                          death=data_extractor.deaths(nltk.sent_tokenize(news_story)),
