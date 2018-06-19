@@ -7,7 +7,7 @@ from spacy.attrs import POS,LOWER,IS_PUNCT,LEMMA
 nlp = en_core_web_sm.load()
 
 
-vehicles = ['bus','car','truck','tripper','bike','jeep','scooter','scooty',
+vehicles = ['bus','car','truck','tripper','bike','jeep','zeep','scooter','scooty',
         'motorbike','motorcycle','container','SUV','tractor','moped','lorry',
         'minivan','minibus','trolley','tempo']
 three_wheeler=set([
@@ -15,13 +15,17 @@ three_wheeler=set([
 ])
 
 two_wheeler = set([
-'bike','scooter','scooty','motorbike','motorcycle','two-wheeler','two wheeler'
+'bike','scooter','scooty','motorbike','motorcycle','two-wheeler','two wheeler','moped'
 ])
 
 four_wheeler = set([
-'bus','car','truck','tripper','zeep','container','SUV','tractor','moped','lorry',
+'bus','car','truck','tripper','zeep','jeep','container','SUV','tractor','moped','lorry',
 'minivan','minibus','trolley','four-wheeler','four wheeler'
 ])
+
+scooty = ['scooty','scooter']
+bike = ['bike','motorbike','motorcycle']
+zeep = ['jeep','zeep']
 matcher = Matcher(nlp.vocab)
 class VehicleInformation:
     def __init__(self,news_story):

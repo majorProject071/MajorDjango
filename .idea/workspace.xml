@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="36890437-8748-435e-8fa3-3ee983d4a965" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/graph/views.py" afterPath="$PROJECT_DIR$/graph/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/news_extraction/modules/extractor.py" afterPath="$PROJECT_DIR$/news_extraction/modules/extractor.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/graph/templates/districts.html" afterPath="$PROJECT_DIR$/graph/templates/districts.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/news_extraction/modules/tokenizer.py" afterPath="$PROJECT_DIR$/news_extraction/modules/tokenizer.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/news_extraction/modules/vehicles_gazetter.py" afterPath="$PROJECT_DIR$/news_extraction/modules/vehicles_gazetter.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/news_extraction/views.py" afterPath="$PROJECT_DIR$/news_extraction/views.py" />
     </list>
@@ -17,14 +17,14 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.7772727">
+    <splitter split-orientation="horizontal" split-proportion="0.49621212">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/graph/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="224">
-                  <caret line="85" column="0" lean-forward="true" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
+                <state relative-caret-position="336">
+                  <caret line="86" column="33" lean-forward="true" selection-start-line="86" selection-start-column="33" selection-end-line="86" selection-end-column="33" />
                   <folding>
                     <element signature="e#26#110#0" expanded="true" />
                   </folding>
@@ -32,21 +32,21 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="districts.html" pinned="false" current-in-tab="true">
+          <file leaf-file-name="districts.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/graph/templates/districts.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="80">
-                  <caret line="38" column="33" lean-forward="false" selection-start-line="38" selection-start-column="33" selection-end-line="38" selection-end-column="33" />
+                <state relative-caret-position="208">
+                  <caret line="46" column="44" lean-forward="true" selection-start-line="46" selection-start-column="44" selection-end-line="46" selection-end-column="44" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/news_extraction/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
-                  <caret line="72" column="42" lean-forward="false" selection-start-line="72" selection-start-column="42" selection-end-line="72" selection-end-column="42" />
+                <state relative-caret-position="101">
+                  <caret line="117" column="4" lean-forward="false" selection-start-line="117" selection-start-column="4" selection-end-line="117" selection-end-column="4" />
                   <folding>
                     <element signature="e#0#21#0" expanded="true" />
                   </folding>
@@ -68,12 +68,24 @@
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="location_tree.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="location_tree.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/news_extraction/modules/location_tree.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="32">
+                <state relative-caret-position="43">
                   <caret line="254" column="0" lean-forward="true" selection-start-line="254" selection-start-column="0" selection-end-line="254" selection-end-column="0" />
                   <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/news_extraction/views.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="224">
+                  <caret line="188" column="23" lean-forward="false" selection-start-line="188" selection-start-column="23" selection-end-line="188" selection-end-column="23" />
+                  <folding>
+                    <element signature="e#0#21#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -149,16 +161,15 @@
         <option value="$PROJECT_DIR$/static/js/graph/mymap.js" />
         <option value="$PROJECT_DIR$/news_extraction/modules/vehicles_gazetter.py" />
         <option value="$PROJECT_DIR$/news_extraction/modules/extractor.py" />
-        <option value="$PROJECT_DIR$/news_extraction/views.py" />
         <option value="$PROJECT_DIR$/graph/views.py" />
         <option value="$PROJECT_DIR$/graph/templates/districts.html" />
+        <option value="$PROJECT_DIR$/news_extraction/views.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1" />
-    <option name="width" value="1368" />
-    <option name="height" value="741" />
+    <option name="width" value="1360" />
+    <option name="height" value="737" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -245,7 +256,7 @@
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
-    <property name="SearchEverywhereHistoryKey" value="extr&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/modules/extractor.py&#10;for&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/forms.py&#10;is_root&#9;null&#9;null&#10;is_roo&#9;null&#9;null" />
+    <property name="SearchEverywhereHistoryKey" value="view&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/views.py&#10;extr&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/modules/extractor.py&#10;for&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/forms.py&#10;is_root&#9;null&#9;null&#10;is_roo&#9;null&#9;null" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
   </component>
   <component name="RunDashboard">
@@ -373,13 +384,13 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="0" width="1368" height="741" extended-state="7" />
+    <frame x="0" y="0" width="1360" height="737" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18106061" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37012988" sideWeight="0.50609756" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36612904" sideWeight="0.4939302" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4237013" sideWeight="0.4939302" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -742,19 +753,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/news_extraction/modules/location_tree.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="32">
+        <state relative-caret-position="43">
           <caret line="254" column="0" lean-forward="true" selection-start-line="254" selection-start-column="0" selection-end-line="254" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/news_extraction/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="72" column="42" lean-forward="false" selection-start-line="72" selection-start-column="42" selection-end-line="72" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -766,21 +767,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/graph/templates/districts.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="46" column="44" lean-forward="true" selection-start-line="46" selection-start-column="44" selection-end-line="46" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/graph/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="85" column="0" lean-forward="true" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
+        <state relative-caret-position="336">
+          <caret line="86" column="33" lean-forward="true" selection-start-line="86" selection-start-column="33" selection-end-line="86" selection-end-column="33" />
           <folding>
             <element signature="e#26#110#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/graph/templates/districts.html">
+    <entry file="file://$PROJECT_DIR$/news_extraction/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="38" column="33" lean-forward="false" selection-start-line="38" selection-start-column="33" selection-end-line="38" selection-end-column="33" />
-          <folding />
+        <state relative-caret-position="101">
+          <caret line="117" column="4" lean-forward="false" selection-start-line="117" selection-start-column="4" selection-end-line="117" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
