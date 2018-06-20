@@ -9,8 +9,44 @@
   </head>
 
  <body>
+<style>
+    table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    margin-left: 15%;
+    text-align: center;
 
+}
+table{
+float: right;
+margin-right: 20%;}
+
+
+</style>
  <h1>Death number by districts</h1>
+ <table>
+     <tr>
+         <th>color</th>
+         <th>color</th>
+         <th>color</th>
+
+     </tr>
+     <tr>
+         <td>red</td>
+         <td style="background:red"></td>
+         <td>high accident alert area</td>
+     </tr>
+     <tr>
+         <td>green</td>
+         <td style="background:green"></td>
+         <td>medium accident alert area</td>
+     </tr>
+     <tr>
+         <td>blue</td>
+         <td style="background:blue"></td>
+         <td>low accident alert area</td>
+     </tr>
+ </table>
  <div id="map"></div>
 		<div id="tooltip" class="hidden">
 	<p><span id="value"></span></p>
@@ -43,10 +79,17 @@ d3.json("https://raw.githubusercontent.com/aayushrijal/Nepal-district-topojson/m
 //        console.log(data)
         var valueById = {};
         var districtById = {};
+        var countById = {};
+        var injuryById = {};
 
         data.forEach(function(d){
             valueById[d.location] = d.value;
             districtById[d.location] = d.location;
+            countById[d.location] = d.count;
+            injuryById[d.location] = d.injury;
+            console.log(d.value)
+            console.log(d.count)
+
     	svg.append("g")
             .attr("class", "country")
             .selectAll("path")
@@ -60,12 +103,14 @@ d3.json("https://raw.githubusercontent.com/aayushrijal/Nepal-district-topojson/m
                  d3.select(this.parentNode).append("text")
 
 
-              .attr("x", "300") // margin
+              .attr("x", "250") // margin
               .attr("y", "450") // vertical-align
               .attr("class", "mylabel")//adding a label class
               .text(function() {
-                var data = "District:"+districtById[d.properties.DISTRICT]+ "."+"\n"+"Death:"+ "" +valueById[d.properties.DISTRICT];
-                return (data);
+                var data = "District:"+districtById[d.properties.DISTRICT]+ ".";
+                var stats = "Death:"+ "" +valueById[d.properties.DISTRICT]+"\n"+"Injury:"+ "" +injuryById[d.properties.DISTRICT];
+                datas = data + stats
+                return (datas);
 
               }
               );
@@ -77,9 +122,15 @@ d3.json("https://raw.githubusercontent.com/aayushrijal/Nepal-district-topojson/m
           })
 
             .style("fill", function(d) {
-                if(valueById[d.properties.DISTRICT]){
+                if(countById[d.properties.DISTRICT]>=5){
                     return "red";
                     // return color(valueById[d.properties.DISTRICT]);
+                }
+                else if(countById[d.properties.DISTRICT]>2 && countById[d.properties.DISTRICT]<5){
+                    return "green";
+                }
+                else if(countById[d.properties.DISTRICT]<=2){
+                    return "blue";
                 }
     		return "#ccc";
 

@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^bar/$', views.bar, name='bar'),
     url(r'^line/$', views.line, name='line'),
     url(r'^check/$', views.check, name='check'),
+    url(r'^location/$', views.location, name='location'),
 ]

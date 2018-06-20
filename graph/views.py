@@ -50,7 +50,7 @@ def index (request):
 
 def districts(request):
     data = []
-    locations = rssdata.objects.values('location').order_by('location').annotate(value=Sum('death_no'))
+    locations = rssdata.objects.values('location').order_by('location').annotate(value=Sum('death_no')).annotate(injury=Sum('injury_no')).annotate(count=Count('death_no'))
     # print locations
     ktm_location = LocationInformation().all_ktm_locations()
     bkt_location = LocationInformation().all_bkt_locations()
@@ -59,19 +59,18 @@ def districts(request):
     ktm_death = 0
     ltp_death = 0
     bkt_death = 0
-    print(locations)
     for location in locations:
         if location['location'] in ktm_location:
             ktm_death += location['value']
-            data.append({'location':'Kathmandu', 'value':ktm_death})
+            data.append({'location':'Kathmandu', 'value':ktm_death, 'count':location['count']})
         elif location['location'] in ltp_location:
             ltp_death += location['value']
-            data.append({'location': 'Kathmandu', 'value': ltp_death})
+            data.append({'location': 'Kathmandu', 'value': ltp_death, 'count':location['count']})
         elif location['location'] in bkt_location:
             bkt_death += location['value']
-            data.append({'location': 'Kathmandu', 'value': bkt_death})
+            data.append({'location': 'Kathmandu', 'value': bkt_death, 'count':location['count']})
         elif location['location'] in outside_location:
-            data.append({'location':location['location'].capitalize(), 'value': location['value']})
+            data.append({'location':location['location'].capitalize(), 'value': location['value'], 'injury':location['injury'],'count':location['count']})
         else:
             pass
 
@@ -87,6 +86,9 @@ def check(request):
     data = list(newdata)
     print(data)
     return render(request, "check.html")
+
+def location(request):
+    return render(request, "location.html")
 
 def bar (request):
     newdata = rssdata.objects.values('location').annotate( total=Sum('death_no')).order_by('-id')
