@@ -50,7 +50,7 @@ def index (request):
 
 def districts(request):
     data = []
-    locations = rssdata.objects.values('location').annotate(value=Sum('death_no')).order_by('-id')
+    locations = rssdata.objects.values('location').order_by('location').annotate(value=Sum('death_no'))
     # print locations
     ktm_location = LocationInformation().all_ktm_locations()
     bkt_location = LocationInformation().all_bkt_locations()
@@ -59,8 +59,7 @@ def districts(request):
     ktm_death = 0
     ltp_death = 0
     bkt_death = 0
-    out_death = 0
-
+    print(locations)
     for location in locations:
         if location['location'] in ktm_location:
             ktm_death += location['value']
@@ -91,7 +90,7 @@ def check(request):
 
 def bar (request):
     newdata = rssdata.objects.values('location').annotate( total=Sum('death_no')).order_by('-id')
-    alldata = News.objects.values('Year').order_by('Year').annotate( total=Count('Year'))
+    alldata = rssdata.objects.values('year').order_by('year').annotate( total=Count('year'))
     alllocation = News.objects.values('Location').order_by('Location').annotate( total=Count('Location'))
     maxvalue = News.objects.values('Location').annotate( total=Sum('Death')).aggregate( maxvalue = Max('total'))
     totalno = News.objects.values('Year').aggregate( total=Count('Year'))

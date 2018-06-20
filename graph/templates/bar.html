@@ -8,11 +8,7 @@
 
 <div class="dropdown">
   <button class="dropbtn">Select year</button>
-  <div class="dropdown-content">
-    {% for ad in alldata %}
-    <a href='{% url "graph:yeargraph" ad.Year %}'>{{ ad.Year }}</a>
-    {% endfor %}
-  </div>
+
 </div>
 <div id="containerChart">
 </div>
@@ -156,5 +152,5 @@ g.selectAll(".text")
         return d.total;
     });
 </script>
-
+{{ alldata }}
 {% endblock content %}
