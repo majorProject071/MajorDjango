@@ -29,7 +29,7 @@ def index (request):
     latitude = []
 
     for locations in location:
-        if locations is not  None:
+        if locations is not None:
             if(len(locations)>2):
                 loc = locations
                 geolocator = Nominatim()
@@ -88,7 +88,18 @@ def check(request):
     return render(request, "check.html")
 
 def location(request):
-    return render(request, "location.html")
+    newdata = rssdata.objects.values('location').order_by('location').annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no'))
+    totalno = rssdata.objects.values('location').aggregate(total=Count('location'))
+    data =[]
+    for nd in newdata:
+        if nd['location'] is not None:
+            if len(nd['location'])>2:
+                data.append(nd)
+    context = {
+        'location_data': json.dumps(data),
+        'totalno': totalno,
+    }
+    return render(request, "location.html",context)
 
 def bar (request):
     newdata = rssdata.objects.values('location').annotate( total=Sum('death_no')).order_by('-id')

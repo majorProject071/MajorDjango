@@ -4,6 +4,7 @@
 {% block nav_index_home %} class="nav-link active btn-primary" {% endblock nav_index_home%}
 
 {% block content %}
+
 <style>
 
 body {
@@ -24,51 +25,30 @@ body {
 .x.axis path {
   display: none;
 }
-
+.title-text{
+font-size:24px;
+font-weight: 600;
+padding: 3% 20%;
+}
 
 </style>
 <body>
+<div class="title-text">
+    Accident Statistics based on districts.
+</div>
+
 <script type="text/javascript">
 
-var data = [
-  {
-    "State": "CA",
-    "Under 5 Years": 2704659,
-    "5 to 13 Years": 4499890,
-    "14 to 17 Years": 2159981,
-    "18 to 24 Years": 3853788,
-    "25 to 44 Years": 10604510,
-    "45 to 64 Years": 8819342,
-    "65 Years and Over": 4114496
-  },
-  {
-    "State": "TX",
-    "Under 5 Years": 2027307,
-    "5 to 13 Years": 3277946,
-    "14 to 17 Years": 1420518,
-    "18 to 24 Years": 2454721,
-    "25 to 44 Years": 7017731,
-    "45 to 64 Years": 5656528,
-    "65 Years and Over": 2472223
-  },
-  {
-    "State": "NY",
-    "Under 5 Years": 1208495,
-    "5 to 13 Years": 2141490,
-    "14 to 17 Years": 1058031,
-    "18 to 24 Years": 1999120,
-    "25 to 44 Years": 5355235,
-    "45 to 64 Years": 5120254,
-    "65 Years and Over": 2607672
-  }
-    ]
+var total = {{ totalno.total }}
 
-var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+var data = {{ location_data|safe }}
 
+var margin = {top: 20, right: 20, bottom: 30, left: 250},
+    width = total*20+600,
+    height = 400;
+    console.log(width)
 var x0 = d3.scale.ordinal()
-    .rangeRoundBands([0, width], .1);
+    .rangeRoundBands([2, width], .1);
 
 var x1 = d3.scale.ordinal();
 
@@ -76,7 +56,7 @@ var y = d3.scale.linear()
     .range([height, 0]);
 
 var color = d3.scale.ordinal()
-    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+    .range(["red", "#98abc5"]);
 
 var xAxis = d3.svg.axis()
     .scale(x0)
@@ -92,13 +72,13 @@ var svg = d3.select("body").append("svg")
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-var ageNames = d3.keys(data[0]).filter(function(key) { return key !== "State"; });
+var ageNames = d3.keys(data[0]).filter(function(key) { return key !== "location"; });
 
 data.forEach(function(d) {
     d.ages = ageNames.map(function(name) { return {name: name, value: +d[name]}; });
   });
 
-x0.domain(data.map(function(d) { return d.State; }));
+x0.domain(data.map(function(d) { return d.location; }));
 x1.domain(ageNames).rangeRoundBands([0, x0.rangeBand()]);
 y.domain([0, d3.max(data, function(d) { return d3.max(d.ages, function(d) { return d.value; }); })]);
 
@@ -112,16 +92,15 @@ svg.append("g")
       .call(yAxis)
       .append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", 6)
+      .attr("y", 10)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
-      .text("Population");
 
 var state = svg.selectAll(".state")
       .data(data)
       .enter().append("g")
       .attr("class", "state")
-      .attr("transform", function(d) { return "translate(" + x0(d.State) + ",0)"; });
+      .attr("transform", function(d) { return "translate(" + x0(d.location) + ",0)"; });
 
 state.selectAll("rect")
       .data(function(d) { return d.ages; })
@@ -153,5 +132,7 @@ legend.append("text")
 
 
 </script>
+
 </body>
+{{ totalno }}
 {% endblock content %}
