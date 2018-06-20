@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q, Count, Sum, Max
 from django.shortcuts import render
+from time import sleep
 from django.forms import modelformset_factory
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import View
@@ -34,6 +35,7 @@ def index (request):
                 geolocator = Nominatim()
                 locations = geolocator.geocode(loc)
                 locations = (locations.latitude, locations.longitude)
+                sleep(3)
                 latitude.append(locations)
     print(latitude)
 
@@ -52,6 +54,7 @@ def districts(request):
     locations = rssdata.objects.values('location').annotate(value=Sum('death_no')).order_by('-id')
     # print locations
     ktm_location = LocationInformation().all_ktm_locations()
+    print(ktm_location)
     bkt_location = LocationInformation().all_bkt_locations()
     ltp_location = LocationInformation().all_ltp_locations()
     outside_location = LocationInformation().all_locations()

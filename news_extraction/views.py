@@ -24,56 +24,6 @@ from requests import get
 
 nlp = en_core_web_sm.load()
 
-# #scrape rss feed
-# url_link = "http://fetchrss.com/rss/59549c628a93f872018b4567709026440.xml"
-# # get all the links of news title
-# links = []
-# text =[]
-# title = []
-# rss = feedparser.parse(url_link)
-# for post in rss.entries:
-#     links.append(post.link)
-#     title.append(post.title_detail.value)
-# oldlinks = rssdata.objects.values_list('link', flat=True)
-# for i in range(0,len(links)):
-#     if links[i] not in oldlinks:
-#         response = get(links[i])
-#         extractor = Goose()
-#         article = extractor.extract(raw_html=response.content)
-#         texts = article.cleaned_text
-#         news_story = texts.encode('utf-8')
-#         news = Tokenize(news_story)
-#         # news.get_date()
-#         # day,month,year,news_story = news.get_date()
-#         # news = Tokenize(news_story)
-#         splited_sentences = nltk.sent_tokenize(news_story)
-#         tokenized_words = news.split_words()
-#         tagger = Tagger(tokenized_words)
-#         pos_tagged_sentences = tagger.tag()
-#         data_extractor = DataExtractor(pos_tagged_sentences, news_story)
-#         sentences = news.split_story()
-#         #vehicle gazetter
-#         vehicle_information = VehicleInformation(news_story)
-#         vehicle_information.make_gazetter()
-#         all_vehicles, two_wheeler, three_wheeler, four_wheeler = vehicle_information.find_vehicles()
-#         #
-#         vehicles = ""
-#         for vehicle in all_vehicles:
-#             vehicles = vehicles + " "+ vehicle
-#         vehicles = vehicles[1:]
-#     #
-#         # print(day)
-#         # print(month,year)
-#         record = rssdata(header=title[i],
-#                          body=news_story.replace("\n", ""),
-#                          death=data_extractor.deaths(nltk.sent_tokenize(news_story)),
-#                          day=data_extractor.day(news_story),
-#                          date = data_extractor.date(news_story),
-#                          month = data_extractor.get_month(news_story),
-#                          season= data_extractor.get_season(news_story),
-#                          year=data_extractor.get_year(news_story),
-#                          )
-#         record.save()
 
 sample_news_heading = "Accident happened"
 sample_news_story = """In Thamel, A woman died after being hit by a bus on Monday.
@@ -132,61 +82,60 @@ def save_record_by_id(news_id):
 
 
 #scrape rss feed
-# url_link = "http://fetchrss.com/rss/59549c628a93f872018b4567709026440.xml"
-# # get all the links of news title
-# links = []
-# text =[]
-# title = []
-# rss = feedparser.parse(url_link)
-#
-# for post in rss.entries:
-#     links.append(post.link)
-#     title.append(post.title_detail.value)
-# oldlinks = rssdata.objects.values_list('link', flat=True)
-# print oldlinks
-#
-# for i in range(0, len(links)):
-#     if links[i] not in oldlinks:
-#         response = get(links[i])
-#         extractor = Goose()
-#         article = extractor.extract(raw_html=response.content)
-#         texts = article.cleaned_text
-#         news_story = texts.encode('utf-8')
-#         news = Tokenize(news_story)
-#         # news.get_date()
-#         # day,month,year,news_story = news.get_date()
-#         # news = Tokenize(news_story)
-#         splited_sentences = nltk.sent_tokenize(news_story)
-#         tokenized_words = news.split_words()
-#         tagger = Tagger(tokenized_words)
-#         pos_tagged_sentences = tagger.tag()
-#         data_extractor = DataExtractor(pos_tagged_sentences, news_story)
-#         sentences = news.split_story()
-#         #vehicle gazetter
-#         vehicle_information = VehicleInformation(news_story)
-#         vehicle_information.make_gazetter()
-#         all_vehicles, two_wheeler, three_wheeler, four_wheeler = vehicle_information.find_vehicles()
-#         #
-#         vehicles = ""
-#         for vehicle in all_vehicles:
-#             vehicles = vehicles + " "+ vehicle
-#         vehicles = vehicles[1:]
-#     #
-#         # print(day)
-#         # print(month,year)
-#         record = rssdata(header=title[i],
-#                          body=news_story.replace("\n", ""),
-#                          death=data_extractor.deaths(nltk.sent_tokenize(news_story)),
-#                          day=data_extractor.day(news_story),
-#                          date = data_extractor.date(news_story),
-#                          month = data_extractor.get_month(news_story),
-#                          season= data_extractor.get_season(news_story),
-#                          year=data_extractor.get_year(news_story),
-#                          )
-#         record.save()
-#         news_id = record.id
-#         print news_id
-#         save_record_by_id(news_id)
+url_link = "http://fetchrss.com/rss/59549c628a93f872018b4567709026440.xml"
+# get all the links of news title
+links = []
+text =[]
+title = []
+rss = feedparser.parse(url_link)
+
+for post in rss.entries:
+    links.append(post.link)
+    title.append(post.title_detail.value)
+oldlinks = rssdata.objects.values_list('link', flat=True)
+
+for i in range(0, len(links)):
+    if links[i] not in oldlinks:
+        response = get(links[i])
+        extractor = Goose()
+        article = extractor.extract(raw_html=response.content)
+        texts = article.cleaned_text
+        news_story = texts.encode('utf-8')
+        news = Tokenize(news_story)
+        # news.get_date()
+        # day,month,year,news_story = news.get_date()
+        # news = Tokenize(news_story)
+        splited_sentences = nltk.sent_tokenize(news_story)
+        tokenized_words = news.split_words()
+        tagger = Tagger(tokenized_words)
+        pos_tagged_sentences = tagger.tag()
+        data_extractor = DataExtractor(pos_tagged_sentences, news_story)
+        sentences = news.split_story()
+        #vehicle gazetter
+        vehicle_information = VehicleInformation(news_story)
+        vehicle_information.make_gazetter()
+        all_vehicles, two_wheeler, three_wheeler, four_wheeler = vehicle_information.find_vehicles()
+        #
+        vehicles = ""
+        for vehicle in all_vehicles:
+            vehicles = vehicles + " "+ vehicle
+        vehicles = vehicles[1:]
+    #
+        # print(day)
+        # print(month,year)
+        record = rssdata(header=title[i],
+                         body=news_story.replace("\n", ""),
+                         death=data_extractor.deaths(nltk.sent_tokenize(news_story)),
+                         day=data_extractor.day(news_story),
+                         date = data_extractor.date(news_story),
+                         month = data_extractor.get_month(news_story),
+                         season= data_extractor.get_season(news_story),
+                         year=data_extractor.get_year(news_story),
+                         link = links[i],
+                         )
+        record.save()
+        news_id = record.id
+        save_record_by_id(news_id)
 
 
 def index(request):

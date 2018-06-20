@@ -32,7 +32,6 @@ class DataExtractor:
         for sent in individual_sentences:
             words = nltk.word_tokenize(sent)
             if("died" or "death" or "injured" or "injury" or "injuries" or "killed") in words:
-                print(sent)
                 chunked_sentence = nltk.ne_chunk(nltk.pos_tag(nltk.word_tokenize(sent)))
                 # print(chunked_sentence)
                 for i in chunked_sentence.subtrees(filter = lambda x:x.label() == 'GPE'):
@@ -48,8 +47,6 @@ class DataExtractor:
                 return_value.append(locations[0]+ " "+ locations[1])
         except:
             pass
-
-        print (return_value)
 
         return (return_value)
 
@@ -90,7 +87,6 @@ class DataExtractor:
                         elif max_location in outside_location:
                             return_location = max_location
 
-        print(return_location)
         return(return_location)
 
 
