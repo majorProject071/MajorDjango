@@ -93,7 +93,6 @@ for post in rss.entries:
     links.append(post.link)
     title.append(post.title_detail.value)
 oldlinks = rssdata.objects.values_list('link', flat=True)
-
 for i in range(0, len(links)):
     if links[i] not in oldlinks:
         response = get(links[i])

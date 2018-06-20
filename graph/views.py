@@ -25,7 +25,7 @@ def index (request):
     data = rssdata.objects.values('location').annotate(total=Sum('death_no'))
     totalno = rssdata.objects.values('date').aggregate(total=Count('date'))
     datas = list(data)
-    print datas
+    print (datas)
     latitude = []
 
     for locations in location:
@@ -50,17 +50,16 @@ def index (request):
 
 def districts(request):
     data = []
-
     locations = rssdata.objects.values('location').annotate(value=Sum('death_no')).order_by('-id')
     # print locations
     ktm_location = LocationInformation().all_ktm_locations()
-    print(ktm_location)
     bkt_location = LocationInformation().all_bkt_locations()
     ltp_location = LocationInformation().all_ltp_locations()
     outside_location = LocationInformation().all_locations()
     ktm_death = 0
     ltp_death = 0
     bkt_death = 0
+    out_death = 0
 
     for location in locations:
         if location['location'] in ktm_location:
@@ -73,7 +72,6 @@ def districts(request):
             bkt_death += location['value']
             data.append({'location': 'Kathmandu', 'value': bkt_death})
         elif location['location'] in outside_location:
-            print location['location'].capitalize()
             data.append({'location':location['location'].capitalize(), 'value': location['value']})
         else:
             pass
