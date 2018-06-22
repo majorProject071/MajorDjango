@@ -17,6 +17,7 @@ from .models import *
 import json
 from news_extraction.models import *
 from news_extraction.modules.location_tree import LocationInformation
+import news_extraction.modules.vehicles_gazetter as Vehicles
 from django.core import serializers
 from django.http import JsonResponse
 
@@ -35,7 +36,6 @@ def index (request):
                 geolocator = Nominatim()
                 locations = geolocator.geocode(loc)
                 locations = (locations.latitude, locations.longitude)
-                sleep(3)
                 latitude.append(locations)
     print(latitude)
 
@@ -88,8 +88,19 @@ def check(request):
     return render(request, "check.html")
 
 def location(request):
+    vehicles = ['Bus', 'Car', 'Truck','Bike']
+    vehicledata = []
     newdata = rssdata.objects.values('location').order_by('location').annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no'))
     totalno = rssdata.objects.values('location').aggregate(total=Count('location'))
+    vehiclelist = rssdata.objects.values('vehicle_involved').order_by('vehicle_involved').annotate(total=Count('vehicle_involved'))
+    for vehicle in vehiclelist:
+        for v in vehicles:
+            if v in vehicle['vehicle_involved']:
+                if v in vehicledata:
+                    print("data already there.")
+                else:
+                    vehicledata.append(v)
+    print vehicledata
     data =[]
     for nd in newdata:
         if nd['location'] is not None:
@@ -98,8 +109,36 @@ def location(request):
     context = {
         'location_data': json.dumps(data),
         'totalno': totalno,
+        'vehiclelist': vehicledata,
     }
     return render(request, "location.html",context)
+
+def locationdetail(request):
+    if request.POST:
+        vehicleinfo = request.POST.get('vehicle', None)
+        vehicles = ['Bus', 'Car', 'Truck', 'Bike']
+        vehicledata = []
+        vehicle =[]
+        newdata = rssdata.objects.values('location','vehicle_involved').order_by('location').annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no'))
+        for data in newdata:
+            if len(data['location']) > 2:
+                if vehicleinfo in data['vehicle_involved']:
+                    vehicle.append({'location': data['location'].capitalize(), 'death': data['death'],'injury': data['injury']})
+        print vehicle
+        vehiclelist = rssdata.objects.values('vehicle_involved').order_by('vehicle_involved').annotate(total=Count('vehicle_involved'))
+        for listvehicle in vehiclelist:
+            for v in vehicles:
+                if v in listvehicle['vehicle_involved']:
+                    if v in vehicledata:
+                        print("data already there.")
+                    else:
+                        vehicledata.append(v)
+
+        context = {
+            'vehicleinfo': json.dumps(vehicle),
+            'vehiclelist': vehicledata,
+        }
+        return render(request, "locationdetail.html", context)
 
 def bar (request):
     newdata = rssdata.objects.values('location').annotate( total=Sum('death_no')).order_by('-id')

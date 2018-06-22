@@ -79,7 +79,7 @@ def save_record_by_id(news_id):
     record.save()
 
 
-
+# print(VehicleInformation.names())
 
 #scrape rss feed
 url_link = "http://fetchrss.com/rss/59549c628a93f872018b4567709026440.xml"

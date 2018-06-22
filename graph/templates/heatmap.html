@@ -107,7 +107,7 @@ table{
        function getPoints() {
             return [
             {% for lat in latitude %}
-            new google.maps.LatLng{{lat}},
+            new google.maps.LatLng{{ lat }},
             {% endfor %}
             ];
 

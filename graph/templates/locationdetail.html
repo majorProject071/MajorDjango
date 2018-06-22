@@ -49,7 +49,7 @@ margin-left: 20%;
 <!--</form>-->
 <!--</div>-->
 <div>
-    <form action="{% url "graph:locationdetail" %}" method="post">
+    <form action="" method="post">
         {% csrf_token %}
         <select name="vehicle">
             <option value="1">default</option>
@@ -66,9 +66,8 @@ margin-left: 20%;
 
 <script type="text/javascript">
 
-var total = {{ totalno.total }}
 
-var data = {{ location_data|safe }}
+var data = {{ vehicleinfo|safe }}
 
 var margin = {top: 20, right: 20, bottom: 30, left: 250},
     width = 600,
@@ -83,7 +82,7 @@ var y = d3.scale.linear()
     .range([height, 0]);
 
 var color = d3.scale.ordinal()
-    .range([ "#98abc5","red"]);
+    .range(["#98abc5","red", ]);
 
 var xAxis = d3.svg.axis()
     .scale(x0)
@@ -163,7 +162,5 @@ legend.append("text")
 
 </body>
 
-{% for vehicle in vehiclelist %}
-    {{ vehicle.vehicle_involved }}
-{% endfor %}
+
 {% endblock content %}
