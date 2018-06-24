@@ -69,13 +69,7 @@ def save_record_by_id(news_id):
     record = rssdata.objects.get(id=news_id)
     news_story = record.body
     extracted_data = extract_info(news_story)
-    record.death_no = extracted_data.death_number()
-    record.injury = extracted_data.injury(nltk.
-                                          sent_tokenize(news_story))
-    record.injury_no = extracted_data.injury_number()
     record.location = extracted_data.location()
-    record.vehicle_involved = extracted_data.vehicle_involved()
-    record.vehicle_no = extracted_data.vehicle()
     record.save()
 
 
@@ -92,6 +86,7 @@ rss = feedparser.parse(url_link)
 for post in rss.entries:
     links.append(post.link)
     title.append(post.title_detail.value)
+print(len(links))
 oldlinks = rssdata.objects.values_list('link', flat=True)
 for i in range(0, len(links)):
     if links[i] not in oldlinks:
@@ -101,9 +96,10 @@ for i in range(0, len(links)):
         texts = article.cleaned_text
         news_story = texts.encode('utf-8')
         news = Tokenize(news_story)
-        # news.get_date()
-        # day,month,year,news_story = news.get_date()
-        # news = Tokenize(news_story)
+        #news.get_date()
+        date,day,month,year,news_story = news.get_date(news_story)
+        news = Tokenize(news_story)
+
         splited_sentences = nltk.sent_tokenize(news_story)
         tokenized_words = news.split_words()
         tagger = Tagger(tokenized_words)
@@ -114,25 +110,35 @@ for i in range(0, len(links)):
         vehicle_information = VehicleInformation(news_story)
         vehicle_information.make_gazetter()
         all_vehicles, two_wheeler, three_wheeler, four_wheeler = vehicle_information.find_vehicles()
-        #
         vehicles = ""
         for vehicle in all_vehicles:
             vehicles = vehicles + " "+ vehicle
         vehicles = vehicles[1:]
-    #
-        # print(day)
-        # print(month,year)
+        vehicle_type = []
+        if two_wheeler is 1:
+            vehicle_type.append("two wheeler")
+        if three_wheeler is 1:
+            vehicle_type.append("three wheeler")
+        if four_wheeler is 1:
+            vehicle_type.append("four wheeler")
+
+        vehicle_involved = data_extractor.vehicle_involved()
         record = rssdata(header=title[i],
+                         source = "Kathmandu Post",
                          body=news_story.replace("\n", ""),
                          death=data_extractor.deaths(nltk.sent_tokenize(news_story)),
-                         day=data_extractor.day(news_story),
-                         date = data_extractor.date(news_story),
-                         month = data_extractor.get_month(news_story),
-                         season= data_extractor.get_season(news_story),
-                         year=data_extractor.get_year(news_story),
+                         date = date,
                          link = links[i],
+                         injury_no= data_extractor.injury_number(),
+                         death_no = data_extractor.death_number(),
+                         vehicle_involved = vehicle_involved,
+                         injury = data_extractor.injury(nltk.sent_tokenize(news_story)),
                          )
         record.save()
+        vehicle_info = Vehicledetail(vehicle_type=vehicle_type, vehicle_no=data_extractor.vehicle(), post=record)
+        vehicle_info.save()
+        date_info = Datedetail(day=data_extractor.day(news_story),month = month,season= data_extractor.get_season(month),year=year, post=record)
+        date_info.save()
         news_id = record.id
         save_record_by_id(news_id)
 

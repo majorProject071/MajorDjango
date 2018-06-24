@@ -49,7 +49,7 @@ margin-left: 20%;
 <!--</form>-->
 <!--</div>-->
 <div>
-    <form action="{% url "graph:locationdetail" %}" method="post">
+    <form action="" method="post">
         {% csrf_token %}
         <select name="vehicle">
             <option value="1">default</option>
@@ -60,6 +60,15 @@ margin-left: 20%;
 
             {% endfor %}
         </select>
+        <select name="year">
+            <option value="1">default</option>
+            {% for year in yearlist %}
+
+            <option value="{{ year }}">{{ year.year }}</option>
+
+
+            {% endfor %}
+    </select>
         <input type="submit" value="Select">
     </form>
 </div>

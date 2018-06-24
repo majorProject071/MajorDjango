@@ -20,7 +20,7 @@ two_wheeler = set([
 
 four_wheeler = set([
 'bus','car','truck','tripper','zeep','jeep','container','SUV','tractor','moped','lorry',
-'minivan','minibus','trolley','four-wheeler','four wheeler'
+'minivan','minibus','trolley','four-wheeler','four wheeler','trucks'
 ])
 
 scooty = ['scooty','scooter']
