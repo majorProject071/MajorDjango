@@ -11,9 +11,16 @@ class rssdata(models.Model):
     injury = models.CharField(blank=True, max_length=100, null=True)
     injury_no = models.IntegerField(default=0,blank=True, null=True)
     location = models.CharField(default=None,blank=True, max_length=100, null=True)
-    vehicle_involved = models.CharField(blank=True, max_length=100, null=True)
+    vehicleone= models.CharField(blank=True, max_length=100, null=True)
+    vehicletwo = models.CharField(blank=True, max_length=100, null=True)
     date = models.CharField(default=date.today, blank=True, null=True,max_length=100)
     link = models.CharField(blank=True, max_length=200, null=True)
+    vehicle_no = models.CharField(blank=True, max_length=100, null=True)
+    vehicle_type = models.CharField(blank=True, max_length=100, null=True)
+    month = models.CharField(blank=True, max_length=100, null=True)
+    season = models.CharField(blank=True, max_length=100, null=True)
+    year = models.CharField(blank=True, max_length=100, null=True)
+    day = models.CharField(blank=True, max_length=100, null=True)
 
     # Timestamps
     created_at = models.DateTimeField(auto_now_add=True)
@@ -21,7 +28,7 @@ class rssdata(models.Model):
 
     class Meta:
         verbose_name = 'rssdata'
-        ordering = ('-date', 'location')
+        ordering = ('-date', 'location','vehicleone','vehicletwo')
 
     def save(self, *args, **kwargs):
         super(rssdata, self).save(*args, **kwargs)
@@ -29,14 +36,3 @@ class rssdata(models.Model):
     def __str__(self):
         return self.header
 
-class Vehicledetail(models.Model):
-    post = models.ForeignKey(rssdata, default=None,on_delete=models.CASCADE,)
-    vehicle_no = models.CharField(blank=True, max_length=100, null=True)
-    vehicle_type = models.CharField(blank=True, max_length=100, null=True)
-
-class Datedetail(models.Model):
-    post = models.ForeignKey(rssdata, default=None, on_delete=models.CASCADE, )
-    month = models.CharField(blank=True, max_length=100, null=True)
-    season = models.CharField(blank=True, max_length=100, null=True)
-    year = models.CharField(blank=True, max_length=100, null=True)
-    day = models.CharField(blank=True, max_length=100, null=True)

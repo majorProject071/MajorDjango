@@ -115,6 +115,7 @@ class DataExtractor:
                     # vehicle = vehicle[:-1]
                     # print("\n")
                 vehicles.append(vehicle[:-1])
+
         return (vehicles)
 
     def vehicle_involved(self):
@@ -142,8 +143,7 @@ class DataExtractor:
                 vehicle.append('Bus')
             elif vcode == 'CD' or 'C D':
                 vehicle.append('Car')
-
-        return (vehicle)
+        return vehicle
 
     def deaths(self, sentences):
         """ Gets the number of deaths from the news story.

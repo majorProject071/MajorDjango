@@ -34,6 +34,8 @@ class Tokenize:
         date_regex = r"([a-zA-Z]+)\s(\d{1,2})\W{1,2}(\d{4})(\-)"
         contains_date = splited_sentences[0]
         dates = re.findall(r'[A-Z]\w+\s\d+[,.]\s\d+', complete_news)
+        for date in dates:
+            newdates = date
 
         if contains_date[0] == '\n':
             contains_date = contains_date[1:]
@@ -48,5 +50,5 @@ class Tokenize:
 
         self.paragraph = self.paragraph[end:]
 
-        return(dates,day,month,year,self.paragraph)
+        return(newdates,day,month,year,self.paragraph)
 ####################### MODULE FOR FINDING DATE FINISHED HERE #############

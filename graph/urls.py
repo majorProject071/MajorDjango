@@ -6,7 +6,7 @@ from . import views
 app_name = 'graph'
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
+    url(r'^ktm-map/$', views.index, name='index'),
     url(r'^districts/$', views.districts, name='districts'),
     url(r'^bars/$', views.yeargraph, name='yeargraph'),
     url(r'^bar/$', views.bar, name='bar'),

@@ -34,13 +34,21 @@ padding: 3% 20%;
 width:30%;
 margin-left: 20%;
 }
-
+h2{
+margin-left:15%;
+font-size:24px;
+margin-bottom: 2%;
+margin-top: 2%;
+}
+.select{
+margin-left:15%;
+margin-bottom: 3%;
+font-size: 14px;
+}
 
 </style>
 <body>
-<div class="title-text">
-    Accident Statistics based on districts.
-</div>
+<h2>Accidents {{ info }} in Places of Nepal </h2>
 <!--<div class="search">-->
 <!--<form class="form-inline" action="" method="post">-->
 <!--{% csrf_token %}-->
@@ -48,11 +56,11 @@ margin-left: 20%;
 <!--<button class="btn btn-primary" type="submit">Search</button>-->
 <!--</form>-->
 <!--</div>-->
-<div>
+<div class="select">
     <form action="" method="post">
         {% csrf_token %}
         <select name="vehicle">
-            <option value="1">default</option>
+            <option value="1">Select Vehicle</option>
             {% for vehicle in vehiclelist %}
 
             <option value="{{ vehicle }}">{{ vehicle }}</option>
@@ -61,14 +69,24 @@ margin-left: 20%;
             {% endfor %}
         </select>
         <select name="year">
-            <option value="1">default</option>
+            <option value="1">Select Year</option>
             {% for year in yearlist %}
 
-            <option value="{{ year }}">{{ year.year }}</option>
+            <option value="{{ year.year }}">{{ year.year }}</option>
 
 
             {% endfor %}
     </select>
+        <select name="season">
+            <option value="1">Select Season</option>
+            {% for season in seasonlist %}
+
+            <option value="{{ season.season }}">{{ season.season }}</option>
+
+
+            {% endfor %}
+    </select>
+
         <input type="submit" value="Select">
     </form>
 </div>
@@ -101,7 +119,7 @@ var xAxis = d3.svg.axis()
 var yAxis = d3.svg.axis()
     .scale(y)
     .orient("left")
-    .tickFormat(d3.format(".2s"));
+    .tickFormat(d3.format("d"));
 
 var svg = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -130,7 +148,7 @@ svg.append("g")
       .attr("transform", "rotate(-90)")
       .attr("y", 10)
       .attr("dy", ".71em")
-      .style("text-anchor", "end")
+      .style("text-anchor", "end");
 
 var state = svg.selectAll(".state")
       .data(data)
@@ -154,16 +172,17 @@ var legend = svg.selectAll(".legend")
       .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
 
 legend.append("rect")
-      .attr("x", width - 18)
+      .attr("x", width + 12)
       .attr("width", 18)
       .attr("height", 18)
       .style("fill", color);
 
 legend.append("text")
-      .attr("x", width - 24)
+      .attr("x", width + 12 )
       .attr("y", 9)
       .attr("dy", ".35em")
       .style("text-anchor", "end")
+      .style("font-size", "12px")
       .text(function(d) { return d; });
 
 

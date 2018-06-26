@@ -25,12 +25,12 @@ from requests import get
 nlp = en_core_web_sm.load()
 
 
-sample_news_heading = "Accident happened"
-sample_news_story = """In Thamel, A woman died after being hit by a bus on Monday.
-    The victim has been identified as Goshan Mikrani Begham (49) of Sarlahi.
-    Critically injured in the incident, she was rushed to the Bansbari-based Neuro Hospital where she breathed her last during the course of treatment, police said.
-    The incident took place at around 7 am yesterday.
-    Police said that they have impounded the vehicle Ba 2 Kha 7085 and Ko 2 Pa 7086 and arrested its driver for investigation."""
+# sample_news_heading = "Accident happened"
+# sample_news_story = """In Thamel, A woman died after being hit by a bus on Monday.
+#     The victim has been identified as Goshan Mikrani Begham (49) of Sarlahi.
+#     Critically injured in the incident, she was rushed to the Bansbari-based Neuro Hospital where she breathed her last during the course of treatment, police said.
+#     The incident took place at around 7 am yesterday.
+#     Police said that they have impounded the vehicle Ba 2 Kha 7085 and Ko 2 Pa 7086 and arrested its driver for investigation."""
 
 def extract_info(news_story):
     news = Tokenize(news_story)
@@ -86,15 +86,20 @@ rss = feedparser.parse(url_link)
 for post in rss.entries:
     links.append(post.link)
     title.append(post.title_detail.value)
-print(len(links))
 oldlinks = rssdata.objects.values_list('link', flat=True)
+print oldlinks
 for i in range(0, len(links)):
     if links[i] not in oldlinks:
+        print links[i]
         response = get(links[i])
         extractor = Goose()
         article = extractor.extract(raw_html=response.content)
         texts = article.cleaned_text
         news_story = texts.encode('utf-8')
+        # print i
+        a = re.search(r'[A-Z]\w+\s\d+[,.]\s\d+', news_story)
+        num = a.start()
+        news_story = news_story[num:]
         news = Tokenize(news_story)
         #news.get_date()
         date,day,month,year,news_story = news.get_date(news_story)
@@ -110,10 +115,9 @@ for i in range(0, len(links)):
         vehicle_information = VehicleInformation(news_story)
         vehicle_information.make_gazetter()
         all_vehicles, two_wheeler, three_wheeler, four_wheeler = vehicle_information.find_vehicles()
-        vehicles = ""
+        vehicles = []
         for vehicle in all_vehicles:
-            vehicles = vehicles + " "+ vehicle
-        vehicles = vehicles[1:]
+            vehicles.append(vehicle)
         vehicle_type = []
         if two_wheeler is 1:
             vehicle_type.append("two wheeler")
@@ -121,24 +125,34 @@ for i in range(0, len(links)):
             vehicle_type.append("three wheeler")
         if four_wheeler is 1:
             vehicle_type.append("four wheeler")
-
         vehicle_involved = data_extractor.vehicle_involved()
+        for x in range(0,len(vehicles)):
+            if x<1:
+                vehicle0 = vehicles[0]
+                vehicle1 = '[]'
+            if x>0:
+                vehicle0 = vehicles[0]
+                vehicle1 = vehicles[1]
         record = rssdata(header=title[i],
                          source = "Kathmandu Post",
                          body=news_story.replace("\n", ""),
                          death=data_extractor.deaths(nltk.sent_tokenize(news_story)),
-                         date = date,
                          link = links[i],
                          injury_no= data_extractor.injury_number(),
                          death_no = data_extractor.death_number(),
-                         vehicle_involved = vehicle_involved,
+                         vehicleone = vehicle0,
+                         vehicletwo = vehicle1,
                          injury = data_extractor.injury(nltk.sent_tokenize(news_story)),
+                         vehicle_type=vehicle_type,
+                         vehicle_no=data_extractor.vehicle(),
+                         day=data_extractor.day(news_story),
+                        date= date,
+                        month = month,
+                        year = year,
+                         season = data_extractor.get_season(month),
+
                          )
         record.save()
-        vehicle_info = Vehicledetail(vehicle_type=vehicle_type, vehicle_no=data_extractor.vehicle(), post=record)
-        vehicle_info.save()
-        date_info = Datedetail(day=data_extractor.day(news_story),month = month,season= data_extractor.get_season(month),year=year, post=record)
-        date_info.save()
         news_id = record.id
         save_record_by_id(news_id)
 
