@@ -23,6 +23,48 @@ from django.http import JsonResponse
 import requests
 import geocoder
 
+def locationcheck(locationlist):
+    ktm_location = LocationInformation().all_ktm_locations()
+    bkt_location = LocationInformation().all_bkt_locations()
+    ltp_location = LocationInformation().all_ltp_locations()
+    outside_location = LocationInformation().all_locations()
+    ktm_death = 0
+    ktm_count = 0
+    ktm_injury = 0
+    ltp_death = 0
+    ltp_count = 0
+    ltp_injury = 0
+    bkt_death = 0
+    bkt_count = 0
+    bkt_injury = 0
+    maplocations = []
+    locations = []
+    for location in locationlist:
+        if len(location['location']) > 2:
+            locations.append(
+                {'location': location['location'].capitalize(), 'death': location['death'],
+                 'injury': location['injury']})
+            if location['location'] in ktm_location:
+                ktm_death += location['death']
+                ktm_injury += location['injury']
+                ktm_count += location['count']
+                maplocations.append({'location': 'Kathmandu', 'injury': ktm_injury, 'value': ktm_death, 'count': ktm_count})
+            elif location['location'] in ltp_location:
+                ltp_death += location['death']
+                ltp_injury += location['injury']
+                ltp_count += location['count']
+                maplocations.append({'location': 'Lalitpur', 'injury': ltp_injury, 'value': ltp_death, 'count': ltp_count})
+            elif location['location'] in bkt_location:
+                bkt_death += location['death']
+                bkt_injury += location['injury']
+                bkt_count += location['count']
+                maplocations.append({'location': 'Bhaktapur', 'injury': bkt_injury, 'value': bkt_death, 'count': bkt_count})
+            elif location['location'] in outside_location:
+                maplocations.append({'location': location['location'].capitalize(), 'value': location['death'],
+                             'injury': location['injury'], 'count': location['count']})
+            else:
+                pass
+    return (locations ,maplocations)
 
 def index(request):
     location = rssdata.objects.values_list('location', flat=True)
@@ -101,7 +143,6 @@ def districts(request):
         else:
             pass
 
-    print ("data : " + str(data))
 
     context = {
         'newdata': json.dumps(data),
@@ -118,15 +159,13 @@ def check(request):
 
 def location(request):
     yearlist = rssdata.objects.values('year').order_by('year').annotate(count=Count('year'))
-    locationlist = rssdata.objects.values('vehicleone','location','vehicletwo', 'year').order_by('location').annotate(
+    locationlist = rssdata.objects.values('location').order_by('location').annotate(
         count=Count('location')).annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no'))
     vehiclelist = rssdata.objects.values('vehicleone').order_by('vehicleone').annotate(count=Count('vehicleone'))
     vehiclelisttwo = rssdata.objects.values('vehicletwo').order_by('vehicletwo').annotate(count=Count('vehicletwo'))
     seasonlist = rssdata.objects.values('season').order_by('season').annotate(count=Count('season'))
     totalno = rssdata.objects.values('location').aggregate(total=Count('location'))
     vehicledata = []
-    locations = []
-
     # assigning vehicle for select tag
     for data in vehiclelist:
         if len(data['vehicleone']) > 2:
@@ -144,29 +183,25 @@ def location(request):
         seasoninfo = request.POST.get('season', None)
 
         if vehicleinfo == '1' and yearinfo == '1' and seasoninfo == '1':
-            for data in locationlist:
-                if len(data['location']) > 2:
-                    locationdata.append(
-                        {'location': data['location'].capitalize(), 'death': data['death'], 'injury': data['injury']})
+            locations,maplocations = locationcheck(locationlist)
+
             context = {
-                'location_data': json.dumps(locationdata),
+                'location_data': json.dumps(locations),
                 'totalno': totalno,
                 'vehiclelist': vehicledata,
                 'yearlist': yearlist,
                 'seasonlist': seasonlist,
+                'newdata': json.dumps(maplocations),
             }
             return render(request, "location.html", context)
 
         elif vehicleinfo != '1' and yearinfo == '1' and seasoninfo =='1':
-            locationdataone = rssdata.objects.values('location').filter(vehicleone=vehicleinfo).order_by('location').annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no'))
-            locationdatatwo = rssdata.objects.values('location').filter(vehicletwo=vehicleinfo).order_by('location').annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no'))
+            locationdataone = rssdata.objects.values('location').filter(vehicleone=vehicleinfo).order_by('location').annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no')).annotate(count=Count('location'))
+            locationdatatwo = rssdata.objects.values('location').filter(vehicletwo=vehicleinfo).order_by('location').annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no')).annotate(count=Count('location'))
 
             locationdata = list(locationdataone | locationdatatwo)
 
-            for location in locationdata:
-                if len(location['location'])>2:
-                    locations.append({'location': location['location'].capitalize(), 'death': location['death'], 'injury': location['injury']})
-
+            locations,maplocations = locationcheck(locationdata)
             info = "by " + vehicleinfo
             context = {
                 'location_data': json.dumps(locations),
@@ -174,17 +209,17 @@ def location(request):
                 'vehiclelist': vehicledata,
                 'yearlist': yearlist,
                 'seasonlist': seasonlist,
+                'newdata': json.dumps(maplocations),
                 'info': info,
             }
+
 
             return render(request, "location.html", context)
 
         elif vehicleinfo == '1' and yearinfo != '1' and seasoninfo == '1':
-            locationdata = list(rssdata.objects.values('location').filter(year=yearinfo).annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no')))
+            locationdata = list(rssdata.objects.values('location').filter(year=yearinfo).annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no')).annotate(count=Count('location')))
 
-            for location in locationdata:
-                if len(location['location'])>2:
-                    locations.append({'location': location['location'].capitalize(), 'death': location['death'], 'injury': location['injury']})
+            locations,maplocations = locationcheck(locationdata)
             info = "in " + yearinfo
             context = {
                 'location_data': json.dumps(locations),
@@ -192,16 +227,17 @@ def location(request):
                 'vehiclelist': vehicledata,
                 'yearlist': yearlist,
                 'seasonlist': seasonlist,
+                'newdata': json.dumps(maplocations),
                 'info': info,
             }
+
             return render(request, "location.html", context)
 
         elif vehicleinfo == '1' and yearinfo == '1' and seasoninfo != '1':
-            locationdata = list(rssdata.objects.values('location').filter(season=seasoninfo).annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no')))
+            locationdata = list(rssdata.objects.values('location').filter(season=seasoninfo).annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no')).annotate(count=Count('location')))
 
-            for location in locationdata:
-                if len(location['location'])>2:
-                    locations.append({'location': location['location'].capitalize(), 'death': location['death'], 'injury': location['injury']})
+            locations,maplocations = locationcheck(locationdata)
+
             info = "during " + seasoninfo
 
             context = {
@@ -210,19 +246,19 @@ def location(request):
                 'vehiclelist': vehicledata,
                 'yearlist': yearlist,
                 'seasonlist': seasonlist,
+                'newdata': json.dumps(maplocations),
                 'info': info,
             }
             return render(request, "location.html", context)
 
         elif vehicleinfo != '1' and yearinfo != '1' and seasoninfo == '1':
-            locationdataone = rssdata.objects.values('location').filter(vehicleone=vehicleinfo).filter(year=yearinfo).order_by('location').annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no'))
-            locationdatatwo = rssdata.objects.values('location').filter(vehicletwo=vehicleinfo).filter(year=yearinfo).order_by('location').annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no'))
+            locationdataone = rssdata.objects.values('location').filter(vehicleone=vehicleinfo).filter(year=yearinfo).order_by('location').annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no')).annotate(count=Count('location'))
+            locationdatatwo = rssdata.objects.values('location').filter(vehicletwo=vehicleinfo).filter(year=yearinfo).order_by('location').annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no')).annotate(count=Count('location'))
 
             locationdata = list(locationdataone | locationdatatwo)
 
-            for location in locationdata:
-                if len(location['location'])>2:
-                    locations.append({'location': location['location'].capitalize(), 'death': location['death'], 'injury': location['injury']})
+            locations, maplocations = locationcheck(locationdata)
+
 
             info = "by " + vehicleinfo + " in " + yearinfo
 
@@ -233,19 +269,18 @@ def location(request):
                 'yearlist': yearlist,
                 'seasonlist': seasonlist,
                 'info': info,
+                'newdata': json.dumps(maplocations),
             }
 
             return render(request, "location.html", context)
 
         elif vehicleinfo != '1' and yearinfo == '1' and seasoninfo != '1':
-            locationdataone = rssdata.objects.values('location').filter(vehicleone=vehicleinfo).filter(season=seasoninfo).order_by('location').annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no'))
-            locationdatatwo = rssdata.objects.values('location').filter(vehicletwo=vehicleinfo).filter(season=seasoninfo).order_by('location').annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no'))
+            locationdataone = rssdata.objects.values('location').filter(vehicleone=vehicleinfo).filter(season=seasoninfo).order_by('location').annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no')).annotate(count=Count('location'))
+            locationdatatwo = rssdata.objects.values('location').filter(vehicletwo=vehicleinfo).filter(season=seasoninfo).order_by('location').annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no')).annotate(count=Count('location'))
 
             locationdata = list(locationdataone | locationdatatwo)
 
-            for location in locationdata:
-                if len(location['location'])>2:
-                    locations.append({'location': location['location'].capitalize(), 'death': location['death'], 'injury': location['injury']})
+            locations, maplocations = locationcheck(locationdata)
 
             info = "by " + vehicleinfo + " during " + seasoninfo
 
@@ -255,17 +290,16 @@ def location(request):
                 'vehiclelist': vehicledata,
                 'yearlist': yearlist,
                 'seasonlist': seasonlist,
-                'info' : info
+                'info': info,
+                'newdata': json.dumps(maplocations),
             }
 
             return render(request, "location.html", context)
 
         elif vehicleinfo == '1' and yearinfo != '1' and seasoninfo != '1':
-            locationdata = list(rssdata.objects.values('location').filter(season=seasoninfo).filter(year=yearinfo).annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no')))
+            locationdata = list(rssdata.objects.values('location').filter(season=seasoninfo).filter(year=yearinfo).annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no')).annotate(count=Count('location')))
 
-            for location in locationdata:
-                if len(location['location'])>2:
-                    locations.append({'location': location['location'].capitalize(), 'death': location['death'], 'injury': location['injury']})
+            locations, maplocations = locationcheck(locationdata)
 
             info = "in " + yearinfo + " during " + seasoninfo
 
@@ -276,18 +310,17 @@ def location(request):
                 'yearlist': yearlist,
                 'seasonlist': seasonlist,
                 'info': info,
+                'newdata': json.dumps(maplocations)
             }
             return render(request, "location.html", context)
 
         elif vehicleinfo != '1' and yearinfo != '1' and seasoninfo != '1':
-            locationdataone = rssdata.objects.values('location').filter(vehicleone=vehicleinfo).filter(season=seasoninfo).filter(year=yearinfo).order_by('location').annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no'))
-            locationdatatwo = rssdata.objects.values('location').filter(vehicletwo=vehicleinfo).filter(season=seasoninfo).filter(year=yearinfo).order_by('location').annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no'))
+            locationdataone = rssdata.objects.values('location').filter(vehicleone=vehicleinfo).filter(season=seasoninfo).filter(year=yearinfo).order_by('location').annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no')).annotate(count=Count('location'))
+            locationdatatwo = rssdata.objects.values('location').filter(vehicletwo=vehicleinfo).filter(season=seasoninfo).filter(year=yearinfo).order_by('location').annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no')).annotate(count=Count('location'))
 
             locationdata = list(locationdataone | locationdatatwo)
 
-            for location in locationdata:
-                if len(location['location'])>2:
-                    locations.append({'location': location['location'].capitalize(), 'death': location['death'], 'injury': location['injury']})
+            locations, maplocations = locationcheck(locationdata)
 
             info = "by " + vehicleinfo + " in " + yearinfo + " during " + seasoninfo
 
@@ -298,23 +331,20 @@ def location(request):
                 'yearlist': yearlist,
                 'seasonlist': seasonlist,
                 'info' : info,
+                'newdata': json.dumps(maplocations),
             }
 
             return render(request, "location.html", context)
 
 
-    for data in locationlist:
-        if len(data['location']) > 2:
-            locations.append(
-                {'location': data['location'].capitalize(), 'death': data['death'], 'injury': data['injury']})
-
-
+    locations, maplocations = locationcheck(locationlist)
     context = {
         'location_data': json.dumps(locations),
         'totalno': totalno,
         'vehiclelist': vehicledata,
         'yearlist': yearlist,
         'seasonlist': seasonlist,
+        'newdata': json.dumps(maplocations),
     }
     return render(request, "location.html", context)
 

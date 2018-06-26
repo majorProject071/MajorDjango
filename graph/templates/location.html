@@ -46,6 +46,7 @@ margin-bottom: 3%;
 font-size: 14px;
 }
 
+
 </style>
 <body>
 <h2>Accidents {{ info }} in Places of Nepal </h2>
@@ -76,7 +77,7 @@ font-size: 14px;
 
 
             {% endfor %}
-    </select>
+        </select>
         <select name="season">
             <option value="1">Select Season</option>
             {% for season in seasonlist %}
@@ -85,22 +86,22 @@ font-size: 14px;
 
 
             {% endfor %}
-    </select>
+        </select>
 
         <input type="submit" value="Select">
     </form>
 </div>
 
-<script type="text/javascript">
+<div class="locationvizualization">
+    <script type="text/javascript">
 
 var total = {{ totalno.total }}
 
 var data = {{ location_data|safe }}
 
 var margin = {top: 20, right: 20, bottom: 30, left: 250},
-    width = 600,
+    width = 300 + total*50,
     height = 400;
-    console.log(width)
 var x0 = d3.scale.ordinal()
     .rangeRoundBands([2, width], .1);
 
@@ -187,11 +188,92 @@ legend.append("text")
 
 
 
-</script>
+
+    </script>
+</div>
+ <div id="map"></div>
+		<div id="tooltip" class="hidden">
+	<p><span id="value"></span></p>
+</div>
+  <script type ="text/javascript">
+      var width = 900, height = 500;
+var divNode = d3.select('#map').node();
+var projection = d3.geo.mercator()
+								.scale(5300)
+								.translate([width / 2, height / 2])
+								.center([83.985593872070313, 28.465876770019531]);
+var path = d3.geo.path().projection(projection);
+var svg = d3.select("#map").append("svg").attr("width", width).attr("height", height);
+d3.json("https://raw.githubusercontent.com/aayushrijal/Nepal-district-topojson/master/nepal-districts.topojson", function(error, ok) {
+	var counties = topojson.feature(ok, ok.objects.districts);
+	console.log("inher")
+    var data = {{ newdata|safe }};
+    console.log(data)
+    console.log(data)
+        var valueById = {};
+        var districtById = {};
+        var countById = {};
+        var injuryById = {};
+        data.forEach(function(d){
+            valueById[d.location] = d.value;
+            districtById[d.location] = d.location;
+            countById[d.location] = d.count;
+            injuryById[d.location] = d.injury;
+            console.log(d.value)
+            console.log(d.count)
+    	svg.append("g")
+            .attr("class", "country")
+            .selectAll("path")
+            .data(counties.features)
+            .enter()
+            .append("path")
+            .attr("d", path)
+            .on("mouseover", function(d) {
+            if(valueById[d.properties.DISTRICT]){
+                 d3.select(this.parentNode).append("text")
+              .attr("x", "250") // margin
+              .attr("y", "450") // vertical-align
+              .attr("class", "mylabel")//adding a label class
+              .text(function() {
+                var data = "District:"+districtById[d.properties.DISTRICT]+ ".";
+                var stats = "Death:"+ "" +valueById[d.properties.DISTRICT]+"\n"+"Injury:"+ "" +injuryById[d.properties.DISTRICT];
+                datas = data + stats
+                return (datas);
+              }
+              );
+//                console.log(valueById[d.properties.DISTRICT])
+//                console.log(districtById[d.properties.DISTRICT])
+	        }})
+	        .on("mouseout",function() {
+            d3.selectAll(".mylabel").remove()
+          })
+            .style("fill", function(d) {
+                if(countById[d.properties.DISTRICT]>=5){
+                    return "red";
+                    // return color(valueById[d.properties.DISTRICT]);
+                }
+                else if(countById[d.properties.DISTRICT]>2 && countById[d.properties.DISTRICT]<5){
+                    return "yellow";
+                }
+                else if(countById[d.properties.DISTRICT]<=2){
+                    return "blue";
+                }
+    		return "#ccc";
+    	});
+    	//county borders
+    	svg.append("path").datum(topojson.mesh(ok, ok.objects.districts, function(a, b) {
+    		return a !== b;
+    	})).attr("class", "county-border").attr("d", path);
+    });
+
+});
+
+  </script>
+
 
 </body>
 
 {% for vehicle in vehiclelist %}
-    {{ vehicle.vehicle_involved }}
+{{ vehicle.vehicle_involved }}
 {% endfor %}
 {% endblock content %}

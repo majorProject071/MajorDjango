@@ -73,8 +73,7 @@ var svg = d3.select("#map").append("svg").attr("width", width).attr("height", he
 d3.json("https://raw.githubusercontent.com/aayushrijal/Nepal-district-topojson/master/nepal-districts.topojson", function(error, ok) {
 	var counties = topojson.feature(ok, ok.objects.districts);
     var data = {{ newdata|safe }};
-////    d3.csv("https://raw.githubusercontent.com/aayushrijal/Nepal-district-topojson/master/district.csv",function(data){
-//        console.log(data)
+    console.log(data)
         var valueById = {};
         var districtById = {};
         var countById = {};
