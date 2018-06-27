@@ -70,7 +70,6 @@ def districts(request):
             bkt_death += location['value']
             data.append({'location': 'Kathmandu', 'value': bkt_death})
         elif location['location'] in outside_location:
-            print location['location'].capitalize()
             data.append({'location':location['location'].capitalize(), 'value': location['value']})
         else:
             pass
