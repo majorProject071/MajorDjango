@@ -20,13 +20,15 @@ two_wheeler = set([
 
 four_wheeler = set([
 'bus','car','truck','tripper','zeep','jeep','container','SUV','tractor','moped','lorry',
-'minivan','minibus','trolley','four-wheeler','four wheeler'
+'minivan','minibus','trolley','four-wheeler','four wheeler',
 ])
 
 scooty = ['scooty','scooter']
 bike = ['bike','motorbike','motorcycle']
 zeep = ['jeep','zeep']
 matcher = Matcher(nlp.vocab)
+
+
 class VehicleInformation:
     def __init__(self,news_story):
         self.news_story = news_story
@@ -34,11 +36,11 @@ class VehicleInformation:
 
     def make_gazetter(self):
         for vehicle in vehicles:
-            matcher.add("Vehicles", [{LEMMA:vehicle}])
-        matcher.add("Vehicles", [{LEMMA:'two'},{IS_PUNCT:True},{LEMMA:'wheeler'}])
-        matcher.add("Vehicles", [{LEMMA:'two'},{LEMMA:'wheeler'}])
-        matcher.add("Vehicles", [{LEMMA:'four'},{IS_PUNCT:True},{LEMMA:'wheeler'}])
-        matcher.add("Vehicles", [{LEMMA:'four'},{LEMMA:'wheeler'}])
+            matcher.add_pattern("Vehicles", [{LEMMA:vehicle}])
+        matcher.add_pattern("Vehicles", [{LEMMA:'two'},{IS_PUNCT:True},{LEMMA:'wheeler'}])
+        matcher.add_pattern("Vehicles", [{LEMMA:'two'},{LEMMA:'wheeler'}])
+        matcher.add_pattern("Vehicles", [{LEMMA:'four'},{IS_PUNCT:True},{LEMMA:'wheeler'}])
+        matcher.add_pattern("Vehicles", [{LEMMA:'four'},{LEMMA:'wheeler'}])
 
     def find_vehicles(self):
         vehicles_found = set()

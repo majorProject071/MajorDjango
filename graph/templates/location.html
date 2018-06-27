@@ -1,0 +1,279 @@
+{% extends "base.html" %}
+{% block title %} News Information Extraciton {% endblock title %}
+
+{% block nav_index_home %} class="nav-link active btn-primary" {% endblock nav_index_home%}
+
+{% block content %}
+
+<style>
+
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.bar {
+  fill: steelblue;
+}
+
+.x.axis path {
+  display: none;
+}
+.title-text{
+font-size:24px;
+font-weight: 600;
+padding: 3% 20%;
+}
+.search{
+width:30%;
+margin-left: 20%;
+}
+h2{
+margin-left:15%;
+font-size:24px;
+margin-bottom: 2%;
+margin-top: 2%;
+}
+.select{
+margin-left:15%;
+margin-bottom: 3%;
+font-size: 14px;
+}
+
+
+</style>
+<body>
+<h2>Accidents {{ info }} in Places of Nepal </h2>
+<!--<div class="search">-->
+<!--<form class="form-inline" action="" method="post">-->
+<!--{% csrf_token %}-->
+<!--<input class="form-control mr-sm-2" name="query" type="text" placeholder="Search" required="required" >-->
+<!--<button class="btn btn-primary" type="submit">Search</button>-->
+<!--</form>-->
+<!--</div>-->
+<div class="select">
+    <form action="" method="post">
+        {% csrf_token %}
+        <select name="vehicle">
+            <option value="1">Select Vehicle</option>
+            {% for vehicle in vehiclelist %}
+
+            <option value="{{ vehicle }}">{{ vehicle }}</option>
+
+
+            {% endfor %}
+        </select>
+        <select name="year">
+            <option value="1">Select Year</option>
+            {% for year in yearlist %}
+
+            <option value="{{ year.year }}">{{ year.year }}</option>
+
+
+            {% endfor %}
+        </select>
+        <select name="season">
+            <option value="1">Select Season</option>
+            {% for season in seasonlist %}
+
+            <option value="{{ season.season }}">{{ season.season }}</option>
+
+
+            {% endfor %}
+        </select>
+
+        <input type="submit" value="Select">
+    </form>
+</div>
+
+<div class="locationvizualization">
+    <script type="text/javascript">
+
+var total = {{ totalno.total }}
+
+var data = {{ location_data|safe }}
+
+var margin = {top: 20, right: 20, bottom: 30, left: 250},
+    width = 300 + total*50,
+    height = 400;
+var x0 = d3.scale.ordinal()
+    .rangeRoundBands([2, width], .1);
+
+var x1 = d3.scale.ordinal();
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var color = d3.scale.ordinal()
+    .range([ "#98abc5","red"]);
+
+var xAxis = d3.svg.axis()
+    .scale(x0)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left")
+    .tickFormat(d3.format("d"));
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+var ageNames = d3.keys(data[0]).filter(function(key) { return key !== "location"; });
+
+data.forEach(function(d) {
+    d.ages = ageNames.map(function(name) { return {name: name, value: +d[name]}; });
+  });
+
+x0.domain(data.map(function(d) { return d.location; }));
+x1.domain(ageNames).rangeRoundBands([0, x0.rangeBand()]);
+y.domain([0, d3.max(data, function(d) { return d3.max(d.ages, function(d) { return d.value; }); })]);
+
+svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+      .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 10)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end");
+
+var state = svg.selectAll(".state")
+      .data(data)
+      .enter().append("g")
+      .attr("class", "state")
+      .attr("transform", function(d) { return "translate(" + x0(d.location) + ",0)"; });
+
+state.selectAll("rect")
+      .data(function(d) { return d.ages; })
+      .enter().append("rect")
+      .attr("width", x1.rangeBand())
+      .attr("x", function(d) { return x1(d.name); })
+      .attr("y", function(d) { return y(d.value); })
+      .attr("height", function(d) { return height - y(d.value); })
+      .style("fill", function(d) { return color(d.name); });
+
+var legend = svg.selectAll(".legend")
+      .data(ageNames.slice().reverse())
+      .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+legend.append("rect")
+      .attr("x", width + 12)
+      .attr("width", 18)
+      .attr("height", 18)
+      .style("fill", color);
+
+legend.append("text")
+      .attr("x", width + 12 )
+      .attr("y", 9)
+      .attr("dy", ".35em")
+      .style("text-anchor", "end")
+      .style("font-size", "12px")
+      .text(function(d) { return d; });
+
+
+
+
+    </script>
+</div>
+ <div id="map"></div>
+		<div id="tooltip" class="hidden">
+	<p><span id="value"></span></p>
+</div>
+  <script type ="text/javascript">
+      var width = 900, height = 500;
+var divNode = d3.select('#map').node();
+var projection = d3.geo.mercator()
+								.scale(5300)
+								.translate([width / 2, height / 2])
+								.center([83.985593872070313, 28.465876770019531]);
+var path = d3.geo.path().projection(projection);
+var svg = d3.select("#map").append("svg").attr("width", width).attr("height", height);
+d3.json("https://raw.githubusercontent.com/aayushrijal/Nepal-district-topojson/master/nepal-districts.topojson", function(error, ok) {
+	var counties = topojson.feature(ok, ok.objects.districts);
+	console.log("inher")
+    var data = {{ newdata|safe }};
+    console.log(data)
+    console.log(data)
+        var valueById = {};
+        var districtById = {};
+        var countById = {};
+        var injuryById = {};
+        data.forEach(function(d){
+            valueById[d.location] = d.value;
+            districtById[d.location] = d.location;
+            countById[d.location] = d.count;
+            injuryById[d.location] = d.injury;
+            console.log(d.value)
+            console.log(d.count)
+    	svg.append("g")
+            .attr("class", "country")
+            .selectAll("path")
+            .data(counties.features)
+            .enter()
+            .append("path")
+            .attr("d", path)
+            .on("mouseover", function(d) {
+            if(valueById[d.properties.DISTRICT]){
+                 d3.select(this.parentNode).append("text")
+              .attr("x", "250") // margin
+              .attr("y", "450") // vertical-align
+              .attr("class", "mylabel")//adding a label class
+              .text(function() {
+                var data = "District:"+districtById[d.properties.DISTRICT]+ ".";
+                var stats = "Death:"+ "" +valueById[d.properties.DISTRICT]+"\n"+"Injury:"+ "" +injuryById[d.properties.DISTRICT];
+                datas = data + stats
+                return (datas);
+              }
+              );
+//                console.log(valueById[d.properties.DISTRICT])
+//                console.log(districtById[d.properties.DISTRICT])
+	        }})
+	        .on("mouseout",function() {
+            d3.selectAll(".mylabel").remove()
+          })
+            .style("fill", function(d) {
+                if(countById[d.properties.DISTRICT]>=5){
+                    return "red";
+                    // return color(valueById[d.properties.DISTRICT]);
+                }
+                else if(countById[d.properties.DISTRICT]>2 && countById[d.properties.DISTRICT]<5){
+                    return "yellow";
+                }
+                else if(countById[d.properties.DISTRICT]<=2){
+                    return "blue";
+                }
+    		return "#ccc";
+    	});
+    	//county borders
+    	svg.append("path").datum(topojson.mesh(ok, ok.objects.districts, function(a, b) {
+    		return a !== b;
+    	})).attr("class", "county-border").attr("d", path);
+    });
+
+});
+
+  </script>
+
+
+</body>
+
+{% for vehicle in vehiclelist %}
+{{ vehicle.vehicle_involved }}
+{% endfor %}
+{% endblock content %}

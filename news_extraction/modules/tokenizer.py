@@ -29,10 +29,14 @@ class Tokenize:
         words = [nltk.word_tokenize(sent) for sent in sentences]
         return words
 ###################  GETTING THE DATE FROM THE NEWS ##################
-    def get_date(self):
+    def get_date(self,complete_news):
         splited_sentences = self.split_story()
         date_regex = r"([a-zA-Z]+)\s(\d{1,2})\W{1,2}(\d{4})(\-)"
         contains_date = splited_sentences[0]
+        dates = re.findall(r'[A-Z]\w+\s\d+[,.]\s\d+', complete_news)
+        for date in dates:
+            newdates = date
+
         if contains_date[0] == '\n':
             contains_date = contains_date[1:]
         matches = re.search(date_regex, contains_date)
@@ -44,7 +48,7 @@ class Tokenize:
             start,end = match.span()
 
 
-        self.paragraph = self.paragraph[end+1:]
+        self.paragraph = self.paragraph[end:]
 
-        return(day,month,year,self.paragraph)
+        return(newdates,day,month,year,self.paragraph)
 ####################### MODULE FOR FINDING DATE FINISHED HERE #############

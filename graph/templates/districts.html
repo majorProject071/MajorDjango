@@ -1,51 +1,90 @@
+{% extends "base.html" %}
+{% block title %} News Information Extraciton {% endblock title %}
+
+{% block nav_index_home %} class="nav-link active btn-primary" {% endblock nav_index_home%}
+
+{% block content %}
 {% load static %}
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Map of Proposed Nepalese Federal States</title>
-    <script type="text/javascript"  src="{% static 'js/graph/d3.min.js' %}"></script>
-    <script type="text/javascript"  src="{% static 'js/graph/topojson.v1.min.js' %}"></script>
-    <link href="{% static 'css/districts.css' %}" media="screen" rel="stylesheet" type="text/css">
-  </head>
 
- <body>
+<style>
+    table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    margin-left: 15%;
+    text-align: center;
+}
+table{
+float: right;
+margin-right: 20%;}
+.selectmap{
+margin-left:15%;
+margin-bottom: 3%;
+}
+h2{
+margin-left:15%;
+font-size:24px;
+margin-bottom: 2%;
+}
+</style>
+ <div class="selectmap">
+    <a href=""><button>Districts of Nepal</button></a>
+     <a href="{% url 'graph:index' %}"><button>Kathmandu Valley</button></a>
+</div>
 
- <h1>Death number by districts</h1>
+
+<h2>Accident Stats in Districts of Nepal</h2>
+ <table>
+     <tr>
+         <th>color</th>
+         <th>color</th>
+         <th>color</th>
+
+     </tr>
+     <tr>
+         <td>red</td>
+         <td style="background:red"></td>
+         <td>high accident alert area</td>
+     </tr>
+     <tr>
+         <td>yellow</td>
+         <td style="background:yellow"></td>
+         <td>medium accident alert area</td>
+     </tr>
+     <tr>
+         <td>blue</td>
+         <td style="background:blue"></td>
+         <td>low accident alert area</td>
+     </tr>
+ </table>
  <div id="map"></div>
 		<div id="tooltip" class="hidden">
 	<p><span id="value"></span></p>
 </div>
   <script type ="text/javascript">
       //choropleth
-
 var width = 900, height = 500;
-
 var divNode = d3.select('#map').node();
-
 var projection = d3.geo.mercator()
 								.scale(5300)
 								.translate([width / 2, height / 2])
 								.center([83.985593872070313, 28.465876770019531]);
-
 var path = d3.geo.path().projection(projection);
-
 var svg = d3.select("#map").append("svg").attr("width", width).attr("height", height);
-
-
-
 d3.json("https://raw.githubusercontent.com/aayushrijal/Nepal-district-topojson/master/nepal-districts.topojson", function(error, ok) {
 	var counties = topojson.feature(ok, ok.objects.districts);
-
     var data = {{ newdata|safe }};
-
-////    d3.csv("https://raw.githubusercontent.com/aayushrijal/Nepal-district-topojson/master/district.csv",function(data){
-//        console.log(data)
+    console.log(data)
         var valueById = {};
         var districtById = {};
-
+        var countById = {};
+        var injuryById = {};
         data.forEach(function(d){
             valueById[d.location] = d.value;
             districtById[d.location] = d.location;
+            countById[d.location] = d.count;
+            injuryById[d.location] = d.injury;
+            console.log(d.value)
+            console.log(d.count)
     	svg.append("g")
             .attr("class", "country")
             .selectAll("path")
@@ -53,19 +92,17 @@ d3.json("https://raw.githubusercontent.com/aayushrijal/Nepal-district-topojson/m
             .enter()
             .append("path")
             .attr("d", path)
-
             .on("mouseover", function(d) {
             if(valueById[d.properties.DISTRICT]){
                  d3.select(this.parentNode).append("text")
-
-
-              .attr("x", "300") // margin
+              .attr("x", "250") // margin
               .attr("y", "450") // vertical-align
               .attr("class", "mylabel")//adding a label class
               .text(function() {
-                var data = "District:"+districtById[d.properties.DISTRICT]+ "."+"\n"+"Death:"+ "" +valueById[d.properties.DISTRICT];
-                return (data);
-
+                var data = "District:"+districtById[d.properties.DISTRICT]+ ".";
+                var stats = "Death:"+ "" +valueById[d.properties.DISTRICT]+"\n"+"Injury:"+ "" +injuryById[d.properties.DISTRICT];
+                datas = data + stats
+                return (datas);
               }
               );
 //                console.log(valueById[d.properties.DISTRICT])
@@ -74,28 +111,24 @@ d3.json("https://raw.githubusercontent.com/aayushrijal/Nepal-district-topojson/m
 	        .on("mouseout",function() {
             d3.selectAll(".mylabel").remove()
           })
-
             .style("fill", function(d) {
-                if(valueById[d.properties.DISTRICT]){
+                if(countById[d.properties.DISTRICT]>=5){
                     return "red";
                     // return color(valueById[d.properties.DISTRICT]);
                 }
+                else if(countById[d.properties.DISTRICT]>2 && countById[d.properties.DISTRICT]<5){
+                    return "yellow";
+                }
+                else if(countById[d.properties.DISTRICT]<=2){
+                    return "blue";
+                }
     		return "#ccc";
-
     	});
-
-
-
     	//county borders
     	svg.append("path").datum(topojson.mesh(ok, ok.objects.districts, function(a, b) {
     		return a !== b;
     	})).attr("class", "county-border").attr("d", path);
-
     });
-
 });
-
   </script>
-
- </body>
-</html>
+{% endblock content %}
