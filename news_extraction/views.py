@@ -88,6 +88,7 @@ for post in rss.entries:
     title.append(post.title_detail.value)
 oldlinks = rssdata.objects.values_list('link', flat=True)
 print oldlinks
+
 for i in range(0, len(links)):
     if links[i] not in oldlinks:
         print links[i]
@@ -126,13 +127,18 @@ for i in range(0, len(links)):
         if four_wheeler is 1:
             vehicle_type.append("four wheeler")
         vehicle_involved = data_extractor.vehicle_involved()
-        for x in range(0,len(vehicles)):
-            if x<1:
-                vehicle0 = vehicles[0]
-                vehicle1 = '[]'
-            if x>0:
-                vehicle0 = vehicles[0]
-                vehicle1 = vehicles[1]
+        try:
+            for x in range(0, len(vehicles)):
+                if x<1:
+                    vehicle0 = vehicles[0]
+                    vehicle1 = '[]'
+                if x>0:
+                    vehicle0 = vehicles[0]
+                    vehicle1 = vehicles[1]
+        except:
+            vehicle0 = ""
+            vehicle1 = ""
+
         record = rssdata(header=title[i],
                          source = "Kathmandu Post",
                          body=news_story.replace("\n", ""),
@@ -146,11 +152,10 @@ for i in range(0, len(links)):
                          vehicle_type=vehicle_type,
                          vehicle_no=data_extractor.vehicle(),
                          day=data_extractor.day(news_story),
-                        date= date,
-                        month = month,
-                        year = year,
+                         date= date,
+                         month = month,
+                         year = year,
                          season = data_extractor.get_season(month),
-
                          )
         record.save()
         news_id = record.id
