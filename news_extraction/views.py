@@ -7,6 +7,9 @@ import spacy
 
 from django.shortcuts import render, get_object_or_404
 from .models import *
+from BeautifulSoup import BeautifulSoup
+import urllib2
+import re
 
 
 from modules.tagger import Tagger
@@ -43,8 +46,35 @@ def extract_info(news_story):
     extracted_data.day(news_story)
     return extracted_data
 
+def vehicleinfo(news_story):
+    vehicle_information = VehicleInformation(news_story)
+    vehicle_information.make_gazetter()
+    all_vehicles, two_wheeler, three_wheeler, four_wheeler = vehicle_information.find_vehicles()
+    vehicles = []
+    for vehicle in all_vehicles:
+        vehicles.append(vehicle)
+    vehicle_type = []
+    if two_wheeler is 1:
+        vehicle_type.append("two wheeler")
+    if three_wheeler is 1:
+        vehicle_type.append("three wheeler")
+    if four_wheeler is 1:
+        vehicle_type.append("four wheeler")
+    for x in range(0, len(vehicles)):
+        if x < 1:
+            vehicle0 = vehicles[0]
+            vehicle1 = '[]'
+        if x > 0:
+            vehicle0 = vehicles[0]
+            vehicle1 = vehicles[1]
+
+    return (vehicle0, vehicle1, vehicle_type)
 
 def save_extracted_info(news_heading, news_story, extracted_data):
+    vehicle0, vehicle1, vehicle_type = vehicleinfo(news_story)
+    print vehicle0
+    news = Tokenize(news_story)
+    date, day, month, year, news_story = news.get_date(news_story)
     print("Extracting")
     record = rssdata(header= news_heading,
                      body= news_story.replace("\n", ""),
@@ -53,13 +83,15 @@ def save_extracted_info(news_heading, news_story, extracted_data):
                      injury = extracted_data.injury(nltk.sent_tokenize(news_story)),
                      injury_no = extracted_data.injury_number(),
                      location = extracted_data.location(),
-                     vehicle_involved = extracted_data.vehicle_involved(),
+                     vehicleone=vehicle0,
+                     vehicletwo=vehicle1,
+                     vehicle_type=vehicle_type,
                      vehicle_no = extracted_data.vehicle(),
-                     day = extracted_data.day(news_story),
-                     date = extracted_data.date(news_story),
-                     month = extracted_data.get_month(news_story),
-                     season= extracted_data.get_season(news_story),
-                     year=extracted_data.get_year(news_story),
+                     day = day,
+                     date = date,
+                     month = month,
+                     season= extracted_data.get_season(month),
+                     year= year,
                    )
     record.save()
     return record
@@ -87,7 +119,7 @@ for post in rss.entries:
     links.append(post.link)
     title.append(post.title_detail.value)
 oldlinks = rssdata.objects.values_list('link', flat=True)
-print oldlinks
+# print oldlinks
 for i in range(0, len(links)):
     if links[i] not in oldlinks:
         print links[i]
@@ -111,28 +143,7 @@ for i in range(0, len(links)):
         pos_tagged_sentences = tagger.tag()
         data_extractor = DataExtractor(pos_tagged_sentences, news_story)
         sentences = news.split_story()
-        #vehicle gazetter
-        vehicle_information = VehicleInformation(news_story)
-        vehicle_information.make_gazetter()
-        all_vehicles, two_wheeler, three_wheeler, four_wheeler = vehicle_information.find_vehicles()
-        vehicles = []
-        for vehicle in all_vehicles:
-            vehicles.append(vehicle)
-        vehicle_type = []
-        if two_wheeler is 1:
-            vehicle_type.append("two wheeler")
-        if three_wheeler is 1:
-            vehicle_type.append("three wheeler")
-        if four_wheeler is 1:
-            vehicle_type.append("four wheeler")
-        vehicle_involved = data_extractor.vehicle_involved()
-        for x in range(0,len(vehicles)):
-            if x<1:
-                vehicle0 = vehicles[0]
-                vehicle1 = '[]'
-            if x>0:
-                vehicle0 = vehicles[0]
-                vehicle1 = vehicles[1]
+        vehicle0, vehicle1, vehicle_type = vehicleinfo(news_story)
         record = rssdata(header=title[i],
                          source = "Kathmandu Post",
                          body=news_story.replace("\n", ""),
@@ -157,11 +168,12 @@ for i in range(0, len(links)):
         save_record_by_id(news_id)
 
 
+
 def index(request):
     # extracted_data = extract_info(sample_news_story)
     # save_extracted_info(sample_news_heading, sample_news_story, extracted_data)
     return render(request, 'index.html',
-                  context={'news': rssdata.objects.all()})
+                  context={'news': rssdata.objects.all().order_by("-id")})
 
 
 def extraction(request):

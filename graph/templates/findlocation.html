@@ -1,0 +1,256 @@
+{% extends "base.html" %}
+{% block title %} News Information Extraciton {% endblock title %}
+
+{% block nav_index_home %} class="nav-link active btn-primary" {% endblock nav_index_home%}
+
+{% block content %}
+
+<style>
+
+body {
+  font: 10px sans-serif;
+  width: 100%;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.bar {
+  fill: steelblue;
+}
+
+.x.axis path {
+  display: none;
+}
+.title-text{
+font-size:24px;
+font-weight: 600;
+padding: 3% 20%;
+}
+.search{
+width:30%;
+float: right;
+}
+h2{
+margin-left:15%;
+font-size:24px;
+margin-bottom: 2%;
+margin-top: 2%;
+}
+.select{
+margin-left:15%;
+margin-bottom: 3%;
+font-size: 14px;
+}
+
+#locationmap{
+float: left;
+border: 2px solid grey;
+margin-left: 15%;
+padding: 1% 1%;
+display: inline;
+}
+#map{
+float: left;
+display: none;
+    margin-top: 5%;
+    text-align: center;
+    border: 2px solid grey;
+    margin-left: 15%;
+}
+#ltp_location{
+display: none;
+}
+#bkt_location{
+display: none;
+}
+#ktm_location{
+display: none;
+}
+#buttons{
+width: 600px;
+margin-left: 15%;
+}
+#result{
+width: 100%;
+
+}
+
+.button-map{
+float: left;
+margin-top:5%;
+margin-left: 15%;
+font-size: 16px;
+}
+.button-table{
+float: left;
+margin-top:5%;
+margin-left: 15%;
+font-size: 16px;
+}
+.button-bar{
+float: left;
+margin-top:5%;
+margin-left: 15%;
+display:none;
+font-size: 16px;
+}
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+table{
+margin-left: 15%;
+width: 75%;
+text-align: center;
+}
+
+th,td{
+padding: 1% 2%;
+}
+
+</style>
+<h2>Accidents {{ info }} in Places of Nepal </h2>
+<div class="search">
+    <form class="form-inline" action="" method="post">
+        {% csrf_token %}
+        <input class="form-control mr-sm-2" name="query" type="text" placeholder="Search" required="required">
+        <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+</div>
+<div class="select">
+    <form action="" method="post" name="myform">
+        {% csrf_token %}
+        <select name="location" id="location_info">
+            <option value="1" onclick="selectLocation()">Select Location</option>
+            {% for location in listoflocation %}
+            <option value="{{ location }}" onclick="selectLocation()">{{ location }}</option>
+            {% endfor %}
+        </select>
+        <select name="ktmlocation" id="ktm_location">
+            <option value="1">Kathmandu Locations</option>
+            {% for location in ktm_location %}
+            <option value="{{ location.location }}" onclick="selectLocation()">{{ location.location }}</option>
+            {% endfor %}
+        </select>
+        <select name="ltplocation" id="ltp_location">
+            <option value="1">Lalitpur Locations</option>
+            {% for location in ltp_location %}
+            <option value="{{ location.location }}" onclick="selectLocation()">{{ location.location }}</option>
+            {% endfor %}
+        </select>
+        <select name="bktlocation" id="bkt_location">
+            <option value="1"> Bhaktapur Locations</option>
+            {% for location in bkt_location %}
+            <option value="{{ location.location }}" onclick="selectLocation()">{{ location.location }}</option>
+            {% endfor %}
+        </select>
+        <select name="vehicle">
+            <option value="1">Select Vehicle</option>
+            {% for vehicle in vehiclelist %}
+
+            <option value="{{ vehicle }}">{{ vehicle }}</option>
+
+
+            {% endfor %}
+        </select>
+        <select name="year">
+            <option value="1">Select Year</option>
+            {% for year in yearlist %}
+
+            <option value="{{ year.year }}">{{ year.year }}</option>
+
+
+            {% endfor %}
+        </select>
+        <select name="season">
+            <option value="1">Select Season</option>
+            {% for season in seasonlist %}
+
+            <option value="{{ season.season }}">{{ season.season }}</option>
+
+
+            {% endfor %}
+        </select>
+
+        <select name="month">
+            <option value="1">Select Month</option>
+            <option value="5">Last 5 months</option>
+            <option value="10">Last 10 months</option>
+            {% for month in monthlist %}
+
+            <option value="{{ month.month }}">{{ month.month }}</option>
+
+
+            {% endfor %}
+        </select>
+
+        <input type="submit" value="Select">
+    </form>
+</div>
+<div><h2>Sorry! No accident is registered for your input data.</h2></div>
+<table>
+    <tr>
+        <th>Location</th>
+        <th>Date</th>
+        <th>Year</th>
+        <th>Month</th>
+        <th>Season</th>
+        <th>Vehicle one</th>
+        <th>Vehicle Two</th>
+        <th>Injury</th>
+        <th>Death</th>
+    </tr>
+    {% for location in locationlist %}
+    <tr>
+
+        <td>{{ location.location }}</td>
+        <td>{{ location.date }}</td>
+        <td>{{ location.year }}</td>
+        <td>{{ location.month }}</td>
+        <td>{{ location.season }}</td>
+        <td>{{ location.vehicleone }}</td>
+        <td>{{ location.vehicletwo }}</td>
+        <td>{{ location.injury }}</td>
+        <td>{{ location.death }}</td>
+
+    </tr>
+    {% endfor %}
+
+</table>
+<script>
+    function selectLocation(){
+    var vehicleinfo=document.getElementById('location_info').value;
+    if (vehicleinfo == 'Kathmandu'){
+    $("#ktm_location").show();
+    $("#ltp_location").hide();
+     $("#bkt_location").hide();
+    }
+    else if (vehicleinfo == 'Lalitpur'){
+     $("#ltp_location").show();
+     $("#ktm_location").hide();
+     $("#bkt_location").hide();
+     }
+     else if (vehicleinfo == 'Bhaktapur'){
+     $("#bkt_location").show();
+     $("#ktm_location").hide();
+     $("#ltp_location").hide();
+     }
+     else{
+     $("#ltp_location").hide();
+     $("#ktm_location").hide();
+     $("#bkt_location").hide();
+     }
+    }
+
+
+</script>
+
+
+</body>
+
+{% endblock content %}

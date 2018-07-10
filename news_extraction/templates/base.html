@@ -122,17 +122,7 @@
                 <li class="nav-item">
                     <a {% block nav_index_home %} {% endblock nav_index_home %} style="color:white;" href="/">Home</a>
                 </li>
-                <li class="nav-item"><a style="color:white;">
-                    <div class="dropdown">
-                        <button class="dropbtn">Visualization</button>
-                        <div class="dropdown-content">
-                            <a href="{% url 'graph:districts' %}">Overall View</a>
-                            <a href="{% url 'graph:location' %}">Location</a>
-                            <a href="#">Vehicle Type</a>
-                            <a href="#">Year</a>
-                        </div>
-                    </div>
-                    </a></li>
+                <li class="nav-item"><a href = "{% url 'graph:location' %}" style="color:white;"> Visualization </a></li>
 
                 <li class="nav-item">
                     <a {% block nav_index_database %} {% endblock nav_index_database %} style="color:white;" href="#">Database</a>
