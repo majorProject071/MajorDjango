@@ -229,14 +229,20 @@ def location(request):
                              'injuryno': loc['injuryno'], 'date': loc['date'], 'year': loc['year'], 'month': loc['month'],
                                   'season': loc['season'], 'vehicleone': loc['vehicleone'], 'vehicletwo': loc['vehicletwo']})
     for data in vehiclelist:
-        if len(data['vehicleone']) > 2:
-            vehicledata.append(data['vehicleone'])
+        try:
+            if len(data['vehicleone']) > 2:
+                vehicledata.append(data['vehicleone'])
+        except:
+            pass
     for newdata in vehiclelisttwo:
-        if len(newdata['vehicletwo'])>2:
-            if newdata['vehicletwo'] in vehicledata:
-                pass
-            else:
-                vehicledata.append(newdata['vehicletwo'])
+        try:
+            if len(newdata['vehicletwo'])>2:
+                if newdata['vehicletwo'] in vehicledata:
+                    pass
+                else:
+                    vehicledata.append(newdata['vehicletwo'])
+        except:
+            pass
 
     valueslist = []
     if request.POST:
