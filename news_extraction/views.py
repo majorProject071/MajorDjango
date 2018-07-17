@@ -53,6 +53,8 @@ def vehicleinfo(news_story):
 
     all_vehicles, two_wheeler, three_wheeler, four_wheeler = vehicle_information.find_vehicles()
     vehicles = []
+    vehicle0 = ''
+    vehicle1 = ''
     for vehicle in all_vehicles:
         vehicles.append(vehicle)
     vehicle_type = []
