@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: latin-1 -*-
 from __future__ import print_function
 
 import re
@@ -15,7 +17,6 @@ class Tokenize:
 
     def split_story(self):
         """ Splits the news story into list of sentences.
-
             Input is the news story.
             Output is the list of individual sentences.
         """
