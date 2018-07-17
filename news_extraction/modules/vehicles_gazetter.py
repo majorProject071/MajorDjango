@@ -44,7 +44,7 @@ class VehicleInformation:
 
     def find_vehicles(self):
         vehicles_found = set()
-        document = unicode(self.news_story.decode('utf8'))
+        document = self.news_story
         doc = nlp(document)
         # matcher = Matcher(nlp.vocab)
         is_four_wheeler=is_three_wheeler=is_two_wheeler = 0

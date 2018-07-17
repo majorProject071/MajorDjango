@@ -62,8 +62,6 @@ class Tokenize:
         if len(monthno) <2:
             monthno = '0' + monthno
         newdates = year + "-" + str(monthno)+ "-" + str(newdate)
-        print(newdates)
-
 
         for match in re.finditer(date_regex, contains_date):
             start,end = match.span()
