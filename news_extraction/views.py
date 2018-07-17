@@ -47,8 +47,10 @@ def extract_info(news_story):
     return extracted_data
 
 def vehicleinfo(news_story):
+    print(news_story)
     vehicle_information = VehicleInformation(news_story)
     vehicle_information.make_gazetter()
+
     all_vehicles, two_wheeler, three_wheeler, four_wheeler = vehicle_information.find_vehicles()
     vehicles = []
     vehicle0 = ''
@@ -130,15 +132,11 @@ for i in range(0, len(links)):
         article = extractor.extract(raw_html=response.content)
         texts = article.cleaned_text
         news_story = texts.encode('utf-8')
-        # print i
         a = re.search(r'[A-Z]\w+\s\d+[,.]\s\d+', news_story)
         num = a.start()
         news_story = news_story[num:]
-        news = Tokenize(news_story)
-        #news.get_date()
+        news = Tokenize(unicode(news_story, 'utf-8'))
         date,day,month,year,news_story = news.get_date(news_story)
-        news = Tokenize(news_story)
-
         splited_sentences = nltk.sent_tokenize(news_story)
         tokenized_words = news.split_words()
         tagger = Tagger(tokenized_words)
