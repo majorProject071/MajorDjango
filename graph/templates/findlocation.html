@@ -115,8 +115,18 @@ padding: 1% 2%;
 small{
 margin-left: 15%;
 }
-
+.searchbutton{
+margin-left: 30%;
+font-size: 18px;
+}
+.accidentvehicles{
+display:none;
+margin-left: 30%;
+font-size: 14px;
+margin-top: 2%;
+}
 </style>
+
 <h2>Accidents {{ info }} in Places of Nepal </h2>
 <div class="search">
     <form class="form-inline" action="" method="post">
@@ -195,51 +205,23 @@ margin-left: 15%;
         <input type="submit" value="Select">
     </form>
 </div>
-<div> {% if locationlist %}<h2>Sorry! No accident is registered for your input data.</h2> {% endif %}
-{% if locationdetail %}<h2> Your Vehicle doesnt register any accident</h2> {% endif %}
-{% if location_data %}<h2> Result of {{ search }}</h2> {% endif %}</div>
+<div>
+    {% if locationlist %}<h2>Sorry! No accident is registered for your input data.</h2> {% endif %}
+    {% if locationdetail %}<h2> Your Vehicle doesnt register any accident.</h2>
+    <div class="searchbutton">
+    <button onclick="viewvehicleno()"> click to view all vehicles involved in accidents</button>
+    </div>
+</div>{% endif %}
+{% if location_data %}<h2> Result of {{ search }}</h2> </div>
 
-<small> {% if not location_data %}Here are list of all datas in our database: {% endif %} </small><br>
 <table>
     <tr>
         <th>Location</th>
-        {% if not locationlist %}
         <th>Vehicle no</th>
-        {% endif %}
         <th>Date</th>
-        {% if not location_data %}
-        <th>Vehicle one</th>
-        <th>Vehicle Two</th>
-        {% endif %}
         <th>Injury</th>
         <th>Death</th>
     </tr>
-    {% for location in locationlist %}
-    <tr>
-
-        <td>{{ location.location }}</td>
-        <td>{{ location.date }}</td>
-        <td>{{ location.vehicleone }}</td>
-        <td>{{ location.vehicletwo }}</td>
-        <td>{{ location.injuryno }}</td>
-        <td>{{ location.deathno }}</td>
-
-    </tr>
-    {% endfor %}
-
-    {% for location in locationdetail %}
-    <tr>
-
-        <td>{{ location.location }}</td>
-        <td>{{ location.vehicleno }}</td>
-        <td>{{ location.date }}</td>
-        <td>{{ location.vehicleone }}</td>
-        <td>{{ location.vehicletwo }}</td>
-        <td>{{ location.injuryno }}</td>
-        <td>{{ location.deathno }}</td>
-
-    </tr>
-    {% endfor %}
     {% for location in location_data %}
     <tr>
 
@@ -253,6 +235,15 @@ margin-left: 15%;
     {% endfor %}
 
 </table>
+{% endif %}
+
+<div class="accidentvehicles">
+    <ol>{% for location in locationdetail %}
+
+        <li>{{ location.vehicleno }}</li>
+        {% endfor %}
+    </ol>
+</div>
 <script>
     function selectLocation(){
     var vehicleinfo=document.getElementById('location_info').value;
@@ -278,6 +269,14 @@ margin-left: 15%;
      }
     }
 
+    function viewvehicleno(){
+    if ($(".accidentvehicles").is(":hidden")){
+        $(".accidentvehicles").show();
+    }
+    else{
+    $(".accidentvehicles").hide();
+    }
+    }
 
 </script>
 
