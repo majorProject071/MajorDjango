@@ -122,9 +122,16 @@ text-align: center;
 th,td{
 padding: 1% 2%;
 }
+.kathmandu{
+float: right;
+margin-right: 10%;
+margin-top: -5%;
+font-size: 18px;
+}
 
 </style>
 <h2>Accidents in Nepal {{ info }} </h2>
+<a href="{% url 'graph:index' %}"><div class="kathmandu"><button>View on Kathmandu Map</button></div></a>
 <div class="search">
     <form class="form-inline" action="" method="post" name="searchvehicle">
         {% csrf_token %}

@@ -448,19 +448,21 @@ def index(request):
         if locations is not None:
             if (len(locations) > 2):
                 loc = locations
-                g = geocoder.google(loc)
-                if g.lat is not None:
-                    locs = (g.lat, g.lng)
-                    latitude.append(locs)
-
+                # print loc
+                # g = geocoder.google(loc)
+                # print g.lat
+                # if g.lat is not None:
+                #     locs = (g.lat, g.lng)
+                #     latitude.append(locs)
+                #
                 # location = results[0]['geometry']['location']
                 # print(location['lat'], location['lng'])
 
-                #
-                # geolocator = Nominatim()
-                # locations = geolocator.geocode(loc)
-                # location = (locations.latitude, locations.longitude)
-                # latitude.append(location)
+
+                geolocator = Nominatim()
+                locations = geolocator.geocode(loc)
+                location = (locations.latitude, locations.longitude)
+                latitude.append(location)
     print(latitude)
 
     context = {

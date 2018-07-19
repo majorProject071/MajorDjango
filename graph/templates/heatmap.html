@@ -7,8 +7,7 @@
 {% block content %}
 
 <div class="selectmap">
-    <a href="{% url 'graph:districts' %}"><button>Districts of Nepal</button></a>
-    <a href=""><button>Kathmandu Valley</button></a>
+    <a href="{% url 'graph:location' %}"><button>Back to Previous</button></a>
 </div>
 
 <h2>Accident Death in Kathmandu Valley</h2>
@@ -76,6 +75,24 @@ margin-bottom: 2%;
           data: getPoints(),
           map: map
         });
+         var gradient = [
+          'rgba(0, 255, 255, 0)',
+          'rgba(255, 0, 0, 1)',
+          'rgba(255, 0, 0, 1)',
+          'rgba(255, 0, 0, 1)',
+          'rgba(255, 0, 0, 1)',
+          'rgba(255, 0, 0, 1)',
+          'rgba(255, 0, 0, 1)',
+          'rgba(255, 0, 0, 1)',
+          'rgba(255, 0, 0, 1)',
+          'rgba(255, 0, 0, 1)',
+          'rgba(255, 0, 0, 1)',
+          'rgba(255, 0, 0, 1)',
+          'rgba(255, 0, 0, 1)',
+          'rgba(255, 0, 0, 1)'
+        ]
+        heatmap.set('gradient', heatmap.get('gradient') ? null : gradient);
+        heatmap.set('radius', heatmap.get('radius') ? null : 15);
       }
 
 
