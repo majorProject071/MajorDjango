@@ -112,6 +112,9 @@ text-align: center;
 th,td{
 padding: 1% 2%;
 }
+small{
+margin-left: 15%;
+}
 
 </style>
 <h2>Accidents {{ info }} in Places of Nepal </h2>
@@ -192,16 +195,22 @@ padding: 1% 2%;
         <input type="submit" value="Select">
     </form>
 </div>
-<div><h2>Sorry! No accident is registered for your input data.</h2></div>
+<div> {% if locationlist %}<h2>Sorry! No accident is registered for your input data.</h2> {% endif %}
+{% if locationdetail %}<h2> Your Vehicle doesnt register any accident</h2> {% endif %}
+{% if location_data %}<h2> Result of {{ search }}</h2> {% endif %}</div>
+
+<small> {% if not location_data %}Here are list of all datas in our database: {% endif %} </small><br>
 <table>
     <tr>
         <th>Location</th>
+        {% if not locationlist %}
+        <th>Vehicle no</th>
+        {% endif %}
         <th>Date</th>
-        <th>Year</th>
-        <th>Month</th>
-        <th>Season</th>
+        {% if not location_data %}
         <th>Vehicle one</th>
         <th>Vehicle Two</th>
+        {% endif %}
         <th>Injury</th>
         <th>Death</th>
     </tr>
@@ -210,13 +219,35 @@ padding: 1% 2%;
 
         <td>{{ location.location }}</td>
         <td>{{ location.date }}</td>
-        <td>{{ location.year }}</td>
-        <td>{{ location.month }}</td>
-        <td>{{ location.season }}</td>
         <td>{{ location.vehicleone }}</td>
         <td>{{ location.vehicletwo }}</td>
-        <td>{{ location.injury }}</td>
-        <td>{{ location.death }}</td>
+        <td>{{ location.injuryno }}</td>
+        <td>{{ location.deathno }}</td>
+
+    </tr>
+    {% endfor %}
+
+    {% for location in locationdetail %}
+    <tr>
+
+        <td>{{ location.location }}</td>
+        <td>{{ location.vehicleno }}</td>
+        <td>{{ location.date }}</td>
+        <td>{{ location.vehicleone }}</td>
+        <td>{{ location.vehicletwo }}</td>
+        <td>{{ location.injuryno }}</td>
+        <td>{{ location.deathno }}</td>
+
+    </tr>
+    {% endfor %}
+    {% for location in location_data %}
+    <tr>
+
+        <td>{{ location.location }}</td>
+        <td>{{ location.vehicle_no }}</td>
+        <td>{{ location.date }}</td>
+        <td>{{ location.injury_no }}</td>
+        <td>{{ location.death_no }}</td>
 
     </tr>
     {% endfor %}

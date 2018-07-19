@@ -208,6 +208,9 @@ def finalquery(countlist):
         else:
             pass
     return (maplocations)
+def searchmap(searchlist):
+    print searchlist
+
 
 
 def location(request):
@@ -220,9 +223,29 @@ def location(request):
     vehiclelisttwo = rssdata.objects.values('vehicletwo').order_by('vehicletwo').annotate(count=Count('vehicletwo'))
     seasonlist = rssdata.objects.values('season').order_by('season').annotate(count=Count('season'))
     monthlist = rssdata.objects.values('month').order_by('month').annotate(count=Count('month'))
+    tablevehiclelist = rssdata.objects.all().values('vehicle_no','location', 'year', 'month', 'season', 'vehicleone',
+                                                     'vehicletwo', 'date').order_by('vehicle_no').annotate(
+        count=Count('vehicle_no')).annotate(deathno=Sum('death_no')).annotate(injuryno=Sum('injury_no'))
+
     vehicledata = []
     barlocations = []
     tablelocation = []
+    tablevehicle = []
+    for loc in tablevehiclelist:
+        if len(loc['vehicle_no'])>2:
+            if len(loc['location'])>2:
+                tablevehicle.append({'location': loc['location'].capitalize(), 'vehicleno': loc['vehicle_no'], 'deathno': loc['deathno'],
+                                  'injuryno': loc['injuryno'], 'date': loc['date'], 'year': loc['year'],
+                                  'month': loc['month'],
+                                  'season': loc['season'], 'vehicleone': loc['vehicleone'],
+                                  'vehicletwo': loc['vehicletwo']})
+            else:
+                tablevehicle.append({'location': 'not defined', 'vehicleno': loc['vehicle_no'],
+                                     'deathno': loc['deathno'],
+                                     'injuryno': loc['injuryno'], 'date': loc['date'], 'year': loc['year'],
+                                     'month': loc['month'],
+                                     'season': loc['season'], 'vehicleone': loc['vehicleone'],
+                                     'vehicletwo': loc['vehicletwo']})
     for loc in tablelocationlist:
         if len(loc['location']) >2:
             tablelocation.append({'location': loc['location'].capitalize(), 'deathno': loc['deathno'],
@@ -246,50 +269,87 @@ def location(request):
 
     valueslist = []
     if request.POST:
-        valueslist.append({'vehicleinfo': request.POST.get('vehicle', None),
-                           'yearinfo' : request.POST.get('year', None),
-                            'seasoninfo' : request.POST.get('season', None),
-                            'locationinfo' : request.POST.get('location', None),
-                            'ktmlocationinfo' : request.POST.get('ktmlocation', None),
-                            'ltplocationinfo' : request.POST.get('ltplocation', None),
-                            'bktlocationinfo' : request.POST.get('bktlocation', None),
-                            'monthinfo' : request.POST.get('month', None)})
+        search =  request.POST.get('query', None)
+        if search:
+            queryset_list = rssdata.objects.filter(vehicle_no__icontains=search).values('location','date','death_no','injury_no','vehicle_no')
+            if len(queryset_list) == 0 :
+                context = {
+                    'locationdetail': tablevehicle,
+                    'listoflocation': listoflocation,
+                    'ktm_location': ktmlocationlist,
+                    'ltp_location': ltplocationlist,
+                    'bkt_location': bktlocationlist,
+                    'monthlist': monthlist,
+                    'vehiclelist': vehicledata,
+                    'yearlist': yearlist,
+                    'seasonlist': seasonlist,
+                }
+                return render(request, "findlocation.html", context)
+            else:
+                print queryset_list
+                context = {
+                    'location_data': queryset_list,
+                    'listoflocation': listoflocation,
+                    'ktm_location': ktmlocationlist,
+                    'ltp_location': ltplocationlist,
+                    'bkt_location': bktlocationlist,
+                    'monthlist': monthlist,
+                    'vehiclelist': vehicledata,
+                    'yearlist': yearlist,
+                    'seasonlist': seasonlist,
+                    'search' : search,
+                }
+                return render(request, "findlocation.html", context)
 
 
-        newlocationlist, filterlocation, information, totalno, countlist = getqueries(valueslist,ktmlocationlist,ltplocationlist,bktlocationlist)
 
-        barlocations = filterlocation
-        maplocations = finalquery(countlist)
-        if (len(filterlocation) == 0):
+        else:
+            valueslist.append({'vehicleinfo': request.POST.get('vehicle', None),
+                               'yearinfo': request.POST.get('year', None),
+                               'seasoninfo': request.POST.get('season', None),
+                               'locationinfo': request.POST.get('location', None),
+                               'ktmlocationinfo': request.POST.get('ktmlocation', None),
+                               'ltplocationinfo': request.POST.get('ltplocation', None),
+                               'bktlocationinfo': request.POST.get('bktlocation', None),
+                               'monthinfo': request.POST.get('month', None)})
+
+            newlocationlist, filterlocation, information, totalno, countlist = getqueries(valueslist, ktmlocationlist,
+                                                                                          ltplocationlist,
+                                                                                          bktlocationlist)
+
+            barlocations = filterlocation
+            maplocations = finalquery(countlist)
+            if (len(filterlocation) == 0):
+                context = {
+                    'locationlist': tablelocation,
+                    'listoflocation': listoflocation,
+                    'ktm_location': ktmlocationlist,
+                    'ltp_location': ltplocationlist,
+                    'bkt_location': bktlocationlist,
+                    'monthlist': monthlist,
+                    'vehiclelist': vehicledata,
+                    'yearlist': yearlist,
+                    'seasonlist': seasonlist,
+                }
+                return render(request, "findlocation.html", context)
+
             context = {
-                'locationlist' : tablelocation,
+                'locationinfos': newlocationlist,
+                'location_data': json.dumps(barlocations),
                 'listoflocation': listoflocation,
                 'ktm_location': ktmlocationlist,
                 'ltp_location': ltplocationlist,
                 'bkt_location': bktlocationlist,
                 'monthlist': monthlist,
+                'totalno': totalno,
                 'vehiclelist': vehicledata,
                 'yearlist': yearlist,
                 'seasonlist': seasonlist,
+                'info': information,
+                'newdata': json.dumps(maplocations),
             }
-            return render(request, "findlocation.html", context)
+            return render(request, "location.html", context)
 
-        context = {
-            'locationinfos': newlocationlist,
-            'location_data': json.dumps(barlocations),
-            'listoflocation': listoflocation,
-            'ktm_location': ktmlocationlist,
-            'ltp_location': ltplocationlist,
-            'bkt_location': bktlocationlist,
-            'monthlist': monthlist,
-            'totalno': totalno,
-            'vehiclelist': vehicledata,
-            'yearlist': yearlist,
-            'seasonlist': seasonlist,
-            'info': information,
-            'newdata': json.dumps(maplocations),
-        }
-        return render(request, "location.html", context)
 
     for locations in locationlist:
         if len(locations['location'])>2:
