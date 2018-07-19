@@ -208,8 +208,6 @@ def finalquery(countlist):
         else:
             pass
     return (maplocations)
-def searchmap(searchlist):
-    print searchlist
 
 
 
