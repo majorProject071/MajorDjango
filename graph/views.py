@@ -27,7 +27,6 @@ def selectparameters():
     bktlocationlist = []
 
     for location in listoflocation:
-
         # check if location is not []
         if len(location['location']) > 2:
             if location['location'] in ktm_location:

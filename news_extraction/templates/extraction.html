@@ -33,9 +33,7 @@
   border-radius: 15px;
   margin: 5px;
 }
-
 div.center {text-align: center;}
-
 .pre-scrollable {
     max-height: 700px;
     overflow-y: scroll;
@@ -53,23 +51,22 @@ console.log("hello");
         death_no : "{{ article.death_no }}",
         injury:"{{ article.injury}}",
         injury_no:"{{ article.injury_no}}",
-        vehicle_involved:"{{ article.vehicle_involved }}",
+        vehicleone:"{{ article.vehicleone }}",
+        vehicletwo:"{{ article.vehicletwo }}",
         vehicle_no:"{{ article.vehicle_no }}",
         date:"{{ article.date }}",
         day:"{{ article.day }}",
         body:"{{article.body}}",
     };
-    
-    var news = accidentNews[{{news_id}}];
-    $('#summary').replaceWith("<div id='summary'><h2> Extracted items </h2> <p><strong> Death: </strong>" + news.death +  "</p>        <p><strong> Death Number: </strong>" + news.death_no +  "</p>        <p><strong> Injury: </strong>" + news.injury +"</p>        <p><strong> Injury Number: </strong>" + news.injury_no +"</p>        <p><strong> Vehicle Involved: </strong>" + news.vehicle_involved +"</p>        <p><strong> Vehicle Numbers: </strong>" + news.vehicle_no +"</p>        <p><strong>Location: </strong>" + news.location +"</p>        <p><strong> Date: </strong>"+ news.date +"</p>        <p><strong> Day: </strong>"+ news.day +"</p>        <h4>Full news</h4>"+ news.body+ "</div>");
 
+    var news = accidentNews[{{news_id}}];
+    $('#summary').replaceWith("<div id='summary'><h2> Extracted items </h2> <p><strong> Death: </strong>" + news.death +  "</p>        <p><strong> Death Number: </strong>" + news.death_no +  "</p>        <p><strong> Injury: </strong>" + news.injury +"</p>        <p><strong> Injury Number: </strong>" + news.injury_no +"</p>        <p><strong> Vehicle Involved: </strong>" + news.vehicleone +"</p>    <p><strong> Vehicle Involved: </strong>" + news.vehicletwo +"</p>      <p><strong> Vehicle Numbers: </strong>" + news.vehicle_no +"</p>        <p><strong>Location: </strong>" + news.location +"</p>        <p><strong> Date: </strong>"+ news.date +"</p>        <p><strong> Day: </strong>"+ news.day +"</p>        <h4>Full news</h4>"+ news.body+ "</div>");
   $('#no').click(function () {
     $('#summary').replaceWith("<h2 id='summary'> No Summary Information</h2>");
   })
   }
   present_summary();
 });
-
 </script>
 
 {% endblock javascript %}
