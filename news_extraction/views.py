@@ -3,7 +3,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from forms import NameForm
 from .models import *
-from methods import initial_check, extract_info, save_extracted_info
+from methods import *
 
 def index(request):
     initial_check()
@@ -26,12 +26,22 @@ def extraction(request):
 
         if form.is_valid():
             data = form.cleaned_data
-            extracted_data = extract_info(data['news_text'])
+            extracted_data = data['news_link']
+            link, news , title = manual_extract(extracted_data)
+
             # If you want to save the input news
-            story = save_extracted_info(data['news_title'], data['news_text'], extracted_data)
-        return render(request, 'extraction.html', {'form': form,
-                                                   'news_id': story.pk,
-                                                   'article': rssdata.objects.get(pk=story.pk)})
+            oldlinks = rssdata.objects.values_list('link', flat=True)
+
+            if link not in oldlinks:
+                id = extract(link, news, title)
+                return render(request, 'extraction.html', {'form': form,
+                                                           'news_id': id,
+                                                           'article': rssdata.objects.get(pk=id)})
+            else:
+                id = 5
+                return render(request, 'extraction.html', {'form': form,
+                                                           'news_id': id,
+                                                           'article': rssdata.objects.get(link=link)})
     else:
         form = NameForm()
 

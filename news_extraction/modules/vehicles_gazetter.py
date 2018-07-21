@@ -9,13 +9,13 @@ nlp = en_core_web_sm.load()
 
 vehicles = ['bus','car','truck','tripper','bike','jeep','zeep','scooter','scooty',
         'motorbike','motorcycle','container','SUV','tractor','moped','lorry',
-        'minivan','minibus','trolley','tempo']
+        'minivan','minibus','trolley','tempo','cycle']
 three_wheeler=set([
 'tempo','three-wheeler','three wheeler'
 ])
 
 two_wheeler = set([
-'bike','scooter','scooty','motorbike','motorcycle','two-wheeler','two wheeler','moped'
+'bike','scooter','scooty','motorbike','motorcycle','two-wheeler','two wheeler','moped','cycle'
 ])
 
 four_wheeler = set([
@@ -36,11 +36,11 @@ class VehicleInformation:
 
     def make_gazetter(self):
         for vehicle in vehicles:
-            matcher.add("Vehicles", [{LEMMA:vehicle}])
-        matcher.add("Vehicles", [{LEMMA:'two'},{IS_PUNCT:True},{LEMMA:'wheeler'}])
-        matcher.add("Vehicles", [{LEMMA:'two'},{LEMMA:'wheeler'}])
-        matcher.add("Vehicles", [{LEMMA:'four'},{IS_PUNCT:True},{LEMMA:'wheeler'}])
-        matcher.add("Vehicles", [{LEMMA:'four'},{LEMMA:'wheeler'}])
+            matcher.add_pattern("Vehicles", [{LEMMA:vehicle}])
+        matcher.add_pattern("Vehicles", [{LEMMA:'two'},{IS_PUNCT:True},{LEMMA:'wheeler'}])
+        matcher.add_pattern("Vehicles", [{LEMMA:'two'},{LEMMA:'wheeler'}])
+        matcher.add_pattern("Vehicles", [{LEMMA:'four'},{IS_PUNCT:True},{LEMMA:'wheeler'}])
+        matcher.add_pattern("Vehicles", [{LEMMA:'four'},{LEMMA:'wheeler'}])
 
     def find_vehicles(self):
         vehicles_found = set()

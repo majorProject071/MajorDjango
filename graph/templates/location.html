@@ -122,13 +122,20 @@ text-align: center;
 th,td{
 padding: 1% 2%;
 }
+.kathmandu{
+float: right;
+margin-right: 10%;
+margin-top: -5%;
+font-size: 18px;
+}
 
 </style>
 <h2>Accidents in Nepal {{ info }} </h2>
+<a href="{% url 'graph:index' %}"><div class="kathmandu"><button>View on Kathmandu Map</button></div></a>
 <div class="search">
-    <form class="form-inline" action="" method="post">
+    <form class="form-inline" action="" method="post" name="searchvehicle">
         {% csrf_token %}
-        <input class="form-control mr-sm-2" name="query" type="text" placeholder="Enter Vehicle Number" required="required">
+        <input class="form-control mr-sm-2" name="query" type="text" placeholder="Vehicle No: BA 1 Kha 1111" required="required" value="{{ request.get.query }}">
         <button class="btn btn-primary" type="submit">Search</button>
     </form>
 </div>
@@ -217,7 +224,8 @@ padding: 1% 2%;
          <td>red</td>
          <td style="background:red"></td>
          <td>high accident alert area</td>
-         <td> less than 5</td>
+         <td> more than 10</td>
+
      </tr>
      <tr>
          <td>yellow</td>
@@ -229,7 +237,8 @@ padding: 1% 2%;
          <td>blue</td>
          <td style="background:blue"></td>
          <td>low accident alert area</td>
-         <td> more than 10</td>
+         <td> less than 5</td>
+
      </tr>
  </table>
     </div>
