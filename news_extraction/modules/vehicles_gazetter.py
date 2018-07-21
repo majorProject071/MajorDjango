@@ -9,24 +9,25 @@ nlp = en_core_web_sm.load()
 
 vehicles = ['bus','car','truck','tripper','bike','jeep','zeep','scooter','scooty',
         'motorbike','motorcycle','container','SUV','tractor','moped','lorry',
-        'minivan','minibus','trolley','tempo']
+        'minivan','minibus','trolley','tempo','cycle']
 three_wheeler=set([
 'tempo','three-wheeler','three wheeler'
 ])
 
 two_wheeler = set([
-'bike','scooter','scooty','motorbike','motorcycle','two-wheeler','two wheeler','moped'
+'bike','scooter','scooty','motorbike','motorcycle','two-wheeler','two wheeler','moped','cycle'
 ])
 
 four_wheeler = set([
 'bus','car','truck','tripper','zeep','jeep','container','SUV','tractor','moped','lorry',
-'minivan','minibus','trolley','four-wheeler','four wheeler'
+'minivan','minibus','trolley','four-wheeler','four wheeler',
 ])
 
 scooty = ['scooty','scooter']
 bike = ['bike','motorbike','motorcycle']
 zeep = ['jeep','zeep']
 matcher = Matcher(nlp.vocab)
+
 
 class VehicleInformation:
     def __init__(self,news_story):
@@ -43,7 +44,7 @@ class VehicleInformation:
 
     def find_vehicles(self):
         vehicles_found = set()
-        document = unicode(self.news_story.decode('utf8'))
+        document = self.news_story
         doc = nlp(document)
         # matcher = Matcher(nlp.vocab)
         is_four_wheeler=is_three_wheeler=is_two_wheeler = 0

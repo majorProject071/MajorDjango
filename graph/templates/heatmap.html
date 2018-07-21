@@ -1,3 +1,4 @@
+    
 {% extends "base.html" %}
 {% block title %} News Information Extraciton {% endblock title %}
 
@@ -5,7 +6,11 @@
 
 {% block content %}
 
+<div class="selectmap">
+    <a href="{% url 'graph:location' %}"><button>Back to Previous</button></a>
+</div>
 
+<h2>Accident Death in Kathmandu Valley</h2>
 
 <div id="map">
 </div>
@@ -29,45 +34,7 @@ table{
         shape-rendering: crispEdges;
     }
 
-.dropbtn {
-    background-color: #f1f1f1
-    color: white;
-    padding: 5% 5%;
-    font-size: 16px;
-    border: none;
-    margin-left: 50%;
-}
 
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    background-color: #f1f1f1;
-    min-width: 100px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    margin-left: 50%;
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown-content a:hover {background-color: #ddd}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-.dropdown:hover .dropbtn {
-    background-color: #f1f1f1;
-}
 
  /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -82,6 +49,15 @@ table{
         margin: 0;
         padding: 0;
       }
+.selectmap{
+margin-left:15%;
+margin-bottom: 3%;
+}
+h2{
+margin-left:15%;
+font-size:24px;
+margin-bottom: 2%;
+}
 </style>
 
 <script>
@@ -99,6 +75,24 @@ table{
           data: getPoints(),
           map: map
         });
+         var gradient = [
+          'rgba(0, 255, 255, 0)',
+          'rgba(255, 0, 0, 1)',
+          'rgba(255, 0, 0, 1)',
+          'rgba(255, 0, 0, 1)',
+          'rgba(255, 0, 0, 1)',
+          'rgba(255, 0, 0, 1)',
+          'rgba(255, 0, 0, 1)',
+          'rgba(255, 0, 0, 1)',
+          'rgba(255, 0, 0, 1)',
+          'rgba(255, 0, 0, 1)',
+          'rgba(255, 0, 0, 1)',
+          'rgba(255, 0, 0, 1)',
+          'rgba(255, 0, 0, 1)',
+          'rgba(255, 0, 0, 1)'
+        ]
+        heatmap.set('gradient', heatmap.get('gradient') ? null : gradient);
+        heatmap.set('radius', heatmap.get('radius') ? null : 15);
       }
 
 
@@ -106,7 +100,7 @@ table{
        function getPoints() {
             return [
             {% for lat in latitude %}
-            new google.maps.LatLng{{lat}},
+            new google.maps.LatLng{{ lat }},
             {% endfor %}
             ];
 
@@ -115,5 +109,4 @@ table{
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0jbM6o1NAMZPhtlexx521CAj5VaQg_I4&libraries=visualization&callback=initMap">
     </script>
-
 {% endblock content %}

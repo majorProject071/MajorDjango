@@ -13,11 +13,34 @@
             <li class='listed' style='list-style:none;'>
               <p id={{ article.id }} class="head"> <a href="#" style="color:#4b0082">{{article.header}}:</a><br>
               <a>{{article.date}}</a>
+                  <div class="source">Source:<p>{{ article.source }}</p></div>
             </p>
             </li>
           </ul>
         {% endfor %}
         </div>
+
+        {% if news.has_other_pages %}
+        <ul class="pagination">
+            {% if news.has_previous %}
+              <li><a href="?page={{ news.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+              <li class="disabled"><span>&laquo;</span></li>
+            {% endif %}
+            {% for i in news.paginator.page_range %}
+              {% if news.number == i %}
+                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+              {% else %}
+                <li><a href="?page={{ i }}">{{ i }}</a></li>
+              {% endif %}
+            {% endfor %}
+            {% if news.has_next %}
+              <li><a href="?page={{ news.next_page_number }}">&raquo;</a></li>
+            {% else %}
+              <li class="disabled"><span>&raquo;</span></li>
+            {% endif %}
+          </ul>
+        {% endif %}
     </div>
 
     <div class="col-md-6">
@@ -36,6 +59,8 @@
   padding: 5px;
   border-radius: 15px;
   margin: 5px;
+  float: left;
+  width: 90%;
 }
 
 div.center {text-align: center;}
@@ -43,6 +68,16 @@ div.center {text-align: center;}
 .pre-scrollable {
     max-height: 700px;
     overflow-y: scroll;
+}
+.source{
+
+float:left;
+font-size:12px;
+}
+.source p{
+border: 2px solid black;
+border-radius:20px;
+padding : 3% 3%;
 }
 </style>
 
@@ -59,8 +94,10 @@ console.log("hello");
         death_no : "{{ article.death_no }}",
         injury:"{{ article.injury}}",
         injury_no:"{{ article.injury_no}}",
-        vehicle_involved:"{{ article.vehicle_involved }}",
+        vehicleone:"{{ article.vehicleone }}",
+        vehicletwo:"{{ article.vehicletwo }}",
         vehicle_no:"{{ article.vehicle_no }}",
+        vehicle_type:"{{ article.vehicle_type }}",
         date:"{{ article.date }}",
         day:"{{ article.day }}",
         body:"{{article.body}}",
@@ -75,7 +112,7 @@ console.log("hello");
     $('.head').each(function(){
       $(this).click(function(){
         var news = accidentNews[this.id];
-        $('#summary').replaceWith("<div id='summary'><h2> Extracted items </h2> <p><strong> Death: </strong>" + news.death +  "</p>        <p><strong> Death Number: </strong>" + news.death_no +  "</p>        <p><strong> Injury: </strong>" + news.injury +"</p>        <p><strong> Injury Number: </strong>" + news.injury_no +"</p>        <p><strong> Vehicle Involved: </strong>" + news.vehicle_involved +"</p>        <p><strong> Vehicle Numbers: </strong>" + news.vehicle_no +"</p>        <p><strong>Location: </strong>" + news.location +"</p>        <p><strong> Date: </strong>"+ news.date +"</p>        <p><strong> Day: </strong>"+ news.day +"</p>        <h4>Full news</h4>"+ news.body+ "</div>");
+        $('#summary').replaceWith("<div id='summary'><h2> Extracted items </h2> <p><strong> Death: </strong>" + news.death +  "</p>        <p><strong> Death Number: </strong>" + news.death_no +  "</p>        <p><strong> Injury: </strong>" + news.injury +"</p>        <p><strong> Injury Number: </strong>" + news.injury_no +"</p>        <p><strong> Vehicle <One></One>: </strong>" + news.vehicleone +"</p>   <p><strong> Vehicle Two: </strong>" + news.vehicletwo +"</p>     <p><strong> Vehicle Numbers: </strong>" + news.vehicle_no +"</p>    <p><strong> Vehicle Type: </strong>" + news.vehicle_type +"</p>    <p><strong>Location: </strong>" + news.location +"</p>        <p><strong> Date: </strong>"+ news.date +"</p>        <p><strong> Day: </strong>"+ news.day +"</p>        <h4>Full news</h4>"+ news.body+ "</div>");
   });
 
   $('#no').click(function () {

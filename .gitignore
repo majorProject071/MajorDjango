@@ -3,3 +3,8 @@
 
 #database file
 db.sqlite3
+
+.idea/workspace.xml
+
+# All migration folders
+migrations/

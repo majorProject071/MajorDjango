@@ -1,0 +1,535 @@
+{% extends "base.html" %}
+{% block title %} News Information Extraciton {% endblock title %}
+
+{% block nav_index_visualization %} class="nav-link active btn-primary" {% endblock nav_index_visualization%}
+
+{% block content %}
+
+<style>
+
+body {
+  font: 10px sans-serif;
+  width: 100%;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.bar {
+  fill: steelblue;
+}
+
+.x.axis path {
+  display: none;
+}
+.title-text{
+font-size:24px;
+font-weight: 600;
+padding: 3% 20%;
+}
+.search{
+width:30%;
+float: right;
+}
+h2{
+margin-left:15%;
+font-size:24px;
+margin-bottom: 2%;
+margin-top: 2%;
+}
+.select{
+margin-left:15%;
+margin-bottom: 3%;
+font-size: 14px;
+}
+
+#locationmap{
+float: left;
+border: 2px solid grey;
+margin-left: 15%;
+padding: 1% 1%;
+display: inline;
+}
+#map{
+float: left;
+display: none;
+    margin-top: 5%;
+    text-align: center;
+    border: 2px solid grey;
+    margin-left: 15%;
+}
+#ltp_location{
+display: none;
+}
+#bkt_location{
+display: none;
+}
+#ktm_location{
+display: none;
+}
+#buttons{
+width: 600px;
+margin-left: 15%;
+}
+#result{
+width: 100%;
+
+}
+
+.button-map{
+float: left;
+margin-top:5%;
+margin-left: 15%;
+font-size: 16px;
+}
+.button-table{
+float: left;
+margin-top:5%;
+margin-left: 15%;
+font-size: 16px;
+}
+.button-bar{
+float: left;
+margin-top:5%;
+margin-left: 15%;
+display:none;
+font-size: 16px;
+}
+
+.colortable{
+
+display: none;}
+
+.datatable{
+
+    display: none;
+    margin-left: 15%;
+    }
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+table{
+margin-left: 15%;
+width: 75%;
+text-align: center;
+}
+
+th,td{
+padding: 1% 2%;
+}
+.kathmandu{
+float: right;
+margin-right: 10%;
+margin-top: -5%;
+font-size: 18px;
+}
+
+</style>
+<h2>Accidents in Nepal {{ info }} </h2>
+<a href="{% url 'graph:index' %}"><div class="kathmandu"><button>View on Kathmandu Map</button></div></a>
+<div class="search">
+    <form class="form-inline" action="" method="post" name="searchvehicle">
+        {% csrf_token %}
+        <input class="form-control mr-sm-2" name="query" type="text" placeholder="Vehicle No: BA 1 Kha 1111" required="required" value="{{ request.get.query }}">
+        <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+</div>
+<div class="select">
+    <form action="" method="post" name="myform">
+        {% csrf_token %}
+        <select name="location" id="location_info">
+            <option value="1" onclick="selectLocation()">Select Location</option>
+            {% for location in listoflocation %}
+            <option value="{{ location }}" onclick="selectLocation()">{{ location }}</option>
+            {% endfor %}
+        </select>
+        <select name="ktmlocation" id="ktm_location">
+            <option value="1">Kathmandu Locations</option>
+            {% for location in ktm_location %}
+            <option value="{{ location.location }}" onclick="selectLocation()">{{ location.location }}</option>
+            {% endfor %}
+        </select>
+        <select name="ltplocation" id="ltp_location">
+            <option value="1">Lalitpur Locations</option>
+            {% for location in ltp_location %}
+            <option value="{{ location.location }}" onclick="selectLocation()">{{ location.location }}</option>
+            {% endfor %}
+        </select>
+        <select name="bktlocation" id="bkt_location">
+            <option value="1"> Bhaktapur Locations</option>
+            {% for location in bkt_location %}
+            <option value="{{ location.location }}" onclick="selectLocation()">{{ location.location }}</option>
+            {% endfor %}
+        </select>
+        <select name="vehicle">
+            <option value="1">Select Vehicle</option>
+            {% for vehicle in vehiclelist %}
+
+            <option value="{{ vehicle }}">{{ vehicle }}</option>
+
+
+            {% endfor %}
+        </select>
+        <select name="year">
+            <option value="1">Select Year</option>
+            {% for year in yearlist %}
+
+            <option value="{{ year.year }}">{{ year.year }}</option>
+
+
+            {% endfor %}
+        </select>
+        <select name="season">
+            <option value="1">Select Season</option>
+            {% for season in seasonlist %}
+
+            <option value="{{ season.season }}">{{ season.season }}</option>
+
+
+            {% endfor %}
+        </select>
+
+        <select name="month">
+            <option value="1">Select Month</option>
+            <option value="5">Last 5 months</option>
+            <option value="10">Last 10 months</option>
+            {% for month in monthlist %}
+
+            <option value="{{ month.month }}">{{ month.month }}</option>
+
+
+            {% endfor %}
+        </select>
+
+        <input type="submit" value="Select">
+    </form>
+</div>
+<div id="result">
+    <div id="locationmap"></div>
+    <div id="map">
+        <table class="colortable">
+     <tr>
+         <th>color</th>
+         <th>color</th>
+         <th>Indication</th>
+         <th>Count</th>
+
+     </tr>
+     <tr>
+         <td>red</td>
+         <td style="background:red"></td>
+         <td>high accident alert area</td>
+         <td> more than 10</td>
+
+     </tr>
+     <tr>
+         <td>yellow</td>
+         <td style="background:yellow"></td>
+         <td>medium accident alert area</td>
+         <td> between 5 to 10</td>
+     </tr>
+     <tr>
+         <td>blue</td>
+         <td style="background:blue"></td>
+         <td>low accident alert area</td>
+         <td> less than 5</td>
+
+     </tr>
+ </table>
+    </div>
+    <div id="tooltip" class="hidden">
+        <p><span id="value"></span></p>
+    </div>
+<table class="datatable">
+    <tr>
+        <th>Location</th>
+        <th>Date</th>
+        <th>Year</th>
+        <th>Month</th>
+        <th>Season</th>
+        <th>Vehicle one</th>
+        <th>Vehicle Two</th>
+        <th>Injury</th>
+        <th>Death</th>
+    </tr>
+    {% for location in locationinfos %}
+    <tr class = "datarow">
+
+        <td>{{ location.location }}</td>
+        <td>{{ location.date }}</td>
+        <td>{{ location.year }}</td>
+        <td>{{ location.month }}</td>
+        <td>{{ location.season }}</td>
+        <td>{{ location.vehicleone }}</td>
+        <td>{{ location.vehicletwo }}</td>
+        <td>{{ location.injuryno }}</td>
+        <td>{{ location.deathno }}</td>
+
+    </tr>
+    {% endfor %}
+
+</table>
+
+</div>
+<script type="text/javascript">
+
+var total = {{ totalno }}
+
+var data = {{ location_data|safe }}
+
+var margin = {top: 20, right: 20, bottom: 30, left: 20},
+    width = 350 + total*50,
+    height = 415;
+var x0 = d3.scale.ordinal()
+    .rangeRoundBands([2, width], .1);
+
+var x1 = d3.scale.ordinal();
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var color = d3.scale.ordinal()
+    .range([ "#98abc5","red"]);
+
+var xAxis = d3.svg.axis()
+    .scale(x0)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left")
+    .tickFormat(d3.format("d"));
+var svg = d3.select("#locationmap").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+var ageNames = d3.keys(data[0]).filter(function(key) { return key !== "location"; });
+
+data.forEach(function(d) {
+    d.ages = ageNames.map(function(name) { return {name: name, value: +d[name]}; });
+  });
+
+x0.domain(data.map(function(d) { return d.location; }));
+x1.domain(ageNames).rangeRoundBands([0, x0.rangeBand()]);
+y.domain([0, d3.max(data, function(d) { return d3.max(d.ages, function(d) { return d.value; }); })]);
+
+svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+      .append("text")
+      .attr("transform", "rotate(0)")
+      .attr("y", 10)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text(function(d) { return d; });
+
+var state = svg.selectAll(".state")
+      .data(data)
+      .enter().append("g")
+      .attr("class", "state")
+      .attr("transform", function(d) { return "translate(" + x0(d.location) + ",0)"; });
+
+state.selectAll("rect")
+      .data(function(d) { return d.ages; })
+      .enter().append("rect")
+      .attr("width", x1.rangeBand())
+      .attr("x", function(d) { return x1(d.name); })
+      .attr("y", function(d) { return y(d.value); })
+      .attr("height", function(d) { return height - y(d.value); })
+      .style("fill", function(d) { return color(d.name); });
+
+
+var legend = svg.selectAll(".legend")
+      .data(ageNames.slice().reverse())
+      .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+legend.append("rect")
+      .attr("x", width + 12)
+      .attr("width", 18)
+      .attr("height", 18)
+      .style("fill", color);
+
+legend.append("text")
+      .attr("x", width + 12 )
+      .attr("y", 9)
+      .attr("dy", ".35em")
+      .style("text-anchor", "end")
+      .style("font-size", "12px")
+      .text(function(d) { return d; });
+
+</script>
+
+<script type="text/javascript">
+      var width = 900, height = 500;
+var divNode = d3.select('#map').node();
+var projection = d3.geo.mercator()
+								.scale(5300)
+								.translate([width / 2, height / 2])
+								.center([83.985593872070313, 28.465876770019531]);
+var path = d3.geo.path().projection(projection);
+var svg = d3.select("#map").append("svg").attr("width", width).attr("height", height);
+d3.json("https://raw.githubusercontent.com/aayushrijal/Nepal-district-topojson/master/nepal-districts.topojson", function(error, ok) {
+	var counties = topojson.feature(ok, ok.objects.districts);
+    var data = {{ newdata|safe }};
+        var valueById = {};
+        var districtById = {};
+        var countById = {};
+        var injuryById = {};
+        data.forEach(function(d){
+            valueById[d.location] = d.value;
+            districtById[d.location] = d.location;
+            countById[d.location] = d.count;
+            injuryById[d.location] = d.injury;
+    	svg.append("g")
+            .attr("class", "country")
+            .selectAll("path")
+            .data(counties.features)
+            .enter()
+            .append("path")
+            .attr("d", path)
+            .on("mouseover", function(d) {
+            if(countById[d.properties.DISTRICT]){
+               d3.select(this.parentNode).append("text")
+              .attr("x", "230") // margin
+              .attr("y", "400") // vertical-align
+              .style("font-size", "14px")
+              .attr("class", "mylabel")//adding a label class
+              .text(function() {
+                var data = "District:"+districtById[d.properties.DISTRICT]+ "." ;
+                return (data);
+              }
+              );
+               d3.select(this.parentNode).append("text")
+              .attr("x", "230") // margin
+              .attr("y", "420") // vertical-align
+              .style("font-size", "14px")
+              .attr("class", "mylabel")//adding a label class
+              .text(function() {
+                var stats =  "Death:"+ "" +valueById[d.properties.DISTRICT]+"\n"+ "and" +"Injury:"+ "" +injuryById[d.properties.DISTRICT]+ ".";
+                return (stats);
+              }
+              );
+              d3.select(this.parentNode).append("text")
+              .attr("x", "230") // margin
+              .attr("y", "440") // vertical-align
+              .style("font-size", "14px")
+              .attr("class", "mylabel")//adding a label class
+              .text(function() {
+                var data = "No of Accident:"+countById[d.properties.DISTRICT]+ "." ;
+                return (data);
+              }
+              );
+	        }})
+	        .on("mouseout",function() {
+            d3.selectAll(".mylabel").remove()
+          })
+            .style("fill", function(d) {
+                if(countById[d.properties.DISTRICT]>10){
+                    return "red";
+                    // return color(valueById[d.properties.DISTRICT]);
+                }
+                else if(countById[d.properties.DISTRICT]>5 && countById[d.properties.DISTRICT]<=10){
+                    return "yellow";
+                }
+                else if(countById[d.properties.DISTRICT]<=5){
+                    return "blue";
+                }
+    		return "#ccc";
+    	});
+    	//county borders
+    	svg.append("path").datum(topojson.mesh(ok, ok.objects.districts, function(a, b) {
+    		return a !== b;
+    	})).attr("class", "county-border").attr("d", path);
+    });
+
+});
+
+
+
+</script>
+
+<div id="buttons">
+    <div class="button-map">
+        <button onclick="getMap()" value="map">View on Map</button>
+    </div>
+    <div class="button-table">
+        <button onclick="getTable()">View on Table</button>
+    </div>
+    <div class="button-bar">
+        <button onclick="getGraph()">View on BarGraph</button>
+    </div>
+</div>
+<script>
+    function selectLocation(){
+    var vehicleinfo=document.getElementById('location_info').value;
+    if (vehicleinfo == 'Kathmandu'){
+    $("#ktm_location").show();
+    $("#ltp_location").hide();
+     $("#bkt_location").hide();
+    }
+    else if (vehicleinfo == 'Lalitpur'){
+     $("#ltp_location").show();
+     $("#ktm_location").hide();
+     $("#bkt_location").hide();
+     }
+     else if (vehicleinfo == 'Bhaktapur'){
+     $("#bkt_location").show();
+     $("#ktm_location").hide();
+     $("#ltp_location").hide();
+     }
+     else{
+     $("#ltp_location").hide();
+     $("#ktm_location").hide();
+     $("#bkt_location").hide();
+     }
+    }
+
+
+</script>
+
+<script>
+    function getMap(){
+    $(".button-bar").show();
+    $(".button-table").show();
+    $(".button-map").hide();
+    $(".colortable").show();
+    $("#map").show();
+    $("#locationmap").hide();
+    $(".datatable").hide();
+    }
+    function getTable(){
+    $(".button-bar").show();
+    $(".button-table").hide();
+    $(".button-map").show();
+    $(".colortable").hide();
+    $("#map").hide();
+    $("#locationmap").hide();
+    $(".datatable").show();
+    }
+    function getGraph(){
+    $(".button-bar").hide();
+    $(".button-map").show();
+    $(".button-table").show();
+    $(".colortable").hide();
+    $("#map").hide();
+    $("#locationmap").show();
+    $(".datatable").hide();
+    }
+
+</script>
+</body>
+
+{% endblock content %}
