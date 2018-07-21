@@ -27,6 +27,7 @@ scooty = ['scooty','scooter']
 bike = ['bike','motorbike','motorcycle']
 zeep = ['jeep','zeep']
 matcher = Matcher(nlp.vocab)
+
 class VehicleInformation:
     def __init__(self,news_story):
         self.news_story = news_story
