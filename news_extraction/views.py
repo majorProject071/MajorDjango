@@ -10,7 +10,7 @@ def index(request):
     news_list = rssdata.objects.all().order_by("-id")
     page = request.GET.get('page', 1)
 
-    paginator = Paginator(news_list, 5)
+    paginator = Paginator(news_list, 4)
     try:
         news = paginator.page(page)
     except PageNotAnInteger:
@@ -27,10 +27,8 @@ def extraction(request):
         if form.is_valid():
             data = form.cleaned_data
             extracted_data = extract_info(data['news_text'])
-
             # If you want to save the input news
             story = save_extracted_info(data['news_title'], data['news_text'], extracted_data)
-
         return render(request, 'extraction.html', {'form': form,
                                                    'news_id': story.pk,
                                                    'article': rssdata.objects.get(pk=story.pk)})

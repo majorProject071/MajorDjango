@@ -1,17 +1,16 @@
 from difflib import SequenceMatcher
 
-heading1 = "1 killed, 3 injured in Sunsari bus accident"
-heading2 = "1 killed, 3 injured in Sunsari bus accident"
+heading1 = "2 dead in auto collision"
+heading2 = "Two die in Saptari road accident"
 
-body1 = "May 23, 2018-A person died and 3 others were injured when a commuter bus (Na 4 Kha 4258) overturned at Apachhi" \
-        " in Itahari-1 of Sunsari along the Koshi Highway on Wednesday." \
-        "According to the Area Police Office, Itahari, the incident occurred due to overspeed." \
-        "The injured are undergoing treatment at the Dharan-based BP Koirala Institute of Health Sciences."
+body1 = "Two persons died when a speeding bus hit a motorcycle in Saptari district on Wednesday night.Police said Rupesh " \
+        "Chaudhary, 35, and Roshan Chaudhary, 20, of Shambhunath Municipality-2 died during treatment.The bus driver was " \
+        "taken into custody for investigation."
 
-body2 = "May 23, 2018-A person died and 3 others were injured when a commuter bus (Na 4 Kha 4258) overturned at Apachhi" \
-        " in Itahari-1 of Sunsari along the Koshi Highway on Wednesday." \
-        "According to the Area Police Office, Itahari, the incident occurred due to overspeed." \
-        "The injured are undergoing treatment at the Dharan-based BP Koirala Institute of Health Sciences."
+body2 = "Two persons died when a speeding bus hit a motorcycle in Saptari district on Wednesday night." \
+        "The police have identified the deceased as Rupesh Chaudhary, 35, and Roshan Chaudhary, 20, of " \
+        "Shambhunath Municipality-2 in the district.The Chaudhary duo were critically injured during the accident" \
+        " and died while undergoing treatment.The bus driver has been taken into police custody for investigation."
 
 date1 = "2018-05-23"
 date2 = "2018-05-23"
@@ -56,41 +55,20 @@ def vehicle_similarity(v1,v2):
 vehicle_similarity(vehicle2, vehicle1)
 
 def news_similarity():
+    print (body_similarity(body1, body2))
     if heading_similarity(heading1, heading2) > 0.9 or heading_similarity(heading1, heading2) is None:
-        if body_similarity(body1, body2) > 0.85:
-            print ("News are same")
-    elif date_similarity(date1, date2)\
-            and location_similarity(location1, location2) > 0.9 or location_similarity(location1, location2) is None\
-            and vehicle_similarity(vehicle1, vehicle2)\
-            and vehicle_similarity(vehicle_number1, vehicle_number2):
-        if death1 is not None and death2 is not None and injury1 is not None and injury2 is not None and \
-                (death1==death2) and (injury1==injury2):
-                print ("News are same")
+        if body_similarity(body1, body2) > 0.80:
+            print ("News are same.")
+    elif body_similarity(body1, body2) > 0.80:
+        print ("News are sameee.")
+    # elif date_similarity(date1, date2)\
+    #         and location_similarity(location1, location2) > 0.9 or location_similarity(location1, location2) is None\
+    #         and vehicle_similarity(vehicle1, vehicle2)\
+    #         and vehicle_similarity(vehicle_number1, vehicle_number2):
+    #     if death1 is not None and death2 is not None and injury1 is not None and injury2 is not None and \
+    #             (death1==death2) and (injury1==injury2):
+    #             print ("News are same")
     else:
         print ("News are different")
 
 news_similarity()
-
-
-# def news_similarity():
-#     if date_similarity(date1,date2):
-#         if location_similarity(location1,location2):
-#             if vehicle_similarity(vehicle_nos1,vehicle_nos2):
-#                 print("News are same")
-#             elif vehicle_similarity(vehicles1,vehicles2):
-#                 if (death1==death2) and (injury1==injury2):
-#                     print("News are same")
-#                 elif (death1 == None) and (death2 == None):
-#                     if(injury1==injury2):
-#                         print("News are same")
-#                 elif (injury1 == None) and (injury2 == None):
-#                     if(death1==death2):
-#                         print("News are same")
-#                 else:
-#                     print("News are different")
-#             else:
-#                 print("News are different")
-#         else:
-#             print("News are different (location)")
-#     else:
-#         print("News are different (date)")
