@@ -20,14 +20,13 @@ nlp = en_core_web_sm.load()
 
 def extract_info(news_story):
     news = Tokenize(news_story)
-    splited_sentences = nltk.sent_tokenize(news_story)
     tokenized_words = news.split_words()
     tagger = Tagger(tokenized_words)
     pos_tagged_sentences = tagger.tag()
     extracted_data = DataExtractor(pos_tagged_sentences, news_story)
-    sentences = news.split_story()
     extracted_data.day(news_story)
     return extracted_data
+
 
 def vehicleinfo(news_story):
     vehicle_information = VehicleInformation(news_story)
@@ -83,13 +82,13 @@ def initial_check():
     print oldlinks
     for i in range(0, len(links)):
         if links[i] not in oldlinks:
-            print i
             response = get(links[i])
             extractor = Goose()
             article = extractor.extract(raw_html=response.content)
             texts = article.cleaned_text
             news_story = texts.encode('utf-8')
             extract(links[i], news_story, title[i])
+
 
 def extract(link, news_story, title):
     a = re.search(r'[A-Z]\w+\s\d+[,.]\s\d+', news_story)
@@ -101,12 +100,10 @@ def extract(link, news_story, title):
         news = Tokenize(news_story)
     date, day, month, year, news_story = news.get_date(news_story)
     print date
-    splited_sentences = nltk.sent_tokenize(news_story)
     tokenized_words = news.split_words()
     tagger = Tagger(tokenized_words)
     pos_tagged_sentences = tagger.tag()
     data_extractor = DataExtractor(pos_tagged_sentences, news_story)
-    sentences = news.split_story()
     vehicle0, vehicle1, vehicle_type = vehicleinfo(news_story)
     print vehicle0
     print title
@@ -145,7 +142,6 @@ def manual_extract(link):
     soup = BeautifulSoup(content, 'lxml')
 
     article_text = []
-    news = ''
     article = soup.find("div", {"class": "content-wrapper"}).findAll('p')
     title = soup.find("div", {"class": "no-space"}).h1
 
@@ -155,6 +151,4 @@ def manual_extract(link):
                 article_text.append(e)
 
     return (link, str(article_text), title.text)
-
-
 

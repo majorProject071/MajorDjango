@@ -33,12 +33,9 @@ class DataExtractor:
             words = nltk.word_tokenize(sent)
             if ("died" or "death" or "injured" or "injury" or "injuries" or "killed") in words:
                 chunked_sentence = nltk.ne_chunk(nltk.pos_tag(nltk.word_tokenize(sent)))
-                # print(chunked_sentence)
                 for i in chunked_sentence.subtrees(filter=lambda x: x.label() == 'GPE'):
                     for i in i.leaves():
                         locations.append(i[0])
-
-        print("after extracting all locations : " + str(locations))
 
         return_value = locations
         try:
@@ -50,14 +47,13 @@ class DataExtractor:
 
         return (return_value)
 
+
     def location(self):
         """ Gets the location from the news story.
 
             Inputs include the parts of speech tagged words.
             Output is the phrase containing the location of mishap.
         """
-        # individual_sentences = nltk.sent_tokenize(news_story)
-
         ktm_location = LocationInformation().all_ktm_locations()
         bkt_location = LocationInformation().all_bkt_locations()
         ltp_location = LocationInformation().all_ltp_locations()
@@ -88,13 +84,14 @@ class DataExtractor:
 
         return (return_location)
 
+
     def day(self, complete_news):
         """ Gets the day of mishap.
         """
         day_regex = re.compile('\w+day')
         day = day_regex.findall(complete_news)[0]
-        # print("The day when the accident occured is: \n"+day)
         return day
+
 
     def vehicle(self):
         """ Gets the vehicle number from the news story.
@@ -112,8 +109,6 @@ class DataExtractor:
                 vehicle = ""
                 for p in i.leaves():
                     vehicle = vehicle + str(p[0]) + " "
-                    # vehicle = vehicle[:-1]
-                    # print("\n")
                 vehicles.append(vehicle[:-1])
 
         return (vehicles)
@@ -127,7 +122,6 @@ class DataExtractor:
             vehicle = vehicle_parser.parse(i)
             for i in vehicle.subtrees(filter=lambda x: x.label() == 'Vehicle'):
                 vehicle_code.append(i.leaves()[2][0])
-        # print(vehicle_code)
 
         vehicle = []
         for vcode in vehicle_code:

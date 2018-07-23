@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from forms import NameForm
-from .models import *
 from methods import *
+
 
 def index(request):
     initial_check()
