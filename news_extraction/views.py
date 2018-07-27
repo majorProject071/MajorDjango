@@ -2,15 +2,15 @@ from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from forms import NameForm
-from .models import *
 from methods import *
+
 
 def index(request):
     initial_check()
     news_list = rssdata.objects.all().order_by("-id")
     page = request.GET.get('page', 1)
 
-    paginator = Paginator(news_list, 5)
+    paginator = Paginator(news_list, 4)
     try:
         news = paginator.page(page)
     except PageNotAnInteger:
@@ -29,7 +29,6 @@ def extraction(request):
             extracted_data = data['news_link']
             link, news , title = manual_extract(extracted_data)
 
-            #
             # If you want to save the input news
             oldlinks = rssdata.objects.values_list('link', flat=True)
 
@@ -44,12 +43,6 @@ def extraction(request):
                 return render(request, 'extraction.html', {'form': form,
                                                            'news_id': id,
                                                            'article': rssdata.objects.get(link=link)})
-
-
-        # #
-
-            #
-
     else:
         form = NameForm()
 
