@@ -1,13 +1,28 @@
-# import necessary headers
 from django.shortcuts import render, get_object_or_404, redirect, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q, Count, Sum, Max, Value
 from django.shortcuts import render
+from time import sleep
+from django.forms import modelformset_factory
+from django.contrib.auth import authenticate, login, logout
+from django.views.generic import View
+from django.db import connections
 from geopy.geocoders import Nominatim
+
+from .models import *
 import json
 from news_extraction.models import *
 from news_extraction.modules.location_tree import LocationInformation
+import news_extraction.modules.vehicles_gazetter as Vehicles
+from django.core import serializers
+from django.http import JsonResponse
+import requests
+import geocoder
 import datetime
+
 
 # provide parameter to select tag for location in location.html
 
@@ -108,20 +123,9 @@ def getqueries(informations, ktmlocations, ltplocations, bktlocations):
             information = information + string
 
         if info['monthinfo'] != '1':
-            if info['monthinfo'] == '5' or info['monthinfo'] == '10':
-                value = int(info['monthinfo'])
-                timeago = (datetime.date.today() - datetime.timedelta(value * 365 / 12)).isoformat()
-                newlocationlist = newlocationlist.filter(date__gte=timeago)
-                string =' '  + info['monthinfo'] + ' months ago '
-                information = information + string
-            else:
-                newlocationlist = newlocationlist.filter(month=info['monthinfo'])
-                string = ' in ' + info['monthinfo']
-                information = information + string
-
-        if info['seasoninfo'] != '1':
-            newlocationlist = newlocationlist.filter(season=info['seasoninfo'])
-            string = ' in ' + info['seasoninfo']
+            print("inside")
+            newlocationlist = newlocationlist.filter(month=info['monthinfo'])
+            string = ' in ' + info['monthinfo']
             information = information + string
 
         if info['vehicleinfo'] != '1':
@@ -146,10 +150,11 @@ def getqueries(informations, ktmlocations, ltplocations, bktlocations):
         injury = 0
         count = 0
         for queries in newqueries:
-            death += queries['deathno']
-            injury += queries['injuryno']
-            count += queries['count']
-        querieslist.append({'location': distlocation.capitalize(), 'death': death , 'injury': injury })
+            if len(queries['injuryno'])>2:
+                death += queries['deathno']
+                injury += queries['injuryno']
+                count += queries['count']
+            querieslist.append({'location': distlocation.capitalize(), 'death': death , 'injury': injury })
         countlist.append({'location': distlocation.capitalize(), 'death': death , 'injury': injury ,'count': count})
 
     # return to location()
@@ -244,7 +249,6 @@ def location(request):
                                                    'vehicletwo', 'date').order_by('location').annotate(count=Count('location')).annotate(deathno=Sum('death_no')).annotate(injuryno=Sum('injury_no'))
     vehiclelist = rssdata.objects.values('vehicleone').order_by('vehicleone').annotate(count=Count('vehicleone'))
     vehiclelisttwo = rssdata.objects.values('vehicletwo').order_by('vehicletwo').annotate(count=Count('vehicletwo'))
-    seasonlist = rssdata.objects.values('season').order_by('season').annotate(count=Count('season'))
     monthlist = rssdata.objects.values('month').order_by('month').annotate(count=Count('month'))
     tablevehiclelist = rssdata.objects.all().values('vehicle_no').order_by('vehicle_no')
 
@@ -303,7 +307,6 @@ def location(request):
                     'monthlist': monthlist,
                     'vehiclelist': vehicledata,
                     'yearlist': yearlist,
-                    'seasonlist': seasonlist,
                 }
                 return render(request, "findlocation.html", context)
             else:
@@ -316,7 +319,6 @@ def location(request):
                     'monthlist': monthlist,
                     'vehiclelist': vehicledata,
                     'yearlist': yearlist,
-                    'seasonlist': seasonlist,
                     'search' : search,
                 }
                 return render(request, "findlocation.html", context)
@@ -347,7 +349,6 @@ def location(request):
                     'monthlist': monthlist,
                     'vehiclelist': vehicledata,
                     'yearlist': yearlist,
-                    'seasonlist': seasonlist,
                 }
                 return render(request, "findlocation.html", context)
 
@@ -362,7 +363,6 @@ def location(request):
                 'totalno': totalno,
                 'vehiclelist': vehicledata,
                 'yearlist': yearlist,
-                'seasonlist': seasonlist,
                 'info': information,
                 'newdata': json.dumps(maplocations),
             }
@@ -387,7 +387,6 @@ def location(request):
         'totalno': totalno,
         'vehiclelist': vehicledata,
         'yearlist': yearlist,
-        'seasonlist': seasonlist,
         'newdata': json.dumps(maplocations),
     }
     return render(request, "location.html", context)
@@ -406,16 +405,16 @@ def index(request):
             if (len(locations) > 2):
                 loc = locations
                 # print loc
-                # g = geocoder.google(loc)
-                # print g.lat
-                # if g.lat is not None:
-                #     locs = (g.lat, g.lng)
-                #     latitude.append(locs)
+                g = geocoder.google(loc)
+                print g.lat
+                if g.lat is not None:
+                    locs = (g.lat, g.lng)
+                    latitude.append(locs)
 
-                geolocator = Nominatim()
-                locations = geolocator.geocode(loc)
-                location = (locations.latitude, locations.longitude)
-                latitude.append(location)
+                # geolocator = Nominatim()
+                # locations = geolocator.geocode(loc)
+                # location = (locations.latitude, locations.longitude)
+                # latitude.append(location)
     print(latitude)
 
     context = {

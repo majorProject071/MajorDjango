@@ -11,6 +11,7 @@ class rssdata(models.Model):
     injury = models.CharField(blank=True, max_length=100, null=True)
     injury_no = models.IntegerField(default=0,blank=True, null=True)
     location = models.CharField(blank=True, max_length=100, null=True)
+    cause = models.TextField(blank=True)
     vehicleone= models.CharField(blank=True, max_length=100, null=True)
     vehicletwo = models.CharField(blank=True, max_length=100, null=True)
     date = models.CharField(default=date.today, blank=True, null=True,max_length=100)
