@@ -12,9 +12,6 @@ from goose import Goose
 from requests import get
 from bs4 import BeautifulSoup
 import urllib
-import requests
-
-
 
 nlp = en_core_web_sm.load()
 
@@ -32,6 +29,7 @@ def vehicleinfo(news_story):
     vehicle_information = VehicleInformation(news_story)
     vehicle_information.make_gazetter()
     all_vehicles, two_wheeler, three_wheeler, four_wheeler = vehicle_information.find_vehicles()
+    print all_vehicles
     if (all_vehicles==set([])):
         return('[]','[]','[]')
     vehicles = []
