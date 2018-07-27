@@ -2,10 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="36890437-8748-435e-8fa3-3ee983d4a965" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graph/migrations/0005_delete_news.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/news_extraction/migrations/0019_auto_20180723_1214.py" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/news_extraction/methods.py" afterPath="$PROJECT_DIR$/news_extraction/methods.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MajorDjango/settings.py" afterPath="$PROJECT_DIR$/MajorDjango/settings.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/news_extraction/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/news_extraction/migrations/0001_initial.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/news_extraction/modules/vehicles_gazetter.py" afterPath="$PROJECT_DIR$/news_extraction/modules/vehicles_gazetter.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/news_extraction/templates/base.html" afterPath="$PROJECT_DIR$/news_extraction/templates/base.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/news_extraction/templates/index.html" afterPath="$PROJECT_DIR$/news_extraction/templates/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/requirements.txt" afterPath="$PROJECT_DIR$/requirements.txt" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,7 +20,7 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.57348484">
+    <splitter split-orientation="horizontal" split-proportion="0.5060606">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
@@ -26,16 +30,22 @@
                   <caret line="15" column="28" lean-forward="false" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
                   <folding>
                     <element signature="e#0#35#0" expanded="true" />
+                    <marker date="1532701862253" expanded="true" signature="597:1714" ph="..." />
+                    <marker date="1532701862253" expanded="true" signature="630:1615" ph="..." />
+                    <marker date="1532701862253" expanded="true" signature="697:1615" ph="..." />
+                    <marker date="1532701862253" expanded="true" signature="1315:1615" ph="..." />
+                    <marker date="1532701862253" expanded="true" signature="1425:1613" ph="..." />
+                    <marker date="1532701862253" expanded="true" signature="1739:1783" ph="..." />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="methods.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="methods.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/news_extraction/methods.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="196">
-                  <caret line="14" column="15" lean-forward="true" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="15" />
+                <state relative-caret-position="98">
+                  <caret line="91" column="21" lean-forward="false" selection-start-line="91" selection-start-column="21" selection-end-line="91" selection-end-column="21" />
                   <folding>
                     <element signature="e#0#21#0" expanded="true" />
                   </folding>
@@ -55,11 +65,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/MajorDjango/settings.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1638">
-                  <caret line="117" column="0" lean-forward="false" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
+                <state relative-caret-position="253">
+                  <caret line="93" column="28" lean-forward="true" selection-start-line="93" selection-start-column="28" selection-end-line="93" selection-end-column="28" />
                   <folding />
                 </state>
               </provider>
@@ -69,36 +79,27 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
+          <file leaf-file-name="base.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/news_extraction/templates/base.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="168">
-                  <caret line="12" column="5" lean-forward="false" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
+                <state relative-caret-position="423">
+                  <caret line="180" column="6" lean-forward="false" selection-start-line="180" selection-start-column="6" selection-end-line="180" selection-end-column="6" />
                   <folding>
-                    <marker date="1532180473866" expanded="true" signature="6682:6688" ph="..." />
+                    <element signature="n#style#0;n#head#0;n#html#0;n#!!top" expanded="false" />
+                    <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                    <element signature="e#6433#6439#0" expanded="true" />
+                    <marker date="1532709464859" expanded="true" signature="6503:6509" ph="..." />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="extraction.html" pinned="false" current-in-tab="true">
+          <file leaf-file-name="extraction.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/news_extraction/templates/extraction.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="157">
-                  <caret line="28" column="8" lean-forward="false" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
+                <state relative-caret-position="129">
+                  <caret line="26" column="22" lean-forward="false" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
                   <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/news_extraction/templates/index.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="602">
-                  <caret line="43" column="10" lean-forward="false" selection-start-line="43" selection-start-column="10" selection-end-line="43" selection-end-column="10" />
-                  <folding>
-                    <marker date="1532180473868" expanded="true" signature="3694:4078" ph="..." />
-                  </folding>
                 </state>
               </provider>
             </entry>
@@ -150,6 +151,9 @@
         <option value="$PROJECT_DIR$/news_extraction/modules/extractor.py" />
         <option value="$PROJECT_DIR$/news_extraction/modules/vehicles_gazetter.py" />
         <option value="$PROJECT_DIR$/news_extraction/methods.py" />
+        <option value="$PROJECT_DIR$/news_extraction/templates/index.html" />
+        <option value="$PROJECT_DIR$/news_extraction/templates/base.html" />
+        <option value="$PROJECT_DIR$/MajorDjango/settings.py" />
       </list>
     </option>
   </component>
@@ -195,7 +199,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="vehi&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/modules/vehicles_gazetter.py&#10;mana&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/manage.py&#10;loca&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/modules/location_tree.py" />
+    <property name="SearchEverywhereHistoryKey" value="index&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/templates/index.html&#10;vehi&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/modules/vehicles_gazetter.py&#10;mana&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/manage.py&#10;loca&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/modules/location_tree.py" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../academics/restaurant-mgmt-system" />
   </component>
@@ -324,27 +328,37 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="-1" width="1366" height="745" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="-1" width="1366" height="745" extended-state="7" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19015151" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14090909" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37012988" sideWeight="0.50609756" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.304" sideWeight="0.4939302" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.304" sideWeight="0.4939302" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4064" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4064" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.48548388" sideWeight="0.49390244" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37012988" sideWeight="0.50609756" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.304" sideWeight="0.4939302" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4064" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19015151" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.48548388" sideWeight="0.49390244" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -654,6 +668,12 @@
           <caret line="15" column="28" lean-forward="false" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
+            <marker date="1532701862253" expanded="true" signature="597:1714" ph="..." />
+            <marker date="1532701862253" expanded="true" signature="630:1615" ph="..." />
+            <marker date="1532701862253" expanded="true" signature="697:1615" ph="..." />
+            <marker date="1532701862253" expanded="true" signature="1315:1615" ph="..." />
+            <marker date="1532701862253" expanded="true" signature="1425:1613" ph="..." />
+            <marker date="1532701862253" expanded="true" signature="1739:1783" ph="..." />
           </folding>
         </state>
       </provider>
@@ -686,42 +706,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MajorDjango/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1638">
-          <caret line="117" column="0" lean-forward="false" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/news_extraction/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="12" column="5" lean-forward="false" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
-          <folding>
-            <marker date="1532180473866" expanded="true" signature="6682:6688" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/news_extraction/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="602">
-          <caret line="43" column="10" lean-forward="false" selection-start-line="43" selection-start-column="10" selection-end-line="43" selection-end-column="10" />
-          <folding>
-            <marker date="1532180473868" expanded="true" signature="3694:4078" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/news_extraction/templates/extraction.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="28" column="8" lean-forward="false" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/news_extraction/modules/vehicles_gazetter.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="322">
@@ -732,13 +716,52 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/news_extraction/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="115" column="5" lean-forward="true" selection-start-line="115" selection-start-column="5" selection-end-line="115" selection-end-column="5" />
+          <folding>
+            <marker date="1532709333970" expanded="true" signature="3641:4025" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/news_extraction/templates/extraction.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="129">
+          <caret line="26" column="22" lean-forward="false" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/news_extraction/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="423">
+          <caret line="180" column="6" lean-forward="false" selection-start-line="180" selection-start-column="6" selection-end-line="180" selection-end-column="6" />
+          <folding>
+            <element signature="n#style#0;n#head#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#6433#6439#0" expanded="true" />
+            <marker date="1532709464859" expanded="true" signature="6503:6509" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/news_extraction/methods.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="14" column="15" lean-forward="true" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="15" />
+        <state relative-caret-position="98">
+          <caret line="91" column="21" lean-forward="false" selection-start-line="91" selection-start-column="21" selection-end-line="91" selection-end-column="21" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MajorDjango/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="93" column="28" lean-forward="true" selection-start-line="93" selection-start-column="28" selection-end-line="93" selection-end-column="28" />
+          <folding />
         </state>
       </provider>
     </entry>

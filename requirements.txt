@@ -1,12 +1,56 @@
-beautifulsoup4==4.3.2
-cssselect==0.9.1
-Django==1.11.12
-feedparser==5.2.1
-nltk==3.2.5
-numpy==1.14.1
-Pillow==2.5.1
-pkg-resources==0.0.0
-practNLPTools==1.0
-pytz==2018.4
-PyYAML==3.11
-six==1.11.0
+anytree (2.4.3)
+BeautifulSoup (3.2.1)
+beautifulsoup4 (4.6.0)
+bs4 (0.0.1)
+certifi (2018.4.16)
+chardet (3.0.4)
+click (6.7)
+cssselect (1.0.3)
+cymem (1.31.2)
+cytoolz (0.8.2)
+datefinder (0.6.1)
+decorator (4.3.0)
+dill (0.2.7.1)
+distribute (0.7.3)
+Django (1.11.12)
+en-core-web-sm (1.2.0)
+feedparser (5.2.1)
+ftfy (4.4.3)
+future (0.16.0)
+geocoder (1.38.1)
+geographiclib (1.49)
+geopy (1.14.0)
+goose-extractor (1.0.25)
+html5lib (1.0.1)
+idna (2.7)
+jieba (0.39)
+lxml (4.2.1)
+msgpack-numpy (0.4.1)
+msgpack-python (0.5.6)
+murmurhash (0.26.4)
+nltk (3.3)
+numpy (1.14.4)
+pathlib (1.0.1)
+Pillow (5.1.0)
+pip (9.0.3)
+plac (0.9.6)
+practNLPTools (1.0)
+preshed (1.0.0)
+python-dateutil (2.7.3)
+pytz (2018.4)
+ratelim (0.1.6)
+regex (2017.11.9)
+requests (2.19.1)
+setuptools (39.2.0)
+six (1.11.0)
+spacy (1.9.0)
+termcolor (1.1.0)
+thinc (6.5.2)
+toolz (0.9.0)
+tqdm (4.23.4)
+ujson (1.35)
+urllib3 (1.23)
+wcwidth (0.1.7)
+webencodings (0.5.1)
+wheel (0.31.1)
+wrapt (1.10.11)
