@@ -184,20 +184,10 @@ font-size: 18px;
 
             {% endfor %}
         </select>
-        <select name="season">
-            <option value="1">Select Season</option>
-            {% for season in seasonlist %}
 
-            <option value="{{ season.season }}">{{ season.season }}</option>
-
-
-            {% endfor %}
-        </select>
 
         <select name="month">
             <option value="1">Select Month</option>
-            <option value="5">Last 5 months</option>
-            <option value="10">Last 10 months</option>
             {% for month in monthlist %}
 
             <option value="{{ month.month }}">{{ month.month }}</option>

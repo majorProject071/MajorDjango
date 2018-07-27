@@ -59,4 +59,5 @@ class VehicleInformation:
             is_three_wheeler = 1
         if(len(vehicles_found.intersection(four_wheeler))!=0):
             is_four_wheeler = 1
+        print vehicles_found
         return(vehicles_found,is_two_wheeler,is_three_wheeler,is_four_wheeler)

@@ -39,6 +39,7 @@ def extraction(request):
                                                            'news_id': id,
                                                            'article': rssdata.objects.get(pk=id)})
             else:
+                print link
                 id = 5
                 return render(request, 'extraction.html', {'form': form,
                                                            'news_id': id,
