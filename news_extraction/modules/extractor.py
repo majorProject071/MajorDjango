@@ -133,8 +133,6 @@ class DataExtractor:
                 sent = sent.replace('\r', '')
 
             new_sentences.append(sent)
-        print("new sentence")
-        print(new_sentences)
         death = death_no(new_sentences)
         if death == "None":
             actualdeath = death
@@ -142,15 +140,9 @@ class DataExtractor:
         else:
             actualdeath = remove_date(death)
             deathNo = convertNum(death)
-        # print("Death No: ")
-        # print(death, actualdeath, deathNo)
-        #
-        # print("\n No of dead people: " + str(deathNo))
         return(deathNo, actualdeath)
 
     def injury_number(self):
-        print("inside injury no ")
-        print(self.splitted_sentences)
         integer_regex = re.compile(r'\d{1,2}')
         new_sentences = []
         p = inflect.engine()
@@ -158,9 +150,15 @@ class DataExtractor:
 
             numbers = integer_regex.findall(sent)
             for i in numbers:
+                sent = sent.replace('\\xa0', '')
                 sent = sent.replace(i, p.number_to_words(i))
                 sent = sent.replace('-', ' ')
+                sent = sent.replace('\\r', '')
+                sent = sent.replace('\r', '')
+
             new_sentences.append(sent)
+        print("new sentence")
+        print(new_sentences)
         injury = injury_no(new_sentences)
         # print(injury)
         if injury == "None":
@@ -172,5 +170,6 @@ class DataExtractor:
                 injuryNo = w2n.word_to_num(actualinjury)
             except:
                 injuryNo = 1
-
+        print("here")
+        print (injuryNo, actualinjury)
         return(injuryNo, actualinjury)

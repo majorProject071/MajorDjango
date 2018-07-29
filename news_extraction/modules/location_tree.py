@@ -86,7 +86,7 @@ baitadi = Node("baitadi", parent=nepal)
 darchula = Node("darchula", parent=nepal)
 
 chabahil = Node("chabahil", parent=kathmandu)
-kathmandu = Node("kathmandu", parent=kathmandu)
+# kathmandu = Node("kathmandu", parent=kathmandu)
 sukedhara = Node("sukedhara", parent=kathmandu)
 dhumbarahi = Node("dhumbarahi", parent=kathmandu)
 maharajgunj = Node("maharajgunj", parent=kathmandu)
