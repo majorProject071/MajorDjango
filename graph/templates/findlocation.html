@@ -128,13 +128,7 @@ margin-top: 2%;
 </style>
 
 <h2>Accidents {{ info }} in Places of Nepal </h2>
-<div class="search">
-    <form class="form-inline" action="" method="post">
-        {% csrf_token %}
-        <input class="form-control mr-sm-2" name="query" type="text" placeholder="Search" required="required">
-        <button class="btn btn-primary" type="submit">Search</button>
-    </form>
-</div>
+
 <div class="select">
     <form action="" method="post" name="myform">
         {% csrf_token %}
@@ -202,38 +196,7 @@ margin-top: 2%;
     <button onclick="viewvehicleno()"> click to view all vehicles involved in accidents</button>
     </div>
 </div>{% endif %}
-{% if location_data %}<h2> Result of {{ search }}</h2> </div>
 
-<table>
-    <tr>
-        <th>Location</th>
-        <th>Vehicle no</th>
-        <th>Date</th>
-        <th>Injury</th>
-        <th>Death</th>
-    </tr>
-    {% for location in location_data %}
-    <tr>
-
-        <td>{{ location.location }}</td>
-        <td>{{ location.vehicle_no }}</td>
-        <td>{{ location.date }}</td>
-        <td>{{ location.injury_no }}</td>
-        <td>{{ location.death_no }}</td>
-
-    </tr>
-    {% endfor %}
-
-</table>
-{% endif %}
-
-<div class="accidentvehicles">
-    <ol>{% for location in locationdetail %}
-
-        <li>{{ location.vehicleno }}</li>
-        {% endfor %}
-    </ol>
-</div>
 <script>
     function selectLocation(){
     var vehicleinfo=document.getElementById('location_info').value;
@@ -257,15 +220,6 @@ margin-top: 2%;
      $("#ktm_location").hide();
      $("#bkt_location").hide();
      }
-    }
-
-    function viewvehicleno(){
-    if ($(".accidentvehicles").is(":hidden")){
-        $(".accidentvehicles").show();
-    }
-    else{
-    $(".accidentvehicles").hide();
-    }
     }
 
 </script>

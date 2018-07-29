@@ -19,7 +19,6 @@ class rssdata(models.Model):
     vehicle_no = models.CharField(blank=True, max_length=100, null=True)
     vehicle_type = models.CharField(blank=True, max_length=100, null=True)
     month = models.CharField(blank=True, max_length=100, null=True)
-    season = models.CharField(blank=True, max_length=100, null=True)
     year = models.CharField(blank=True, max_length=100, null=True)
     day = models.CharField(blank=True, max_length=100, null=True)
 

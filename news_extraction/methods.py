@@ -1,6 +1,6 @@
 from .models import *
 import re
-
+import unicodedata
 from modules.tagger import Tagger
 from modules.extractor import DataExtractor
 from modules.tokenizer import Tokenize
@@ -92,39 +92,45 @@ def extract(link, news_story, title):
     a = re.search(r'[A-Z]\w+\s\d+[,.]\s\d+', news_story)
     num = a.start()
     news_story = news_story[num:]
-    if isinstance(news_story, str):
-        news = Tokenize(unicode(news_story, 'utf-8'))
-    else:
-        news = Tokenize(news_story)
+    print ("news_story")
+    print news_story
+    print isinstance(news_story,str)
+    # if isinstance(news_story, str):
+    #     news = Tokenize(unicode(news_story, 'utf-8'))
+    # else:
+    news_story = unicode(news_story.decode('utf-8'))
+    # new_news_story = []
+    # for news in news_story:
+    new_news_story = unicodedata.normalize('NFKD', news_story).encode('ascii', 'ignore')
+    news_story = new_news_story
+    news = Tokenize(news_story)
     date, day, month, year, news_story = news.get_date(news_story)
-    print date
     tokenized_words = news.split_words()
     tagger = Tagger(tokenized_words)
     pos_tagged_sentences = tagger.tag()
     data_extractor = DataExtractor(pos_tagged_sentences, news_story)
+    injury_no, injuries = data_extractor.injury_number()
+    death_no, death = data_extractor.death_number()
     vehicle0, vehicle1, vehicle_type = vehicleinfo(news_story)
-    print vehicle0
-    print title
-    print link
-    print data_extractor.deaths(nltk.sent_tokenize(news_story))
+
+
     record = rssdata(header=title,
                      source="Kathmandu Post",
                      body=news_story.replace("\n", ""),
-                     death=data_extractor.deaths(nltk.sent_tokenize(news_story)),
+                     death=death,
                      link=link,
-                     injury_no=data_extractor.injury_number(),
-                     death_no=data_extractor.death_number(),
+                     injury_no=injury_no,
+                     death_no=death_no,
                      location=data_extractor.location(),
                      vehicleone=vehicle0,
                      vehicletwo=vehicle1,
-                     injury=data_extractor.injury(nltk.sent_tokenize(news_story)),
+                     injury=injuries,
                      vehicle_type=vehicle_type,
                      vehicle_no=data_extractor.vehicle(),
                      day=data_extractor.day(news_story),
                      date=date,
                      month=month,
-                     year=year,
-                     season=data_extractor.get_season(month),
+                     year=year
                      )
 
     record.save()

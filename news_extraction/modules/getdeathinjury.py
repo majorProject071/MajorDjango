@@ -25,8 +25,8 @@ def death_no(sentlist):
     for sent in sentlist:
         if death == "None":
             srlList = annotator.getAnnotations(sent)['srl']
-            # print(srlList)
-            # sys.exit()
+            if srlList ==[]:
+                return "None"
             for dic in srlList:
                 for text in dic:
                     if "V" in text:
@@ -53,7 +53,8 @@ def injury_no(sentlist):
     for sent in sentlist:
         if injury == "None":
             srlList = annotator.getAnnotations(sent)['srl']
-            # print(srlList)
+            if srlList ==[]:
+                return "None"
             for dic in srlList:
                 for text in dic:
                     if text == "V":
@@ -71,7 +72,7 @@ def injury_no(sentlist):
                                         injury ="None"
 
         else:
-            break
+            injury = "None"
     return injury
 
 

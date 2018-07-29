@@ -63,6 +63,7 @@ margin-bottom: 2%;
 <script>
 
       var map, heatmap;
+      var markers = [];
 
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
@@ -76,31 +77,61 @@ margin-bottom: 2%;
           map: map
         });
          var gradient = [
-          'rgba(0, 255, 255, 0)',
-          'rgba(255, 0, 0, 1)',
-          'rgba(255, 0, 0, 1)',
-          'rgba(255, 0, 0, 1)',
-          'rgba(255, 0, 0, 1)',
-          'rgba(255, 0, 0, 1)',
-          'rgba(255, 0, 0, 1)',
-          'rgba(255, 0, 0, 1)',
-          'rgba(255, 0, 0, 1)',
-          'rgba(255, 0, 0, 1)',
-          'rgba(255, 0, 0, 1)',
-          'rgba(255, 0, 0, 1)',
-          'rgba(255, 0, 0, 1)',
-          'rgba(255, 0, 0, 1)'
+            'rgba(0, 255, 255, 0)',
+            'rgba(0, 0, 255, 1)',
+            'rgba(0, 100, 255, 1)',
+            'rgba(0, 150, 255, 1)',
+            'rgba(0, 200, 255, 1)',
+            'rgba(0, 220, 255, 1)',
+            'rgba(0, 255, 255, 1)',
+            'rgba(255, 255, 210, 1)',
+            'rgba(255, 255, 0, 1)',
+            'rgba(255, 210, 0, 1)',
+            'rgba(255, 210, 0, 1)',
+            'rgba(255, 210, 0, 1)',
+            'rgba(255, 0, 0, 1)',
+            'rgba(255, 0, 0, 1)'
         ]
         heatmap.set('gradient', heatmap.get('gradient') ? null : gradient);
         heatmap.set('radius', heatmap.get('radius') ? null : 15);
+
+        var locations = [
+            {% for lat in latitude %}
+            ['place: {{ lat.location }} <br>death: {{ lat.death }}, injury:{{ lat.injury }}', {{ lat.latitude }}, {{lat.longitude}}],
+            {% endfor %}
+        ];
+         var infowindow = new google.maps.InfoWindow();
+
+        var iconBase = '';
+        var marker, i;
+        for (i = 0; i < locations.length; i++) {
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                map: map,
+                icon: iconBase + ''
+            });
+
+            markers.push(marker);
+
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                return function() {
+                    infowindow.setContent(locations[i][0]);
+                    infowindow.open(map, marker);
+                };
+            })(marker, i));
+        }
+
+        google.maps.event.addDomListener(window, 'load', initMap);
       }
+
+
 
 
       // Heatmap data: 500 Points
        function getPoints() {
             return [
             {% for lat in latitude %}
-            new google.maps.LatLng{{ lat }},
+            new google.maps.LatLng({{ lat.latitude }}, {{lat.longitude}}),
             {% endfor %}
             ];
 

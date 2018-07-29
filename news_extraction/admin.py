@@ -6,7 +6,7 @@ from .models import *
 
 # Register your models here.
 class PostModelAdmin(admin.ModelAdmin):
-    list_display = ["id","link","header","source","body","death","death_no","injury","injury_no","location","vehicleone","vehicletwo","date","day","month","season","year","vehicle_no","vehicle_type","created_at","updated_at",]
+    list_display = ["id","link","header","source","body","death","death_no","injury","injury_no","location","vehicleone","vehicletwo","date","day","month","year","vehicle_no","vehicle_type","created_at","updated_at",]
 
     #list_display_links = ["updated"]
 
