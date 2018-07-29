@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% block title %} News Information Extraciton {% endblock title %}
+
+{% block nav_index_home %} class="nav-link active btn-primary" {% endblock nav_index_home%}
+
+{% block content %}
+
+<style>
+
+body {
+  font: 10px sans-serif;
+  width: 100%;
+}
+
+
+.search{
+width:40%;
+margin-top:5%;
+margin-left: 30%;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+table{
+margin-left: 15%;
+width: 75%;
+text-align: center;
+}
+
+th,td{
+padding: 1% 2%;
+}
+small{
+margin-left: 15%;
+}
+.searchbutton{
+margin-left: 30%;
+font-size: 18px;
+}
+
+.head {
+margin-left: 15%;
+}
+.accidentvehicles{
+display:none;
+margin-left: 30%;
+font-size: 14px;
+margin-top: 2%;
+}
+
+</style>
+
+<div class="search">
+    <form class="form-inline" action="" method="post">
+        {% csrf_token %}
+        <input class="form-control mr-sm-2" name="query" type="text" placeholder="Vehicle No- Ba 1 Kha 1234 " required="required">
+        <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+</div>
+    {% if locationdetail %}<h2 class="head"> Your Vehicle doesnt register any accident.</h2>
+    <div class="searchbutton">
+    <button onclick="viewvehicleno()"> click to view all vehicles involved in accidents</button>
+    </div>
+{% endif %}
+{% if location_data %}<h2 class="head"> Result of {{ search }}</h2> </div>
+
+<table>
+    <tr>
+        <th>Location</th>
+        <th>Vehicle no</th>
+        <th>Date</th>
+        <th>Injury</th>
+        <th>Death</th>
+    </tr>
+    {% for location in location_data %}
+    <tr>
+
+        <td>{{ location.location }}</td>
+        <td>{{ location.vehicle_no }}</td>
+        <td>{{ location.date }}</td>
+        <td>{{ location.injury_no }}</td>
+        <td>{{ location.death_no }}</td>
+
+    </tr>
+    {% endfor %}
+
+</table>
+{% endif %}
+
+<div class="accidentvehicles">
+    <ol>{% for location in locationdetail %}
+
+        <li>{{ location.vehicleno }}</li>
+        {% endfor %}
+    </ol>
+</div>
+<script>
+    function viewvehicleno(){
+    if ($(".accidentvehicles").is(":hidden")){
+        $(".accidentvehicles").show();
+    }
+    else{
+    $(".accidentvehicles").hide();
+    }
+    }
+
+</script>
+
+
+</body>
+
+{% endblock content %}

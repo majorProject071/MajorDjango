@@ -28,6 +28,7 @@ import datetime
 
 def selectparameters():
     listoflocation = rssdata.objects.values('location').order_by('location').annotate(count=Count('location'))
+    print listoflocation
 
     # import all location from kathmandu, bhaktapur, lalitpur and outside from location_tree.py
     ktm_location = LocationInformation().all_ktm_locations()
@@ -83,7 +84,7 @@ def selectparameters():
 
 def getqueries(informations, ktmlocations, ltplocations, bktlocations):
 
-    newlocationlist = rssdata.objects.all().values('location', 'year', 'month', 'season', 'vehicleone',
+    newlocationlist = rssdata.objects.all().values('location', 'year', 'month', 'vehicleone',
                                                    'vehicletwo','date').order_by('location').annotate(count=Count('location')).annotate(
                                                     deathno=Sum('death_no')).annotate(injuryno=Sum('injury_no'))
 
@@ -163,7 +164,7 @@ def getqueries(informations, ktmlocations, ltplocations, bktlocations):
 #return filtered location to getqueries in info location info
 
 def locationcheck(locationinfo, ktmlocationlist,ltplocationlist,bktlocationlist):
-    newlocationlist = rssdata.objects.all().values('location', 'year', 'month', 'season', 'vehicleone',
+    newlocationlist = rssdata.objects.all().values('location', 'year', 'month', 'vehicleone',
                                                    'vehicletwo', 'date').order_by('location').annotate(
         count=Count('location')).annotate(deathno=Sum('death_no')).annotate(injuryno=Sum('injury_no'))
 
@@ -245,7 +246,7 @@ def location(request):
     #all necessary queries
     yearlist = rssdata.objects.values('year').order_by('year').annotate(count=Count('year'))
     locationlist = rssdata.objects.values('location').order_by('location').annotate(count=Count('location')).annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no'))
-    tablelocationlist = rssdata.objects.all().values('location', 'year', 'month', 'season', 'vehicleone',
+    tablelocationlist = rssdata.objects.all().values('location', 'year', 'month', 'vehicleone',
                                                    'vehicletwo', 'date').order_by('location').annotate(count=Count('location')).annotate(deathno=Sum('death_no')).annotate(injuryno=Sum('injury_no'))
     vehiclelist = rssdata.objects.values('vehicleone').order_by('vehicleone').annotate(count=Count('vehicleone'))
     vehiclelisttwo = rssdata.objects.values('vehicletwo').order_by('vehicletwo').annotate(count=Count('vehicletwo'))
@@ -269,7 +270,7 @@ def location(request):
         if len(loc['location']) >2:
             tablelocation.append({'location': loc['location'].capitalize(), 'deathno': loc['deathno'],
                              'injuryno': loc['injuryno'], 'date': loc['date'], 'year': loc['year'], 'month': loc['month'],
-                                  'season': loc['season'], 'vehicleone': loc['vehicleone'], 'vehicletwo': loc['vehicletwo']})
+                                  'vehicleone': loc['vehicleone'], 'vehicletwo': loc['vehicletwo']})
 
     #provide data to select tag in vehicle column
     for data in vehiclelist:
@@ -292,43 +293,9 @@ def location(request):
 
     # working in search query
     if request.POST:
-        search =  request.POST.get('query', None)
-        if search:
-            queryset_list = rssdata.objects.filter(vehicle_no__icontains=search).values('location','date','death_no','injury_no','vehicle_no')
 
-            # if search parameter doesnt match
-            if len(queryset_list) == 0 :
-                context = {
-                    'locationdetail': tablevehicle,
-                    'listoflocation': listoflocation,
-                    'ktm_location': ktmlocationlist,
-                    'ltp_location': ltplocationlist,
-                    'bkt_location': bktlocationlist,
-                    'monthlist': monthlist,
-                    'vehiclelist': vehicledata,
-                    'yearlist': yearlist,
-                }
-                return render(request, "findlocation.html", context)
-            else:
-                context = {
-                    'location_data': queryset_list,
-                    'listoflocation': listoflocation,
-                    'ktm_location': ktmlocationlist,
-                    'ltp_location': ltplocationlist,
-                    'bkt_location': bktlocationlist,
-                    'monthlist': monthlist,
-                    'vehiclelist': vehicledata,
-                    'yearlist': yearlist,
-                    'search' : search,
-                }
-                return render(request, "findlocation.html", context)
-
-
-
-        else:
             valueslist.append({'vehicleinfo': request.POST.get('vehicle', None),
                                'yearinfo': request.POST.get('year', None),
-                               'seasoninfo': request.POST.get('season', None),
                                'locationinfo': request.POST.get('location', None),
                                'ktmlocationinfo': request.POST.get('ktmlocation', None),
                                'ltplocationinfo': request.POST.get('ltplocation', None),
@@ -393,36 +360,57 @@ def location(request):
 
 #query for kathmandu valley map
 def index(request):
-    location = rssdata.objects.values_list('location', flat=True)
-    data = rssdata.objects.values('location').annotate(total=Sum('death_no'))
+    location = rssdata.objects.values('location').order_by('location').annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no'))
     totalno = rssdata.objects.values('date').aggregate(total=Count('date'))
-    datas = list(data)
-    print (datas)
+    outside_location = LocationInformation().all_locations()
     latitude = []
 
     for locations in location:
-        if locations is not None:
-            if (len(locations) > 2):
-                loc = locations
-                # print loc
-                g = geocoder.google(loc)
-                print g.lat
-                if g.lat is not None:
-                    locs = (g.lat, g.lng)
-                    latitude.append(locs)
+        if locations['location'] is not None:
+            if (len(locations['location']) > 2):
+                if locations['location'] in outside_location:
+                    pass
+                else:
+                    loc = locations['location']
+                    geolocator = Nominatim()
+                    g = geolocator.geocode(loc)
+                    latitude.append({'location': loc, 'latitude': g.latitude, 'longitude': g.longitude, 'death': locations['death'],
+                                     'injury': locations['injury']})
 
-                # geolocator = Nominatim()
-                # locations = geolocator.geocode(loc)
-                # location = (locations.latitude, locations.longitude)
-                # latitude.append(location)
     print(latitude)
 
     context = {
-        'personal_detail': json.dumps(datas),
-        'data': data,
+        # 'personal_detail': json.dumps(datas),
+        # 'data': data,
         'latitude': latitude,
         'totalno': totalno,
     }
     return render(request, "heatmap.html", context)
 
 
+def searchnumber(request):
+    tablevehiclelist = rssdata.objects.all().values('vehicle_no').order_by('vehicle_no')
+
+    tablevehicle = []
+
+    # if vehicle no search is not found then data base is shown
+    for loc in tablevehiclelist:
+        if len(loc['vehicle_no']) > 2:
+            tablevehicle.append({'vehicleno': loc['vehicle_no']})
+    if request.POST:
+        search =  request.POST.get('query', None)
+        queryset_list = rssdata.objects.filter(vehicle_no__icontains=search).values('location', 'date', 'death_no',
+                                                                                    'injury_no', 'vehicle_no')
+        # if search parameter doesnt match
+        if len(queryset_list) == 0 :
+            context = {
+                'locationdetail': tablevehicle,
+            }
+            return render(request, "search.html", context)
+        else:
+            context = {
+                'location_data': queryset_list,
+                'search' : search,
+            }
+            return render(request, "search.html", context)
+    return render(request, "search.html")

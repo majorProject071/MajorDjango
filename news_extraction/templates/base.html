@@ -119,6 +119,9 @@
                 <li class="nav-item">
                     <a {% block nav_index_visualization %} {% endblock nav_index_visualization %}href = "{% url 'graph:location' %}" style="color:white;"> Visualization </a>
                 </li>
+                <li class="nav-item">
+                    <a {% block nav_index_searchno %} {% endblock nav_index_searchno %}href = "{% url 'graph:search' %}" style="color:white;"> Search vehicleNo. </a>
+                </li>
 
                 <li class="nav-item">
                     <a {% block nav_index_database %} {% endblock nav_index_database %} style="color:white;" href="#">Database</a>

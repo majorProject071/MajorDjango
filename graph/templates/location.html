@@ -132,13 +132,7 @@ font-size: 18px;
 </style>
 <h2>Accidents in Nepal {{ info }} </h2>
 <a href="{% url 'graph:index' %}"><div class="kathmandu"><button>View on Kathmandu Map</button></div></a>
-<div class="search">
-    <form class="form-inline" action="" method="post" name="searchvehicle">
-        {% csrf_token %}
-        <input class="form-control mr-sm-2" name="query" type="text" placeholder="Vehicle No: BA 1 Kha 1111" required="required" value="{{ request.get.query }}">
-        <button class="btn btn-primary" type="submit">Search</button>
-    </form>
-</div>
+
 <div class="select">
     <form action="" method="post" name="myform">
         {% csrf_token %}
