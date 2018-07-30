@@ -64,6 +64,7 @@ class DataExtractor:
         all_locations = ktm_location + outside_location + bkt_location + ltp_location
 
         locations = self.location_extractor()
+        print (locations)
         return_location = []
         max_ratio = 0
         max_location = []
@@ -84,12 +85,6 @@ class DataExtractor:
                             return_location = max_location
                         elif max_location in outside_location:
                             return_location = max_location
-        if return_location == "lalitpur":
-            return_location = "patan"
-        if return_location == "kathmandu":
-            return_location = "ratna park"
-        if return_location == "bhaktapur":
-            return_location = "thimi"
         return (return_location)
 
 

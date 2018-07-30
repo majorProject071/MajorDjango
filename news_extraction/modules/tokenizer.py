@@ -69,6 +69,5 @@ class Tokenize:
 
 
         self.paragraph = self.paragraph[end:]
-        print (newdates, day, month, year, self.paragraph)
         return(newdates,day,month,year,self.paragraph)
 ####################### MODULE FOR FINDING DATE FINISHED HERE #############

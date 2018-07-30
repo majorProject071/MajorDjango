@@ -37,8 +37,10 @@ def death_no(sentlist):
                     if dic[text] in deathverb:
                         if "A0" in dic:
                             death = dic["A0"]
+                        elif "A1" in dic:
+                            death = dic["A1"]
                         else:
-                            death = dic['A1']
+                            death = "None"
 
         else:
             break
@@ -53,26 +55,29 @@ def injury_no(sentlist):
     for sent in sentlist:
         if injury == "None":
             srlList = annotator.getAnnotations(sent)['srl']
-            if srlList ==[]:
+            if srlList == []:
                 return "None"
             for dic in srlList:
                 for text in dic:
                     if text == "V":
                         dic[text] = lemmatizer.lemmatize(dic[text], 'v')
                         verbs.append(dic[text])
-                        for dic in srlList:
-                            for text in dic:
-                                if dic[text] in injuryverb:
-                                    if "A0" in dic:
-                                        injury = dic["A0"]
-                                        # This indentation was backward
-                                    elif "A1" in dic:
-                                        injury = dic["A1"]
-                                    else:
-                                        injury ="None"
+            for dic in srlList:
+                for text in dic:
+                    if dic[text] in injuryverb:
+                        if "A0" in dic:
+                            injury = dic["A0"]
+                            # This indentation was backward
+                        elif "A1" in dic:
+                            injury = dic["A1"]
+                        else:
+                            injury = "None"
+
+
+
 
         else:
-            injury = "None"
+            break
     return injury
 
 

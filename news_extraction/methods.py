@@ -92,14 +92,7 @@ def extract(link, news_story, title):
     a = re.search(r'[A-Z]\w+\s\d+[,.]\s\d+', news_story)
     num = a.start()
     news_story = news_story[num:]
-    print ("news_story")
-    print news_story
-    print isinstance(news_story,str)
-    # if isinstance(news_story, str):
-    #     news = Tokenize(unicode(news_story, 'utf-8'))
-    # else:
     news_story = unicode(news_story.decode('utf-8'))
-    # new_news_story = []
     # for news in news_story:
     new_news_story = unicodedata.normalize('NFKD', news_story).encode('ascii', 'ignore')
     news_story = new_news_story
@@ -114,7 +107,8 @@ def extract(link, news_story, title):
     vehicle0, vehicle1, vehicle_type = vehicleinfo(news_story)
 
 
-    record = rssdata(header=title,
+    record = rssdata(
+                     header=title,
                      source="Kathmandu Post",
                      body=news_story.replace("\n", ""),
                      death=death,
