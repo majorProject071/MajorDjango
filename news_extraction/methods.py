@@ -5,7 +5,6 @@ from modules.tagger import Tagger
 from modules.extractor import DataExtractor
 from modules.tokenizer import Tokenize
 import en_core_web_sm
-import nltk
 import feedparser
 from modules.vehicles_gazetter import VehicleInformation
 from goose import Goose
@@ -29,7 +28,6 @@ def vehicleinfo(news_story):
     vehicle_information = VehicleInformation(news_story)
     vehicle_information.make_gazetter()
     all_vehicles, two_wheeler, three_wheeler, four_wheeler = vehicle_information.find_vehicles()
-    print all_vehicles
     if (all_vehicles==set([])):
         return('[]','[]','[]')
     vehicles = []
@@ -90,6 +88,7 @@ def initial_check():
 
 def extract(link, news_story, title):
     a = re.search(r'[A-Z]\w+\s\d+[,.]\s\d+', news_story)
+    print news_story
     num = a.start()
     news_story = news_story[num:]
     news_story = unicode(news_story.decode('utf-8'))
