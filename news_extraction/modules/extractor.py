@@ -2,11 +2,7 @@ from __future__ import print_function
 
 import nltk
 import re
-import os
-import sys
 import inflect
-from tagger import Tagger
-from tokenizer import Tokenize
 from getdeathinjury import *
 from location_tree import LocationInformation
 
@@ -15,9 +11,31 @@ class DataExtractor:
     """ A class to extract the required data like location, month, deaths,etc.
         from the news story.
     """
-    def __init__(self,pos_tagged_words,news_story):
+    def __init__(self, pos_tagged_words, news_story):
         self.pos_tagged_words = pos_tagged_words
         self.splitted_sentences = nltk.sent_tokenize(news_story)
+
+    def location_extractor(self):
+        individual_sentences = self.splitted_sentences
+
+        locations = []
+
+        for sent in individual_sentences:
+            words = nltk.word_tokenize(sent)
+            if ("died" or "death" or "injured" or "injury" or "injuries" or "killed") in words:
+                chunked_sentence = nltk.ne_chunk(nltk.pos_tag(nltk.word_tokenize(sent)))
+                for i in chunked_sentence.subtrees(filter=lambda x: x.label() == 'GPE'):
+                    for i in i.leaves():
+                        locations.append(i[0])
+        return_value = locations
+        try:
+            if (locations[0] == "New") or (locations[0] == "Old"):
+                return_value = []
+                return_value.append(locations[0] + " " + locations[1])
+        except:
+            pass
+        return (return_value)
+
 
     def location(self):
         """ Gets the location from the news story.
@@ -25,21 +43,40 @@ class DataExtractor:
             Inputs include the parts of speech tagged words.
             Output is the phrase containing the location of mishap.
         """
-        # individual_sentences = nltk.sent_tokenize(news_story)
-        individual_sentences = self.splitted_sentences
+        ktm_location = LocationInformation().all_ktm_locations()
+        bkt_location = LocationInformation().all_bkt_locations()
+        ltp_location = LocationInformation().all_ltp_locations()
+        outside_location = LocationInformation().all_locations()
+        all_locations = ktm_location + outside_location + bkt_location + ltp_location
 
-        locations = []
+        locations = self.location_extractor()
+        return_location = []
+        max_ratio = 0
+        max_location = []
 
-        for sent in individual_sentences:
-            words = nltk.word_tokenize(sent)
-            if("died" or "death" or "injured" or "injury" or "injuries") in words:
-                # print(sent)
-                chunked_sentence = nltk.ne_chunk(nltk.pos_tag(nltk.word_tokenize(sent)))
-                # print(chunked_sentence)
-                for i in chunked_sentence.subtrees(filter = lambda x:x.label() == 'GPE'):
-                    for i in i.leaves():
-                        locations.append(i[0])
-        return(locations)
+        for glocation in locations:
+            for location in all_locations:
+                dist = nltk.edit_distance(glocation, location)
+                ratio = (1 - (dist / len(glocation))) * 100
+                max_ratio = max(max_ratio, ratio)
+                if max_ratio >= 70:
+                    max_location = location
+                    if max_ratio == ratio:
+                        if max_location in ktm_location:
+                            return_location = max_location
+                        elif max_location in ltp_location:
+                            return_location = max_location
+                        elif max_location in bkt_location:
+                            return_location = max_location
+                        elif max_location in outside_location:
+                            return_location = max_location
+        if return_location == "lalitpur":
+            return_location = "patan"
+        if return_location == "kathmandu":
+            return_location = "ratna park"
+        if return_location == "bhaktapur":
+            return_location = "thimi"
+        return (return_location)
 
     def day(self,complete_news):
         """ Gets the day of mishap.
