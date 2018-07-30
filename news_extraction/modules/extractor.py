@@ -1,5 +1,5 @@
 from __future__ import print_function
-
+from __future__ import division
 import nltk
 import re
 import os
@@ -19,27 +19,67 @@ class DataExtractor:
         self.pos_tagged_words = pos_tagged_words
         self.splitted_sentences = nltk.sent_tokenize(news_story)
 
-    def location(self):
-        """ Gets the location from the news story.
-
-            Inputs include the parts of speech tagged words.
-            Output is the phrase containing the location of mishap.
-        """
-        # individual_sentences = nltk.sent_tokenize(news_story)
+    def location_extractor(self):
         individual_sentences = self.splitted_sentences
 
         locations = []
 
         for sent in individual_sentences:
             words = nltk.word_tokenize(sent)
-            if("died" or "death" or "injured" or "injury" or "injuries") in words:
-                # print(sent)
+            phrase = ["died", "death" , "injured" , "injury" , "injuries" , "killed"]
+            if any(word in words for word in phrase):
                 chunked_sentence = nltk.ne_chunk(nltk.pos_tag(nltk.word_tokenize(sent)))
-                # print(chunked_sentence)
-                for i in chunked_sentence.subtrees(filter = lambda x:x.label() == 'GPE'):
+                for i in chunked_sentence.subtrees(filter=lambda x: x.label() == 'GPE'):
                     for i in i.leaves():
                         locations.append(i[0])
-        return(locations)
+
+        return_value = locations
+        try:
+            if (locations[0] == "New") or (locations[0] == "Old"):
+                return_value = []
+                return_value.append(locations[0] + " " + locations[1])
+        except:
+            pass
+        return (return_value)
+
+
+    def location(self):
+        """ Gets the location from the news story.
+
+            Inputs include the parts of speech tagged words.
+            Output is the phrase containing the location of mishap.
+        """
+        ktm_location = LocationInformation().all_ktm_locations()
+        bkt_location = LocationInformation().all_bkt_locations()
+        ltp_location = LocationInformation().all_ltp_locations()
+        outside_location = LocationInformation().all_locations()
+        all_locations = ktm_location + outside_location + bkt_location + ltp_location
+        # print (ktm_location)
+
+        locations = self.location_extractor()
+        return_location = []
+        max_ratio = 0
+        max_location = []
+
+        for glocation in locations:
+            print (glocation)
+            for location in all_locations:
+                dist = nltk.edit_distance(glocation, location)
+                ratio = (1 - (dist / len(glocation))) * 100
+                max_ratio = max(max_ratio, ratio)
+                if max_ratio >= 70:
+                    max_location = location
+                    if max_ratio == ratio:
+                        if max_location in ktm_location:
+                            return_location = max_location
+                        elif max_location in ltp_location:
+                            return_location = max_location
+                        elif max_location in bkt_location:
+                            return_location = max_location
+                        elif max_location in outside_location:
+                            return_location = max_location
+        print(return_location)
+        return (return_location)
 
     def day(self,complete_news):
         """ Gets the day of mishap.
@@ -86,8 +126,6 @@ class DataExtractor:
         death_regex = "Deaths: {<CD>}"
         has_deaths = [sent for sent in sentences if("died" or "death") in
                         nltk.word_tokenize(sent)]
-        print(has_deaths)
-        print(has_deaths[0].split("and"))
         # death_regex = r"""
         #     Deaths:
         #     """
@@ -157,8 +195,6 @@ class DataExtractor:
                 sent = sent.replace('\r', '')
 
             new_sentences.append(sent)
-        print("new sentence")
-        print(new_sentences)
         injury = injury_no(new_sentences)
         # print(injury)
         if injury == "None":
@@ -170,6 +206,4 @@ class DataExtractor:
                 injuryNo = w2n.word_to_num(actualinjury)
             except:
                 injuryNo = 1
-        print("here")
-        print (injuryNo, actualinjury)
         return(injuryNo, actualinjury)

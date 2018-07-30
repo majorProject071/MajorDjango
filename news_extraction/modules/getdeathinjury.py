@@ -65,16 +65,13 @@ def injury_no(sentlist):
             for dic in srlList:
                 for text in dic:
                     if dic[text] in injuryverb:
-                        if "A0" in dic:
-                            injury = dic["A0"]
-                            # This indentation was backward
-                        elif "A1" in dic:
-                            injury = dic["A1"]
-                        else:
-                            injury = "None"
-
-
-
+                            if "A0" in dic:
+                                injury = dic["A0"]
+                            elif "A1" in dic:
+                                injury = dic["A1"]
+                                return injury
+                            else:
+                                injury = "None"
 
         else:
             break

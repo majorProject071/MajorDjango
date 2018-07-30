@@ -86,7 +86,7 @@ baitadi = Node("baitadi", parent=nepal)
 darchula = Node("darchula", parent=nepal)
 
 chabahil = Node("chabahil", parent=kathmandu)
-# kathmandu = Node("kathmandu", parent=kathmandu)
+babar_mahal = Node("babar mahal", parent=kathmandu)
 sukedhara = Node("sukedhara", parent=kathmandu)
 dhumbarahi = Node("dhumbarahi", parent=kathmandu)
 maharajgunj = Node("maharajgunj", parent=kathmandu)
@@ -260,25 +260,32 @@ class LocationInformation:
 
     def all_ktm_locations(self):
         for row in RenderTree(kathmandu):
-            if row.node.parent == kathmandu:
-                ktm_locations.append(row.node.name)
+            if row.node.name not in ktm_locations:
+                if row.node.parent == kathmandu:
+                    ktm_locations.append(row.node.name)
+        ktm_locations.append("kathmandu")
         return ktm_locations
 
     def all_ltp_locations(self):
         for row in RenderTree(lalitpur):
-            if row.node.parent == lalitpur:
-                ltp_locations.append(row.node.name)
+            if row.node.name not in ltp_locations:
+                if row.node.parent == lalitpur:
+                    ltp_locations.append(row.node.name)
+        ktm_locations.append("lalitpur")
         return ltp_locations
 
     def all_bkt_locations(self):
         for row in RenderTree(bhaktapur):
-            if row.node.parent == bhaktapur:
-                bkt_locations.append(row.node.name)
+            if row.node.name not in bkt_locations:
+                if row.node.parent == bhaktapur:
+                    bkt_locations.append(row.node.name)
+        ktm_locations.append("bhaktapur")
         return bkt_locations
 
     def all_locations(self):
+        locationcheck = ['lalitpur', 'kathmandu', 'bhaktapur']
         for row in RenderTree(nepal):
-            if row.node.parent == nepal:
+            if row.node.parent == nepal and row.node.name not in locationcheck:
                 outside_locations.append(row.node.name)
         return outside_locations
 

@@ -17,6 +17,7 @@ body {
 width:40%;
 margin-top:5%;
 margin-left: 30%;
+margin-bottom: 5%;
 }
 
 table, th, td {
@@ -59,11 +60,14 @@ margin-top: 2%;
         <button class="btn btn-primary" type="submit">Search</button>
     </form>
 </div>
-    {% if locationdetail %}<h2 class="head"> Your Vehicle doesnt register any accident.</h2>
+    {% if nodetail %}<h2 class="head"> Sorry, your search {{ nodetail }} doesnt register any accident.</h2>{% endif %}
+
+{% if vehicledata %}
     <div class="searchbutton">
-    <button onclick="viewvehicleno()"> click to view all vehicles involved in accidents</button>
+    <button onclick="viewvehicleno()"> click to view all vehicles with {{search}} involved in accidents</button>
     </div>
 {% endif %}
+
 {% if location_data %}<h2 class="head"> Result of {{ search }}</h2> </div>
 
 <table>
@@ -90,9 +94,9 @@ margin-top: 2%;
 {% endif %}
 
 <div class="accidentvehicles">
-    <ol>{% for location in locationdetail %}
+    <ol>{% for vehicle in vehicledata %}
 
-        <li>{{ location.vehicleno }}</li>
+        <li>{{ vehicle }}</li>
         {% endfor %}
     </ol>
 </div>
