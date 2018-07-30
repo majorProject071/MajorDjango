@@ -7,7 +7,7 @@ outside_locations = []
 
 nepal = Node("nepal", parent=None)
 
-jhapa = Node("", parent=nepal)
+jhapa = Node("jhapa", parent=nepal)
 ilam = Node("ilam", parent=nepal)
 panchthar = Node("panchthar", parent=nepal)
 taplejung = Node("taplejung", parent=nepal)
@@ -40,15 +40,14 @@ rasuwa = Node("rasuwa", parent=nepal)
 sindhupalchok = Node("sindhupalchok", parent=nepal)
 bara = Node("bara", parent=nepal)
 parsa = Node("parsa", parent=nepal)
-rautahat = Node("rautahat", parent=nepal)
-chitwan = Node("chitawan", parent=nepal)
+rautahat = Node("rautahat", prent=nepal)
 chitawan = Node("chitawan", parent=nepal)
 makwanpur = Node("makwanpur", parent=nepal)
 gorkha = Node("gorkha", parent=nepal)
 kaski = Node("kaski", parent=nepal)
 lamjung = Node("lamjung", parent=nepal)
 syangja = Node("syangja", parent=nepal)
-tanahun = Node("tanahun", parent=nepal)
+tanahu = Node("tanahu", parent=nepal)
 manang = Node("manang", parent=nepal)
 kapilvastu = Node("kapilvastu", parent=nepal)
 nawalparasi = Node("nawalparasi", parent=nepal)
@@ -284,4 +283,4 @@ class LocationInformation:
                 outside_locations.append(row.node.name)
         return outside_locations
 
-# print (RenderTree(nepal))
+print (RenderTree(nepal))
