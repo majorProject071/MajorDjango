@@ -35,7 +35,7 @@ padding: 3% 20%;
 width:30%;
 float: right;
 }
-h2.title{
+h2{
 margin-left:15%;
 font-size:24px;
 margin-bottom: 2%;
@@ -50,7 +50,7 @@ font-size: 14px;
 #locationmap{
 float: left;
 border: 2px solid grey;
-margin-left: 15%;
+margin-left: 10%;
 padding: 1% 1%;
 display: inline;
 }
@@ -62,15 +62,17 @@ display: none;
     border: 2px solid grey;
     margin-left: 15%;
 }
-#ltp_location{
+#vehicle_two,  #vehicle_three, #vehicle_four, #ltp_location, #bkt_location, #ktm_location {
 display: none;
+float:left;
 }
-#bkt_location{
-display: none;
+
+#location_info, #vehicle_info, #year, #month, #fromdate, #todate
+{
+float:left;
+position : inherit;
 }
-#ktm_location{
-display: none;
-}
+
 #buttons{
 width: 600px;
 margin-left: 15%;
@@ -83,21 +85,18 @@ width: 100%;
 .button-map{
 float: left;
 margin-top:5%;
-margin-left: 15%;
-font-size: 16px;
+margin-left: 5%;
+margin-bottom: 5%;
+padding: 1% 1%;
+
+
 }
-.button-table{
-float: left;
-margin-top:5%;
-margin-left: 15%;
-font-size: 16px;
-}
+
 .button-bar{
 float: left;
 margin-top:5%;
 margin-left: 15%;
 display:none;
-font-size: 16px;
 }
 
 .colortable{
@@ -105,161 +104,223 @@ font-size: 16px;
 display: none;}
 
 .datatable{
-
-    display: none;
-    margin-left: 15%;
-    }
+    margin-left: 5%;
+    float: left;
+    margin-top:2%;
+ }
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
 }
 table{
-margin-left: 15%;
-width: 75%;
-text-align: center;
+width: 50%;
 }
 
 th,td{
-padding: 1% 2%;
+padding: 0.5% 1%;
 }
+
 .kathmandu{
 float: right;
 margin-right: 10%;
 margin-top: -5%;
 font-size: 18px;
 }
+.calender{
+display: none;
+float: left;
+}
 
+.button-make{
+
+font-size: 22px;
+}
 </style>
-<h2 class="title">Accidents in Nepal {{ info }} </h2>
-<a href="{% url 'graph:index' %}"><div class="kathmandu"><button>View on Kathmandu Map</button></div></a>
+<h2>Accidents in Nepal {{ info }} </h2>
+
 
 <div class="select">
     <form action="" method="post" name="myform">
+
         {% csrf_token %}
-        <select name="location" id="location_info">
+
+        <select name="location" id="location_info" onclick="removeValue()">
+            {% if locationvalue %}
+            {% if locationvalue != "1" %}
+            <option value="1" class="valueremove">{{ locationvalue|safe }}</option>
+            {% endif %}
+            {% endif %}
             <option value="1" onclick="selectLocation()">Select Location</option>
             {% for location in listoflocation %}
             <option value="{{ location }}" onclick="selectLocation()">{{ location }}</option>
             {% endfor %}
         </select>
+
         <select name="ktmlocation" id="ktm_location">
             <option value="1">Kathmandu Locations</option>
             {% for location in ktm_location %}
             <option value="{{ location.location }}" onclick="selectLocation()">{{ location.location }}</option>
             {% endfor %}
         </select>
+
         <select name="ltplocation" id="ltp_location">
             <option value="1">Lalitpur Locations</option>
             {% for location in ltp_location %}
             <option value="{{ location.location }}" onclick="selectLocation()">{{ location.location }}</option>
             {% endfor %}
         </select>
+
         <select name="bktlocation" id="bkt_location">
             <option value="1"> Bhaktapur Locations</option>
             {% for location in bkt_location %}
             <option value="{{ location.location }}" onclick="selectLocation()">{{ location.location }}</option>
             {% endfor %}
         </select>
-        <select name="vehicle">
-            <option value="1">Select Vehicle</option>
-            {% for vehicle in vehiclelist %}
 
-            <option value="{{ vehicle }}">{{ vehicle }}</option>
-
-
+        <select name="vehicletype" id="vehicle_info" onclick="removeValue()">
+            {% if vehiclevalue %}
+            {% if vehiclevalue != "1" %}
+            <option value="1" class="valueremove">{{ vehiclevalue|safe }}</option>
+            {% endif %}
+            {% endif %}
+            <option value="1" onclick="selectVehicle()">Select Vehicle Type</option>
+            {% for vehicle_type in vehicletype %}
+            <option value="{{ vehicle_type }}" onclick="selectVehicle()">{{ vehicle_type }}</option>
             {% endfor %}
         </select>
-        <select name="year">
+
+        <select name="vehicle_three" id="vehicle_three">
+            <option value="1">Select Vehicle</option>
+            {% for vehicle in vehiclethree %}
+            <option value="{{ vehicle }}">{{ vehicle }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="vehicle_two" id="vehicle_two">
+            <option value="1">Select Vehicle</option>
+            {% for vehicle in vehicletwo %}
+            <option value="{{ vehicle }}">{{ vehicle }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="vehicle_four" id="vehicle_four">
+            <option value="1">Select Vehicle</option>
+            {% for vehicle in vehiclefour %}
+            <option value="{{ vehicle }}">{{ vehicle }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="year" onclick="removeValue()" id="#year">
+            {% if yearvalue %}
+            {% if yearvalue != "1" %}
+            <option value="1" class="valueremove">{{ yearvalue|safe }}</option>
+            {% endif %}
+            {% endif %}
             <option value="1">Select Year</option>
             {% for year in yearlist %}
-
             <option value="{{ year.year }}">{{ year.year }}</option>
-
-
             {% endfor %}
         </select>
 
-
-        <select name="month">
+        <select name="month" onclick="removeValue()" id="#month">
+            {% if monthvalue %}
+            {% if monthvalue != "1" %}
+            <option value="1" class="valueremove">{{ monthvalue|safe }}</option>
+            {% endif %}
+            {% endif %}
             <option value="1">Select Month</option>
             {% for month in monthlist %}
-
             <option value="{{ month.month }}">{{ month.month }}</option>
-
-
             {% endfor %}
         </select>
+        <select name="from" onclick="dateList()" id="fromdate">
+            <option value="1">DateFrom</option>
+
+        </select>
+        <div class="calender"><input type="date" id="from" name="from"
+                                     value='{{ start }}'
+                                     min="2010-01-01" max='{{ today|date:"Y-m-d" }}'/></div>
+
+        <select name="to" onclick="dateList()" id="todate">
+            <option value="1">DateTo</option>
+
+        </select>
+
+        <div class="calender"><input type="date" id="to" name="to"
+                                     value='{{ today|date:"Y-m-d" }}'
+                                     min="2010-01-01" max='{{ today|date:"Y-m-d" }}'/></div>
+
 
         <input type="submit" value="Select">
     </form>
 </div>
+
 <div id="result">
     <div id="locationmap"></div>
     <div id="map">
         <table class="colortable">
-     <tr>
-         <th>color</th>
-         <th>color</th>
-         <th>Indication</th>
-         <th>Count</th>
+            <tr>
+                <th>color</th>
+                <th>color</th>
+                <th>Indication</th>
+                <th>Count</th>
 
-     </tr>
-     <tr>
-         <td>red</td>
-         <td style="background:red"></td>
-         <td>high accident alert area</td>
-         <td> more than 10</td>
+            </tr>
+            <tr>
+                <td>red</td>
+                <td style="background:red"></td>
+                <td>high accident alert area</td>
+                <td> more than 10</td>
 
-     </tr>
-     <tr>
-         <td>yellow</td>
-         <td style="background:yellow"></td>
-         <td>medium accident alert area</td>
-         <td> between 5 to 10</td>
-     </tr>
-     <tr>
-         <td>blue</td>
-         <td style="background:blue"></td>
-         <td>low accident alert area</td>
-         <td> less than 5</td>
+            </tr>
+            <tr>
+                <td>yellow</td>
+                <td style="background:yellow"></td>
+                <td>medium accident alert area</td>
+                <td> between 5 to 10</td>
+            </tr>
+            <tr>
+                <td>blue</td>
+                <td style="background:blue"></td>
+                <td>low accident alert area</td>
+                <td> less than 5</td>
 
-     </tr>
- </table>
+            </tr>
+        </table>
     </div>
     <div id="tooltip" class="hidden">
         <p><span id="value"></span></p>
     </div>
-<table class="datatable">
-    <tr>
-        <th>Location</th>
-        <th>Date</th>
-        <th>Year</th>
-        <th>Month</th>
-        <th>Season</th>
-        <th>Vehicle one</th>
-        <th>Vehicle Two</th>
-        <th>Injury</th>
-        <th>Death</th>
-    </tr>
-    {% for location in locationinfos %}
-    <tr class = "datarow">
+    <table class="datatable">
+        <tr>
+            <th>Location</th>
+            <th>Date</th>
+            <th>Year</th>
+            <th>Month</th>
+            <th>Vehicle one</th>
+            <th>Vehicle Two</th>
+            <th>Injury</th>
+            <th>Death</th>
+        </tr>
+        {% for location in locationinfos %}
+        <tr class="datarow">
 
-        <td>{{ location.location }}</td>
-        <td>{{ location.date }}</td>
-        <td>{{ location.year }}</td>
-        <td>{{ location.month }}</td>
-        <td>{{ location.season }}</td>
-        <td>{{ location.vehicleone }}</td>
-        <td>{{ location.vehicletwo }}</td>
-        <td>{{ location.injuryno }}</td>
-        <td>{{ location.deathno }}</td>
+            <td>{{ location.location }}</td>
+            <td>{{ location.date }}</td>
+            <td>{{ location.year }}</td>
+            <td>{{ location.month }}</td>
+            <td>{{ location.vehicleone }}</td>
+            <td>{{ location.vehicletwo }}</td>
+            <td>{{ location.injuryno }}</td>
+            <td>{{ location.deathno }}</td>
 
-    </tr>
-    {% endfor %}
+        </tr>
+        {% endfor %}
 
-</table>
+    </table>
 
 </div>
+
 <script type="text/javascript">
 
 var total = {{ totalno }}
@@ -354,6 +415,7 @@ legend.append("text")
       .style("font-size", "12px")
       .text(function(d) { return d; });
 
+
 </script>
 
 <script type="text/javascript">
@@ -377,6 +439,7 @@ d3.json("https://raw.githubusercontent.com/aayushrijal/Nepal-district-topojson/m
             districtById[d.location] = d.location;
             countById[d.location] = d.count;
             injuryById[d.location] = d.injury;
+            var max = Math.max.apply(Math, data.map(function(d){return d.count;}));
     	svg.append("g")
             .attr("class", "country")
             .selectAll("path")
@@ -421,20 +484,18 @@ d3.json("https://raw.githubusercontent.com/aayushrijal/Nepal-district-topojson/m
             d3.selectAll(".mylabel").remove()
           })
             .style("fill", function(d) {
-                if(countById[d.properties.DISTRICT]>10){
-                    return "red";
-                    // return color(valueById[d.properties.DISTRICT]);
+
+                if(countById[d.properties.DISTRICT]==max){
+                    return "rgb(255,0,0)";
                 }
-                else if(countById[d.properties.DISTRICT]>5 && countById[d.properties.DISTRICT]<=10){
-                    return "yellow";
+
+                else if(countById[d.properties.DISTRICT]){
+                    var dis = countById[d.properties.DISTRICT];
+                    var num = 255*dis/max;
+                    var newNum = d3.format("d")(num);
+                    return "rgb(255,0,100)";
                 }
-                else if(countById[d.properties.DISTRICT]<=5){
-                    return "blue";
-                }
-                var i;
-                    for (i = 0; i < 76; i++) {
-                        console.log(counties.features[i].properties.DISTRICT);
-                    }
+
     		return "#ccc";
     	});
     	//county borders
@@ -447,18 +508,23 @@ d3.json("https://raw.githubusercontent.com/aayushrijal/Nepal-district-topojson/m
 
 
 
+
 </script>
 
 <div id="buttons">
     <div class="button-map">
-        <button onclick="getMap()" value="map">View on Map</button>
-    </div>
-    <div class="button-table">
-        <button onclick="getTable()">View on Table</button>
+        <button onclick="getMap()" value="map" class="button-make">View on Map</button>
     </div>
     <div class="button-bar">
-        <button onclick="getGraph()">View on BarGraph</button>
+        <button onclick="getGraph()" class="button-make">View on BarGraph</button>
     </div>
+    {% if locationvalue == "Kathmandu" or locationvalue == "Lalitpur" or locationvalue == "Bhaktapur" %}
+<div class="button-map">
+        <a href="{% url 'graph:index' %}">
+        <button class="button-make">View on Kathmandu Map</button>
+</a>
+    </div>
+{% endif %}
 </div>
 <script>
     function selectLocation(){
@@ -484,6 +550,46 @@ d3.json("https://raw.githubusercontent.com/aayushrijal/Nepal-district-topojson/m
      $("#bkt_location").hide();
      }
     }
+    function selectVehicle(){
+    var locationinfo=document.getElementById('vehicle_info').value;
+    console.log(locationinfo);
+        if (locationinfo == 'two wheeler'){
+        $("#vehicle_two").show();
+        $("#vehicle_three").hide();
+        $("#vehicle_four").hide();
+        }
+        else if (locationinfo == 'three wheeler'){
+        $("#vehicle_two").hide();
+        $("#vehicle_three").show();
+        $("#vehicle_four").hide();
+        }
+        else if (locationinfo == 'four wheeler'){
+        $("#vehicle_two").hide();
+        $("#vehicle_three").hide();
+        $("#vehicle_four").show();
+        }
+        else{
+        $("#vehicle_two").hide();
+        $("#vehicle_three").hide();
+        $("#vehicle_four").hide();
+        }
+    }
+
+    function removeValue(){
+    $(".valueremove").hide();
+    }
+
+    function dateList(){
+    if ($(".calender").is(":visible")){
+        var locationinfo=document.getElementById('vehicle_info').value;
+        $(".calender").hide();
+     }
+     else{
+     $(".calender").show();
+     }
+    }
+
+
 
 
 </script>
@@ -498,15 +604,6 @@ d3.json("https://raw.githubusercontent.com/aayushrijal/Nepal-district-topojson/m
     $("#locationmap").hide();
     $(".datatable").hide();
     }
-    function getTable(){
-    $(".button-bar").show();
-    $(".button-table").hide();
-    $(".button-map").show();
-    $(".colortable").hide();
-    $("#map").hide();
-    $("#locationmap").hide();
-    $(".datatable").show();
-    }
     function getGraph(){
     $(".button-bar").hide();
     $(".button-map").show();
@@ -514,8 +611,9 @@ d3.json("https://raw.githubusercontent.com/aayushrijal/Nepal-district-topojson/m
     $(".colortable").hide();
     $("#map").hide();
     $("#locationmap").show();
-    $(".datatable").hide();
+    $(".datatable").show();
     }
+
 
 </script>
 </body>

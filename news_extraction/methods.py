@@ -83,6 +83,7 @@ def initial_check():
             article = extractor.extract(raw_html=response.content)
             texts = article.cleaned_text
             news_story = texts.encode('utf-8')
+            print links[i]
             extract(links[i], news_story, title[i])
 
 
@@ -103,6 +104,9 @@ def extract(link, news_story, title):
     data_extractor = DataExtractor(pos_tagged_sentences, news_story)
     injury_no, injuries = data_extractor.injury_number()
     death_no, death = data_extractor.death_number()
+
+    if death_no == injury_no:
+        injury_no = '0'
     vehicle0, vehicle1, vehicle_type = vehicleinfo(news_story)
 
 
@@ -128,7 +132,7 @@ def extract(link, news_story, title):
 
     record.save()
     return record.id
-    # news_id = record.id
+    # # news_id = record.id
     # save_record_by_id(news_id)
 
 

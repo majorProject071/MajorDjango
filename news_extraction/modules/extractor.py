@@ -1,8 +1,12 @@
 from __future__ import print_function
-
+from __future__ import division
 import nltk
 import re
+import os
+import sys
 import inflect
+from tagger import Tagger
+from tokenizer import Tokenize
 from getdeathinjury import *
 from location_tree import LocationInformation
 
@@ -11,7 +15,7 @@ class DataExtractor:
     """ A class to extract the required data like location, month, deaths,etc.
         from the news story.
     """
-    def __init__(self, pos_tagged_words, news_story):
+    def __init__(self,pos_tagged_words,news_story):
         self.pos_tagged_words = pos_tagged_words
         self.splitted_sentences = nltk.sent_tokenize(news_story)
 
@@ -22,11 +26,13 @@ class DataExtractor:
 
         for sent in individual_sentences:
             words = nltk.word_tokenize(sent)
-            if ("died" or "death" or "injured" or "injury" or "injuries" or "killed") in words:
+            phrase = ["died", "death" , "injured" , "injury" , "injuries" , "killed"]
+            if any(word in words for word in phrase):
                 chunked_sentence = nltk.ne_chunk(nltk.pos_tag(nltk.word_tokenize(sent)))
                 for i in chunked_sentence.subtrees(filter=lambda x: x.label() == 'GPE'):
                     for i in i.leaves():
                         locations.append(i[0])
+
         return_value = locations
         try:
             if (locations[0] == "New") or (locations[0] == "Old"):
@@ -48,6 +54,7 @@ class DataExtractor:
         ltp_location = LocationInformation().all_ltp_locations()
         outside_location = LocationInformation().all_locations()
         all_locations = ktm_location + outside_location + bkt_location + ltp_location
+        # print (ktm_location)
 
         locations = self.location_extractor()
         return_location = []
@@ -55,6 +62,7 @@ class DataExtractor:
         max_location = []
 
         for glocation in locations:
+            print (glocation)
             for location in all_locations:
                 dist = nltk.edit_distance(glocation, location)
                 ratio = (1 - (dist / len(glocation))) * 100
@@ -70,12 +78,7 @@ class DataExtractor:
                             return_location = max_location
                         elif max_location in outside_location:
                             return_location = max_location
-        if return_location == "lalitpur":
-            return_location = "patan"
-        if return_location == "kathmandu":
-            return_location = "ratna park"
-        if return_location == "bhaktapur":
-            return_location = "thimi"
+        print(return_location)
         return (return_location)
 
     def day(self,complete_news):
@@ -123,8 +126,6 @@ class DataExtractor:
         death_regex = "Deaths: {<CD>}"
         has_deaths = [sent for sent in sentences if("died" or "death") in
                         nltk.word_tokenize(sent)]
-        print(has_deaths)
-        print(has_deaths[0].split("and"))
         # death_regex = r"""
         #     Deaths:
         #     """
@@ -194,8 +195,6 @@ class DataExtractor:
                 sent = sent.replace('\r', '')
 
             new_sentences.append(sent)
-        print("new sentence")
-        print(new_sentences)
         injury = injury_no(new_sentences)
         # print(injury)
         if injury == "None":
@@ -207,6 +206,4 @@ class DataExtractor:
                 injuryNo = w2n.word_to_num(actualinjury)
             except:
                 injuryNo = 1
-        print("here")
-        print (injuryNo, actualinjury)
         return(injuryNo, actualinjury)
