@@ -89,7 +89,6 @@ def initial_check():
 
 def extract(link, news_story, title):
     a = re.search(r'[A-Z]\w+\s\d+[,.]\s\d+', news_story)
-    print news_story
     num = a.start()
     news_story = news_story[num:]
     news_story = unicode(news_story.decode('utf-8'))
