@@ -2,9 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <!-- <meta http-equiv="x-ua-compatible" content="ie=edge"> -->
-    <!-- <meta http-equiv="refresh" content="5; URL=http://127.0.0.1:8000/rssdb/" > -->
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title> {% block title %} NIEV {% endblock title %} </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,6 +26,7 @@
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <script type="text/javascript" src="{% static 'js/graph/d3.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/graph/topojson.v1.min.js' %}"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -103,7 +101,6 @@
     <div class="jumbotron-fluid" style="background-color:#a2cf6e;">
         <div class="container header-container" style="font-family:helvetica">
             <h2>Road Accident Information Extraction and Analysis</h2>
-            <small>A Database Collection of Road Accident in Nepal</small>
         </div>
     </div>
 
