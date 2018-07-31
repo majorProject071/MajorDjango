@@ -28,6 +28,7 @@ def vehicleinfo(news_story):
     vehicle_information = VehicleInformation(news_story)
     vehicle_information.make_gazetter()
     all_vehicles, two_wheeler, three_wheeler, four_wheeler = vehicle_information.find_vehicles()
+
     if (all_vehicles==set([])):
         return('[]','[]','[]')
     vehicles = []
@@ -75,7 +76,7 @@ def initial_check():
         links.append(post.link)
         title.append(post.title_detail.value)
     oldlinks = rssdata.objects.values_list('link', flat=True)
-    print oldlinks
+    print ("old links are: \n ",oldlinks)
     for i in range(0, len(links)):
         if links[i] not in oldlinks:
             response = get(links[i])
@@ -83,7 +84,7 @@ def initial_check():
             article = extractor.extract(raw_html=response.content)
             texts = article.cleaned_text
             news_story = texts.encode('utf-8')
-            print links[i]
+            print ("new links:\n", links[i])
             extract(links[i], news_story, title[i])
 
 
@@ -95,6 +96,7 @@ def extract(link, news_story, title):
     # for news in news_story:
     new_news_story = unicodedata.normalize('NFKD', news_story).encode('ascii', 'ignore')
     news_story = new_news_story
+    news_story = news_story.replace("\n", "")
     news = Tokenize(news_story)
     date, day, month, year, news_story = news.get_date(news_story)
     tokenized_words = news.split_words()
@@ -103,10 +105,11 @@ def extract(link, news_story, title):
     data_extractor = DataExtractor(pos_tagged_sentences, news_story)
     injury_no, injuries = data_extractor.injury_number()
     death_no, death = data_extractor.death_number()
-
+    cause = data_extractor.get_cause()
     if death_no == injury_no:
         injury_no = '0'
     vehicle0, vehicle1, vehicle_type = vehicleinfo(news_story)
+
 
 
     record = rssdata(
@@ -120,6 +123,7 @@ def extract(link, news_story, title):
                      location=data_extractor.location(),
                      vehicleone=vehicle0,
                      vehicletwo=vehicle1,
+                     cause=cause,
                      injury=injuries,
                      vehicle_type=vehicle_type,
                      vehicle_no=data_extractor.vehicle(),
@@ -128,7 +132,6 @@ def extract(link, news_story, title):
                      month=month,
                      year=year
                      )
-
     record.save()
     return record.id
     # # news_id = record.id

@@ -9,13 +9,13 @@ nlp = en_core_web_sm.load()
 
 vehicles = ['bus','car','truck','tipper','bike','zeep','jeep','scooter','scooty',
         'motorbike','motorcycle','container','SUV','tractor','moped','lorry',
-        'minivan','minibus','trolley','tempo']
+        'minivan','minibus','trolley','tempo','cycle']
 three_wheeler=set([
 'tempo','three-wheeler','three wheeler'
 ])
 
 two_wheeler = set([
-'bike','scooter','scooty','motorbike','motorcycle','two-wheeler','two wheeler','moped'
+'bike','scooter','scooty','motorbike','motorcycle','two-wheeler','two wheeler','moped','cycle'
 ])
 
 four_wheeler = set([
@@ -28,14 +28,9 @@ bike = ['bike','motorbike','motorcycle']
 zeep = ['zeep','jeep']
 
 
-CAUSUAL_WORDS = ["consequently", "as a result", "therfore", "as a result",
-                 "as a consequence", "for these reason", "thus", "due",
-                 "for all these reasons", "because of", "because", "since",
-                 "thus", "cause", "occur", "accord", "say", "after", "off"]
 
 matcher = Matcher(nlp.vocab)
 
-cause_matcher = Matcher(nlp.vocab)
 class VehicleInformation:
     def __init__(self,news_story):
         self.news_story = news_story
@@ -77,18 +72,6 @@ class VehicleInformation:
             is_three_wheeler = 1
         if(len(vehicles_found.intersection(four_wheeler))!=0):
             is_four_wheeler = 1
+        print("vehicles are : \n", vehicles_found)
         return(vehicles_found,is_two_wheeler,is_three_wheeler,is_four_wheeler)
 
-    def get_cause(self):
-        CAUSUAL_SENTENCES = []
-        DOCUMENT = unicode(self.news_story.decode('utf8'))
-        DOC = nlp(DOCUMENT)
-        for word in CAUSUAL_WORDS:
-            matcher.add_pattern("Causual sentence", [{LEMMA: word}])
-
-        for sent in DOC.sents:
-            new_sent = nlp(unicode(str(sent).decode('utf8')))
-            matches = matcher(new_sent)
-            if len(matches) > 0:
-                CAUSUAL_SENTENCES.append(sent)
-        return CAUSUAL_SENTENCES
