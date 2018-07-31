@@ -83,6 +83,7 @@ def selectparameters():
 #provide quieres to location()
 
 def getqueries(informations, ktmlocations, ltplocations, bktlocations):
+    print informations
     newlocationlist = rssdata.objects.all().values('location', 'year', 'month', 'vehicleone',
                                                    'vehicletwo','date','vehicle_type').order_by('location').annotate(count=Count('location')).annotate(
                                                     deathno=Sum('death_no')).annotate(injuryno=Sum('injury_no'))
@@ -150,8 +151,8 @@ def getqueries(informations, ktmlocations, ltplocations, bktlocations):
 
         if info['dateto'] != '1':
             newlocationlist = newlocationlist.filter(date__range=(info['datefrom'], info['dateto']))
-            string = ' from ' + info['datefrom']+ ' to ' + info['dateto']
-            information = information + string
+            # string = ' from ' + info['datefrom']+ ' to ' + info['dateto']
+            # information = information + string
      #extract distinct locations from query
     for samelocation in newlocationlist:
         if len(samelocation['location'])>2:
@@ -399,7 +400,7 @@ def location(request):
                 }
                 return render(request, "findlocation.html", context)
             for location in barlocations:
-                if location['value']==0 or location['injury'] ==0:
+                if location['value']==0 and location['injury'] ==0:
                     context = {
                         'locationinfos': newlocationlist,
                         'listoflocation': listoflocation,
@@ -500,7 +501,7 @@ def location(request):
 
 #query for kathmandu valley map
 def index(request):
-    location = rssdata.objects.values('location').order_by('location').annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no'))
+    location = rssdata.objects.values('location').order_by('location').annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no')).annotate(count=Count('location'))
     totalno = rssdata.objects.values('date').aggregate(total=Count('date'))
     latitude = []
 
@@ -512,7 +513,7 @@ def index(request):
                 if g.lat is not None:
                     latitude.append(
                         {'location': loc, 'latitude': g.lat, 'longitude': g.lng, 'death': locations['death'],
-                         'injury': locations['injury']})
+                         'injury': locations['injury'], 'count': locations['count']})
 
                 # geolocator = Nominatim()
                 # g = geolocator.geocode(loc)

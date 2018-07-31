@@ -264,13 +264,9 @@ font-size: 22px;
                                      value='{{ today|date:"Y-m-d" }}'
                                      min="2010-01-01" max='{{ today|date:"Y-m-d" }}'/></div>
 
-<<<<<<< HEAD
-        <button type="submit" class="btn btn-success">Success</button>
-        <!--<input type="submit" value="Select">-->
-=======
 
-        <input id="graph-filter" type="submit" value="Select">
->>>>>>> 232f0da148b22493ac0d6b77a169b87488b88e34
+        <button type="submit" class="btn btn-success">Success</button>
+
     </form>
 </div>
 
@@ -520,6 +516,15 @@ var state = svg.selectAll(".state")
       .enter().append("g")
       .attr("class", "state")
       .attr("transform", function(d) { return "translate(" + x0(d.location) + ",0)"; });
+state.selectAll("text")
+  .data(function(d) { return d.ages; })
+.enter().append("text")
+  .attr("x", function(d) { return x1(d.name); })
+  .attr("y", function(d) { return y(d.value); })
+  .attr("dx", "15")
+  .style("font-size", "12px")
+  .attr("height", function(d) { return y(d.value); })
+  .text(function(d, i) { return d.value; });
 
 state.selectAll("rect")
       .data(function(d) { return d.ages; })
@@ -529,6 +534,7 @@ state.selectAll("rect")
       .attr("y", function(d) { return y(d.value); })
       .attr("height", function(d) { return height - y(d.value); })
       .style("fill", function(d) { return color(d.name); });
+
 
 
 var legend = svg.selectAll(".legend")
@@ -737,16 +743,16 @@ d3.json("https://raw.githubusercontent.com/aayushrijal/Nepal-district-topojson/m
     }
 
     function removeValue(){
+
     $(".valueremove").hide();
     }
 
     function dateList(){
     if ($(".calender").is(":visible")){
-        var locationinfo=document.getElementById('vehicle_info').value;
         $(".calender").hide();
      }
      else{
-     $(".calender").show();
+        $(".calender").show();
      }
     }
 

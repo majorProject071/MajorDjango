@@ -97,7 +97,7 @@ margin-bottom: 2%;
 
         var locations = [
             {% for lat in latitude %}
-            ['place: {{ lat.location }} <br>death: {{ lat.death }}, injury:{{ lat.injury }}', {{ lat.latitude }}, {{lat.longitude}}],
+            ['place: {{ lat.location }} <br>death: {{ lat.death }} <br>injury:{{ lat.injury }}<br> No of accidets: {{ lat.count }}', {{ lat.latitude }}, {{lat.longitude}}],
             {% endfor %}
         ];
          var infowindow = new google.maps.InfoWindow();

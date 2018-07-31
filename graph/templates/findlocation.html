@@ -64,12 +64,10 @@ display: none;
 }
 #vehicle_two,  #vehicle_three, #vehicle_four, #ltp_location, #bkt_location, #ktm_location {
 display: none;
-float:left;
 }
 
 #location_info, #vehicle_info, #year, #month, #fromdate, #todate
 {
-float:left;
 position : inherit;
 }
 
@@ -132,7 +130,6 @@ font-size: 18px;
 }
 .calender{
 display: none;
-float: left;
 }
 
 </style>
@@ -251,7 +248,7 @@ float: left;
                                      min="2010-01-01" max='{{ today|date:"Y-m-d" }}'/></div>
 
 
-        <input type="submit" value="Select">
+        <button type="submit" class="btn btn-success">Success</button>
     </form>
 </div>
 <div>
