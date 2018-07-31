@@ -201,6 +201,8 @@ class DataExtractor:
                 sent = sent.replace(i, p.number_to_words(i))
                 sent = sent.replace('-', ' ')
                 sent = sent.replace('\\r', '')
+                sent = sent.replace(',', '')
+                sent = sent.replace(';', '')
                 sent = sent.replace('\r', '')
 
             new_sentences.append(sent)

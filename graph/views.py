@@ -236,28 +236,34 @@ def finalquery(countlist):
     bkt_count = 0
     bkt_injury = 0
     maplocations = []
+    barlocations = []
     for location in countlist:
         if location['location'].lower() in ktm_location:
             ktm_death += location['death']
             ktm_injury += location['injury']
             ktm_count += location['count']
+            barlocations.append({'location': 'Kathmandu', 'injury': ktm_injury, 'value': ktm_death})
             maplocations.append({'location': 'Kathmandu', 'injury': ktm_injury, 'value': ktm_death, 'count': ktm_count})
         elif location['location'].lower() in ltp_location:
             ltp_death += location['death']
             ltp_injury += location['injury']
             ltp_count += location['count']
+            barlocations.append({'location': 'Lalitpur', 'injury': ltp_injury, 'value': ltp_death})
             maplocations.append({'location': 'Lalitpur', 'injury': ltp_injury, 'value': ltp_death, 'count': ltp_count})
         elif location['location'].lower() in bkt_location:
             bkt_death += location['death']
             bkt_injury += location['injury']
             bkt_count += location['count']
             maplocations.append({'location': 'Bhaktapur', 'injury': bkt_injury, 'value': bkt_death, 'count': bkt_count})
+            barlocations.append({'location': 'Bhaktapur', 'injury': bkt_injury, 'value': bkt_death})
         elif location['location'].lower() in outside_location:
             maplocations.append({'location': location['location'].capitalize(), 'value': location['death'],
-                             'injury': location['injury'], 'count': location['count']})
+                             'injury': location['injury'],'count': location['count']})
+            barlocations.append({'location': location['location'].capitalize(), 'value': location['death'],
+                                 'injury': location['injury']})
         else:
             pass
-    return (maplocations)
+    return (barlocations, maplocations)
 
 # def vehicletypecheck(query):
 #     newquery = query.filter(vehicle_type__icontains=search)
@@ -286,7 +292,6 @@ def location(request):
 
     #initializing list
     vehicledata = []
-    barlocations = []
     tablelocation = []
     vehicletype = []
     vehicletwowheeler =[]
@@ -353,8 +358,25 @@ def location(request):
 
             newlocationlist, filterlocation, information, totalno, countlist = getqueries(valueslist, ktmlocationlist,ltplocationlist,bktlocationlist)
 
-            barlocations = filterlocation
-            maplocations = finalquery(countlist)
+            barlocations , maplocations = finalquery(countlist)
+            max = 0
+            for location in maplocations:
+                if location['count'] > max:
+                    max = location['count']
+            diffList = []
+            diffcount = []
+            # for location in maplocations:
+            for i in range(0, len(maplocations)):
+                diff = max - maplocations[i]['count']
+                if diff not in diffcount:
+                    if diff > 9:
+                        diff = 10
+                        diffcount.append(diff)
+                        diffList.append({'difference': diff, 'counts': maplocations[i]['count']})
+                    else:
+                        diffcount.append(diff)
+                        diffList.append({'difference': diff, 'counts': maplocations[i]['count']})
+
             if (len(filterlocation) == 0):
                 context = {
                     'locationlist': tablelocation,
@@ -376,8 +398,34 @@ def location(request):
                     'start': date,
                 }
                 return render(request, "findlocation.html", context)
-
+            for location in barlocations:
+                if location['value']==0 or location['injury'] ==0:
+                    context = {
+                        'locationinfos': newlocationlist,
+                        'listoflocation': listoflocation,
+                        'ktm_location': ktmlocationlist,
+                        'ltp_location': ltplocationlist,
+                        'bkt_location': bktlocationlist,
+                        'monthlist': monthlist,
+                        'totalno': totalno,
+                        'vehicletwo': vehicletwowheeler,
+                        'vehiclethree': vehiclethreewheeler,
+                        'vehiclefour': vehiclefourwheeler,
+                        'yearlist': yearlist,
+                        'info': information,
+                        'monthvalue': monthinfo,
+                        'vehicletype': vehicletype,
+                        'yearvalue': yearinfo,
+                        'vehiclevalue': vehicletypeinfo,
+                        'locationvalue': locationinfo,
+                        'today': todaydate,
+                        'start': date,
+                        'checkparam': "none",
+                    }
+                    return render(request, "location.html", context)
             context = {
+                'differences': diffList,
+                'max': max,
                 'locationinfos': newlocationlist,
                 'location_data': json.dumps(barlocations),
                 'listoflocation': listoflocation,
@@ -403,14 +451,33 @@ def location(request):
             return render(request, "location.html", context)
 
 
-    for locations in locationlist:
-        if len(locations['location'])>2:
-            barlocations.append({'location': locations['location'].capitalize(), 'death': locations['death'],
-                             'injury': locations['injury']})
+
     totalno = len(locationlist)
-    maplocations = finalquery(locationlist)
+    barlocations, maplocations = finalquery(locationlist)
+
+    max = 0
+    for location in maplocations:
+        if location['count']>max:
+            max = location['count']
+    diffList = []
+    diffcount =[]
+    # for location in maplocations:
+    for i in range(0, len(maplocations)):
+        diff = max - maplocations[i]['count']
+        if diff not in diffcount:
+            if diff > 9:
+                diff = 10
+                diffcount.append(diff)
+                diffList.append({'difference': diff, 'counts': maplocations[i]['count']})
+            else:
+                diffcount.append(diff)
+                diffList.append({'difference': diff, 'counts': maplocations[i]['count']})
+    print diffList
+
 
     context = {
+        'differences': diffList,
+        'max': max,
         'locationinfos': tablelocation,
         'location_data': json.dumps(barlocations),
         'listoflocation': listoflocation,
@@ -427,7 +494,7 @@ def location(request):
         'newdata': json.dumps(maplocations),
         'today': todaydate,
         'start' : date,
-        'locationvalue' : "Kathmandu",
+        'locationvalue': "Kathmandu",
     }
     return render(request, "location.html", context)
 
