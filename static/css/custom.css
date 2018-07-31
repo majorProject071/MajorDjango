@@ -43,7 +43,12 @@ table td{
     display: block;
     padding: 1px 1px;
 }*/
+#graph-filter {
 
+    width: auto;
+    padding: 5px 5px;
+
+}
 
 .footer {
     clear: both;

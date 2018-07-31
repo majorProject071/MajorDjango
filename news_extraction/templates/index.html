@@ -13,34 +13,39 @@
             <li class='listed' style='list-style:none;'>
               <p id={{ article.id }} class="head"> <a href="#" style="color:#4b0082">{{article.header}}:</a><br>
               <a>{{article.date}}</a>
-                  <div class="source">Source:<p>{{ article.source }}</p></div>
+                  <div class="source"><bold>Source: </bold><p>{{ article.source }}</p></div>
             </p>
             </li>
           </ul>
         {% endfor %}
         </div>
 
+        <div class="pagination-div" style="margin-top:20px;">
         {% if news.has_other_pages %}
         <ul class="pagination">
             {% if news.has_previous %}
-              <li><a href="?page={{ news.previous_page_number }}">&laquo;</a></li>
+              <li class="page-item">
+                  <a class="page-link" href="?page={{ news.previous_page_number }}">&laquo;</a></li>
             {% else %}
-              <li class="disabled"><span>&laquo;</span></li>
+              <li class="page-item disabled"><span>&laquo;</span></li>
             {% endif %}
             {% for i in news.paginator.page_range %}
               {% if news.number == i %}
-                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+            <li class="page-item active"><span class="page-link">{{ i }}<span class="sr-only ">(current)</span></span></li>
               {% else %}
-                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
               {% endif %}
             {% endfor %}
             {% if news.has_next %}
-              <li><a href="?page={{ news.next_page_number }}">&raquo;</a></li>
+              <li class="page-item">
+                  <a class="page-link" href="?page={{ news.next_page_number }}">&raquo;</a></li>
             {% else %}
-              <li class="disabled"><span>&raquo;</span></li>
+              <li class="page-item disabled"><span>&raquo;</span></li>
             {% endif %}
           </ul>
         {% endif %}
+        </div>
     </div>
 
     <div class="col-md-6">
@@ -66,7 +71,7 @@
 div.center {text-align: center;}
 
 .pre-scrollable {
-    max-height: 700px;
+    max-height: 450px;
     overflow-y: scroll;
 }
 .source{
