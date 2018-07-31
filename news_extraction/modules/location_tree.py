@@ -290,4 +290,4 @@ class LocationInformation:
                 outside_locations.append(row.node.name)
         return outside_locations
 
-print (RenderTree(nepal))
+# print (RenderTree(nepal))

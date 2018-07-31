@@ -9,15 +9,22 @@ from tagger import Tagger
 from tokenizer import Tokenize
 from getdeathinjury import *
 from location_tree import LocationInformation
-
+from spacy.matcher import Matcher
+import en_core_web_sm
 from word2number import w2n
+from spacy.attrs import POS,LOWER,IS_PUNCT,LEMMA
+
+nlp = en_core_web_sm.load()
+
 class DataExtractor:
     """ A class to extract the required data like location, month, deaths,etc.
         from the news story.
     """
+
     def __init__(self,pos_tagged_words,news_story):
         self.pos_tagged_words = pos_tagged_words
         self.splitted_sentences = nltk.sent_tokenize(news_story)
+        self.news_story = news_story
 
     def location_extractor(self):
         individual_sentences = self.splitted_sentences
@@ -78,7 +85,7 @@ class DataExtractor:
                             return_location = max_location
                         elif max_location in outside_location:
                             return_location = max_location
-        print(return_location)
+        print("location is: ",return_location)
         return (return_location)
 
     def day(self,complete_news):
@@ -86,7 +93,8 @@ class DataExtractor:
         """
         day_regex = re.compile('\w+day')
         day = day_regex.findall(complete_news)[0]
-        print("The day when the accident occured is: \n"+day)
+        print("The day when the accident occured is: \n", day)
+        return day
 
 
 
@@ -111,49 +119,49 @@ class DataExtractor:
                     # vehicle = vehicle[:-1]
                 # print("\n")
                 vehicles.append(vehicle[:-1])
-
+        print("vehicles involved are: " , vehicles)
         return(vehicles)
 
-    def deaths(self,sentences):
-        """ Gets the number of deaths from the news story.
-
-            Inputs include the POS tagged words from the news story.
-            Output includ the number of deaths mentioned in the news.
-        """
-
-        death_words = ["died","death","killed","life"]
-        # death_regex = "Deaths: {<NNP>?<CD><NNS|NNP>?<VBD|VBN>?<VBD|VBN>}"
-        death_regex = "Deaths: {<CD>}"
-        has_deaths = [sent for sent in sentences if("died" or "death") in
-                        nltk.word_tokenize(sent)]
-        # death_regex = r"""
-        #     Deaths:
-        #     """
-        death_parser = nltk.RegexpParser(death_regex)
-
-        for i in self.pos_tagged_words:
-            deaths = death_parser.parse(i)
-            for i in deaths.subtrees(filter = lambda x:x.label() == 'Deaths'):
-                print(i.leaves())
-
-    def injury(self,sentences):
-        has_injuries = [sent for sent in sentences if("injured" or "injury"
-                        or "injuries" or "injur") in nltk.word_tokenize(sent)]
-        print(has_injuries)
-
-        has_injuries_words = nltk.word_tokenize(has_injuries[0])
-
-        injury_pos_tagged = nltk.pos_tag(has_injuries_words)
-        print(injury_pos_tagged)
-
-        injury_regex = r"""
-                      INjury:
-                        {<.*>+}          # Chunk everything
-                        }<CC|IN|NNS|NN|DT|WRB>+{      # Chink sequences of VBD and IN
-                  """
-        injury_parser = nltk.RegexpParser(injury_regex)
-        injury_occurence = injury_parser.parse(injury_pos_tagged)
-        print(injury_occurence)
+    # def deaths(self,sentences):
+    #     """ Gets the number of deaths from the news story.
+    #
+    #         Inputs include the POS tagged words from the news story.
+    #         Output includ the number of deaths mentioned in the news.
+    #     """
+    #
+    #     death_words = ["died","death","killed","life"]
+    #     # death_regex = "Deaths: {<NNP>?<CD><NNS|NNP>?<VBD|VBN>?<VBD|VBN>}"
+    #     death_regex = "Deaths: {<CD>}"
+    #     has_deaths = [sent for sent in sentences if("died" or "death") in
+    #                     nltk.word_tokenize(sent)]
+    #     # death_regex = r"""
+    #     #     Deaths:
+    #     #     """
+    #     death_parser = nltk.RegexpParser(death_regex)
+    #
+    #     for i in self.pos_tagged_words:
+    #         deaths = death_parser.parse(i)
+    #         for i in deaths.subtrees(filter = lambda x:x.label() == 'Deaths'):
+    #             print(i.leaves())
+    #
+    # def injury(self,sentences):
+    #     has_injuries = [sent for sent in sentences if("injured" or "injury"
+    #                     or "injuries" or "injur") in nltk.word_tokenize(sent)]
+    #     print(has_injuries)
+    #
+    #     has_injuries_words = nltk.word_tokenize(has_injuries[0])
+    #
+    #     injury_pos_tagged = nltk.pos_tag(has_injuries_words)
+    #     print(injury_pos_tagged)
+    #
+    #     injury_regex = r"""
+    #                   INjury:
+    #                     {<.*>+}          # Chunk everything
+    #                     }<CC|IN|NNS|NN|DT|WRB>+{      # Chink sequences of VBD and IN
+    #               """
+    #     injury_parser = nltk.RegexpParser(injury_regex)
+    #     injury_occurence = injury_parser.parse(injury_pos_tagged)
+    #     print(injury_occurence)
 
     def death_number(self):
         integer_regex = re.compile(r'\d{1,2}')
@@ -178,6 +186,7 @@ class DataExtractor:
         else:
             actualdeath = remove_date(death)
             deathNo = convertNum(death)
+        print("No of people died: " , deathNo)
         return(deathNo, actualdeath)
 
     def injury_number(self):
@@ -206,4 +215,35 @@ class DataExtractor:
                 injuryNo = w2n.word_to_num(actualinjury)
             except:
                 injuryNo = 1
+        print("No of people injured: " , injuryNo)
         return(injuryNo, actualinjury)
+
+
+
+
+    def get_cause(self):
+
+        cause_matcher = Matcher(nlp.vocab)
+        CAUSUAL_WORDS = ["consequently", "as a result", "therefore", "as a result",
+                         "as a consequence", "for these reason", "thus", "due",
+                         "for all these reasons", "because of", "because", "since",
+                         "thus", "cause", "occur", "accord", "after", "off","all of a sudden","coming from the opposite direction","fell","hit" ]
+        CAUSUAL_SENTENCES = []
+        DOCUMENT = unicode(self.news_story.decode('utf8'))
+        DOC = nlp(DOCUMENT)
+        for word in CAUSUAL_WORDS:
+            cause_matcher.add_pattern("Causual sentence", [{LEMMA: word}])
+        cause = ""
+        for sent in DOC.sents:
+            new_sent = nlp(unicode(str(sent).decode('utf8')))
+            matches = cause_matcher(new_sent)
+            if len(matches) > 0:
+                CAUSUAL_SENTENCES.append(sent)
+            else:
+                CAUSUAL_SENTENCES.append("")
+        for sent in CAUSUAL_SENTENCES:
+            sent = str(sent)
+            cause = cause + sent
+        print("the cause is:", cause)
+        return cause
+
