@@ -2,11 +2,7 @@ from __future__ import print_function
 from __future__ import division
 import nltk
 import re
-import os
-import sys
 import inflect
-from tagger import Tagger
-from tokenizer import Tokenize
 from getdeathinjury import *
 from location_tree import LocationInformation
 from spacy.matcher import Matcher
@@ -69,7 +65,7 @@ class DataExtractor:
         max_location = []
 
         for glocation in locations:
-            print (glocation)
+            # print (glocation)
             for location in all_locations:
                 dist = nltk.edit_distance(glocation, location)
                 ratio = (1 - (dist / len(glocation))) * 100
@@ -85,16 +81,18 @@ class DataExtractor:
                             return_location = max_location
                         elif max_location in outside_location:
                             return_location = max_location
-        print("location is: ",return_location)
+        # print("location is: ",return_location)
         return (return_location)
 
     def day(self,complete_news):
         """ Gets the day of mishap.
         """
-        day_regex = re.compile('\w+day')
-        day = day_regex.findall(complete_news)[0]
-        print("The day when the accident occured is: \n", day)
-        return day
+        try:
+            day_regex = re.compile('\w+day')
+            day = day_regex.findall(complete_news)[0]
+            return day
+        except:
+            pass
 
 
 
@@ -119,7 +117,7 @@ class DataExtractor:
                     # vehicle = vehicle[:-1]
                 # print("\n")
                 vehicles.append(vehicle[:-1])
-        print("vehicles involved are: " , vehicles)
+        # print("vehicles involved are: " , vehicles)
         return(vehicles)
 
     # def deaths(self,sentences):
@@ -186,7 +184,7 @@ class DataExtractor:
         else:
             actualdeath = remove_date(death)
             deathNo = convertNum(death)
-        print("No of people died: " , deathNo)
+        # print("No of people died: " , deathNo)
         return(deathNo, actualdeath)
 
     def injury_number(self):
@@ -217,7 +215,7 @@ class DataExtractor:
                 injuryNo = w2n.word_to_num(actualinjury)
             except:
                 injuryNo = 1
-        print("No of people injured: " , injuryNo)
+        # print("No of people injured: " , injuryNo)
         return(injuryNo, actualinjury)
 
 
@@ -246,6 +244,6 @@ class DataExtractor:
         for sent in CAUSUAL_SENTENCES:
             sent = str(sent)
             cause = cause + sent
-        print("the cause is:", cause)
+        # print("the cause is:", cause)
         return cause
 

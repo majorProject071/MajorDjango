@@ -143,15 +143,17 @@ def manual_extract(link):
     url = urllib.urlopen(link)
     content = url.read()
     soup = BeautifulSoup(content, 'lxml')
+    try:
+        article_text = []
+        article = soup.find("div", {"class": "content-wrapper"}).findAll('p')
+        title = soup.find("div", {"class": "no-space"}).h1
 
-    article_text = []
-    article = soup.find("div", {"class": "content-wrapper"}).findAll('p')
-    title = soup.find("div", {"class": "no-space"}).h1
+        for element in article:
+            for e in element.findAll(text=True):
+                if len(e)>2:
+                    article_text.append(e)
 
-    for element in article:
-        for e in element.findAll(text=True):
-            if len(e)>2:
-                article_text.append(e)
-
-    return (link, str(article_text), title.text)
+        return (link, str(article_text), title.text)
+    except:
+        pass
 
