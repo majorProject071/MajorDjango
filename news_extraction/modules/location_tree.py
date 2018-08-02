@@ -264,7 +264,6 @@ class LocationInformation:
             if row.node.name not in ktm_locations:
                 if row.node.parent == kathmandu:
                     ktm_locations.append(row.node.name)
-        ktm_locations.append("kathmandu")
         return ktm_locations
 
     def all_ltp_locations(self):
@@ -272,7 +271,6 @@ class LocationInformation:
             if row.node.name not in ltp_locations:
                 if row.node.parent == lalitpur:
                     ltp_locations.append(row.node.name)
-        ktm_locations.append("lalitpur")
         return ltp_locations
 
     def all_bkt_locations(self):
@@ -280,13 +278,11 @@ class LocationInformation:
             if row.node.name not in bkt_locations:
                 if row.node.parent == bhaktapur:
                     bkt_locations.append(row.node.name)
-        ktm_locations.append("bhaktapur")
         return bkt_locations
 
     def all_locations(self):
-        locationcheck = ['lalitpur', 'kathmandu', 'bhaktapur']
         for row in RenderTree(nepal):
-            if row.node.parent == nepal and row.node.name not in locationcheck:
+            if row.node.parent == nepal:
                 outside_locations.append(row.node.name)
         return outside_locations
 

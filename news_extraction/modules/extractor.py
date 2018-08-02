@@ -16,6 +16,7 @@ from spacy.attrs import POS,LOWER,IS_PUNCT,LEMMA
 
 nlp = en_core_web_sm.load()
 
+
 class DataExtractor:
     """ A class to extract the required data like location, month, deaths,etc.
         from the news story.

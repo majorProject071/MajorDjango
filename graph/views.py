@@ -1,232 +1,76 @@
-from django.shortcuts import render, get_object_or_404, redirect, render_to_response
-from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
-from django.contrib.auth.models import User
-from django.contrib import messages
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from __future__ import division
 from django.db.models import Q, Count, Sum, Max, Value
 from django.shortcuts import render
-from time import sleep
-from django.forms import modelformset_factory
-from django.contrib.auth import authenticate, login, logout
-from django.views.generic import View
-from django.db import connections
-from geopy.geocoders import Nominatim
-import nltk
-from .models import *
+
 import json
-from news_extraction.models import *
+from news_extraction.models import rssdata
 from news_extraction.modules.location_tree import LocationInformation
-import news_extraction.modules.vehicles_gazetter as Vehicles
-from django.core import serializers
-from django.http import JsonResponse
-import requests
+from getqueries.newqueries import Query
 import geocoder
 import datetime
 import re
 
-# provide parameter to select tag for location in location.html
 
-def selectparameters():
+def parameters():
+    """ provide parameter to select tag for location in location.html """
+
+    """import all location from database"""
     listoflocation = rssdata.objects.values('location').order_by('location').annotate(count=Count('location'))
-    print listoflocation
 
-    # import all location from kathmandu, bhaktapur, lalitpur and outside from location_tree.py
+    """ import all location from kathmandu, bhaktapur, lalitpur and outside from location_tree.py """
     ktm_location = LocationInformation().all_ktm_locations()
     bkt_location = LocationInformation().all_bkt_locations()
     ltp_location = LocationInformation().all_ltp_locations()
     outside_location = LocationInformation().all_locations()
 
-    # list initialization
-    locationlist = []
+    """ list definition"""
+    alllocationlist = []
     ktmlocationlist = []
     ltplocationlist = []
     bktlocationlist = []
 
-    for location in listoflocation:
-        # check if location is not []
-        if len(location['location']) > 2:
-            if location['location'] in ktm_location or location['location'] == "kathmandu":
+    for findlocation in listoflocation:
 
-                #add location under kathmandu
-                ktmlocationlist.append({'location':location['location'].capitalize()})
-                if (len(locationlist) == 0):
-                    locationlist.append('Kathmandu')
+        """ check if defined location is in kathmandu or lalitpur or bhaktapur or others"""
+        if findlocation['location'] in ktm_location:
+            """ add location to kathmandu location list and
+            add kathmandu to all location"""
+            ktmlocationlist.append({'location': findlocation['location'].capitalize()})
+            if 'Kathmandu' not in alllocationlist:
+                alllocationlist.append('Kathmandu')
 
-                #check repetition of word kathmandu
-                if 'Kathmandu' in locationlist:
-                    pass
-                else:
-                    locationlist.append('Kathmandu')
+        elif findlocation['location'] in ltp_location:
+            """ add location to Lalitpur location list and
+            add Lalitpur to all location"""
+            ltplocationlist.append({'location': findlocation['location'].capitalize()})
+            if 'Lalitpur' not in alllocationlist:
+                alllocationlist.append('Lalitpur')
 
-            elif location['location'] in ltp_location:
-                ltplocationlist.append({'location': location['location'].capitalize()})
-                if (len(locationlist) == 0):
-                    locationlist.append('Lalitpur')
-                if 'Lalitpur' in locationlist:
-                    pass
-                else:
-                    locationlist.append('Lalitpur')
-            elif location['location'] in bkt_location:
-                bktlocationlist.append({'location': location['location'].capitalize()})
-                if (len(locationlist) == 0):
-                    locationlist.append('Bhaktapur')
-                if 'Bhaktapur' in locationlist:
-                    pass
-                else:
-                    locationlist.append('Bhaktapur')
-            elif location['location'] in outside_location:
-                locationlist.append(location['location'].capitalize())
-            else:
-                pass
-    return (locationlist, ktmlocationlist, ltplocationlist, bktlocationlist)
+        elif findlocation['location'] in bkt_location:
+            """ add location to Bhaktapur location list and
+                add Bhaktapur to all location"""
+            bktlocationlist.append({'location': findlocation['location'].capitalize()})
+            if 'Bhaktapur' in alllocationlist:
+                alllocationlist.append('Bhaktapur')
 
-#provide quieres to location()
+        elif findlocation['location'] in outside_location:
+            alllocationlist.append(findlocation['location'].capitalize())
 
-def getqueries(informations, ktmlocations, ltplocations, bktlocations):
-    print informations
-    newlocationlist = rssdata.objects.all().values('location', 'year', 'month', 'vehicleone',
-                                                   'vehicletwo','date','vehicle_type').order_by('location').annotate(count=Count('location')).annotate(
-                                                    deathno=Sum('death_no')).annotate(injuryno=Sum('injury_no'))
-
-    # initialization
-    information = ''
-    distinctlocations = []
-    querieslist = []
-    countlist = []
-
-    for info in informations:
-
-        #check for request of user and use flter accordingly
-
-        if info['locationinfo'] != '1':
-            newlocationlist = locationcheck(info['locationinfo'], ktmlocations,ltplocations, bktlocations)
-            string = ' at ' + str(info['locationinfo'])
-            information = information + string
-
-        if info['ltplocationinfo'] != '1':
-            newlocationlist = newlocationlist.filter(location=info['ltplocationinfo'].lower())
-            string = ' in ' + info['ltplocationinfo']
-            information = information + string
-
-        if info['ktmlocationinfo'] != '1':
-            newlocationlist = newlocationlist.filter(location=info['ktmlocationinfo'].lower())
-            string = ' in ' + info['ktmlocationinfo']
-            information = information + string
-
-        if info['bktlocationinfo'] != '1':
-            newlocationlist = newlocationlist.filter(location=info['bktlocationinfo'].lower())
-            string = ' in ' + info['bktlocationinfo']
-            information = information + string
-
-        if info['yearinfo'] != '1':
-            newlocationlist = newlocationlist.filter(year=info['yearinfo'])
-            string = ' in ' + str(info['yearinfo'])
-            information = information + string
-
-        if info['monthinfo'] != '1':
-            newlocationlist = newlocationlist.filter(month=info['monthinfo'])
-            string = ' in ' + info['monthinfo']
-            information = information + string
-
-        if info['vehicletypeinfo'] != '1':
-            newlocationlist = newlocationlist.filter(vehicle_type__icontains=info['vehicletypeinfo'])
-            string = ' by ' + info['vehicletypeinfo']
-            information = information + string
-
-        if info['vehicletwoinfo'] != '1':
-            newlocationlist = newlocationlist.filter(vehicleone=info['vehicletwoinfo']) or newlocationlist.filter(
-                vehicleone=info['vehicletwoinfo'])
-            string = ' by ' + info['vehicletwoinfo']
-            information = information + string
-        if info['vehiclethreeinfo'] != '1':
-            newlocationlist = newlocationlist.filter(vehicleone=info['vehiclethreeinfo']) or newlocationlist.filter(
-                vehicleone=info['vehiclethreeinfo'])
-            string = ' by ' + info['vehiclethreeinfo']
-            information = information + string
-        if info['vehiclefourinfo'] != '1':
-            newlocationlist = newlocationlist.filter(vehicleone=info['vehiclefourinfo']) or newlocationlist.filter(
-                vehicleone=info['vehiclefourinfo'])
-            string = ' by ' + info['vehiclefourinfo']
-            information = information + string
-
-        if info['dateto'] != '1':
-            newlocationlist = newlocationlist.filter(date__range=(info['datefrom'], info['dateto']))
-            # string = ' from ' + info['datefrom']+ ' to ' + info['dateto']
-            # information = information + string
-     #extract distinct locations from query
-    for samelocation in newlocationlist:
-        if len(samelocation['location'])>2:
-            if samelocation['location'] in distinctlocations:
-                pass
-            else:
-                distinctlocations.append(samelocation['location'])
         else:
             pass
 
-    #use distince locations to sum up their death and injury number
-    for distlocation in distinctlocations:
-        newqueries = newlocationlist.filter(location=distlocation)
-        death = 0
-        injury = 0
-        count = 0
-        for queries in newqueries:
-                death += queries['deathno']
-                injury += queries['injuryno']
-                count += queries['count']
-        querieslist.append({'location': distlocation.capitalize(), 'death': death , 'injury': injury })
-        countlist.append({'location': distlocation.capitalize(), 'death': death , 'injury': injury ,'count': count})
+    return alllocationlist, ktmlocationlist, ltplocationlist, bktlocationlist
 
-    # return to location()
-    return newlocationlist, querieslist, information, len(querieslist), countlist
 
-#return filtered location to getqueries in info location info
-
-def locationcheck(locationinfo, ktmlocationlist,ltplocationlist,bktlocationlist):
-    newlocationlist = rssdata.objects.all().values('location', 'year', 'month', 'vehicleone',
-                                                   'vehicletwo', 'date').order_by('location').annotate(
-        count=Count('location')).annotate(deathno=Sum('death_no')).annotate(injuryno=Sum('injury_no'))
-
-    print locationinfo
-
-    #initialize query
-    locationlist = rssdata.objects.none()
-
-    if locationinfo == 'Kathmandu':
-        onelocationlist = newlocationlist.filter(location="kathmandu")
-        locationlist = onelocationlist
-        for z in range(0, len(ktmlocationlist)):
-            if(len(locationlist) == 0):
-                onelocationlist = newlocationlist.filter(location=ktmlocationlist[0]['location'].lower())
-                locationlist = onelocationlist
-            else:
-                onelocationlist = newlocationlist.filter(location=ktmlocationlist[z]['location'].lower()) | locationlist
-                locationlist = onelocationlist
-    elif locationinfo == 'Lalitpur':
-        for z in range(0, len(ltplocationlist)):
-            if(z ==0):
-                onelocationlist = newlocationlist.filter(location=ltplocationlist[0]['location'].lower())
-                locationlist = onelocationlist
-            if (z>0):
-                onelocationlist = newlocationlist.filter(location=ltplocationlist[z]['location'].lower()) | locationlist
-                locationlist = onelocationlist
-    elif locationinfo == 'Bhaktapur':
-        for z in range(0, len(bktlocationlist)):
-            if(z ==0):
-                onelocationlist = newlocationlist.filter(location=bktlocationlist[0]['location'].lower())
-                locationlist = onelocationlist
-            if (z>0):
-                onelocationlist = newlocationlist.filter(location=bktlocationlist[z]['location'].lower()) | locationlist
-                locationlist = onelocationlist
-    else:
-        onelocationlist = newlocationlist.filter(location=locationinfo.lower())
-    return onelocationlist
-
-#provide query to nepal map
 def finalquery(countlist):
+    """after getting queries from newquries, convert it to required format needed"""
+
+    """ import all location from location tree"""
     ktm_location = LocationInformation().all_ktm_locations()
     bkt_location = LocationInformation().all_bkt_locations()
     ltp_location = LocationInformation().all_ltp_locations()
     outside_location = LocationInformation().all_locations()
+    """ initialize all necessary parameter"""
     ktm_death = 0
     ktm_count = 0
     ktm_injury = 0
@@ -238,82 +82,85 @@ def finalquery(countlist):
     bkt_injury = 0
     maplocations = []
     barlocations = []
+    maplocation = []
+
+    """ now return query for map location and bar location."""
     for location in countlist:
-        if location['location'].lower() in ktm_location:
+        if location['location'].lower() in ktm_location or location['location'] == "kathmandu":
             ktm_death += location['death']
             ktm_injury += location['injury']
             ktm_count += location['count']
             barlocations.append({'location': 'Kathmandu', 'injury': ktm_injury, 'value': ktm_death})
-            maplocations.append({'location': 'Kathmandu', 'injury': ktm_injury, 'value': ktm_death, 'count': ktm_count})
-        elif location['location'].lower() in ltp_location:
+            maplocation.append(
+                {'location': 'Kathmandu', 'injury': ktm_injury, 'value': ktm_death, 'count': ktm_count})
+        elif location['location'].lower() in ltp_location or location['location'] == "lalitpur":
             ltp_death += location['death']
             ltp_injury += location['injury']
             ltp_count += location['count']
             barlocations.append({'location': 'Lalitpur', 'injury': ltp_injury, 'value': ltp_death})
-            maplocations.append({'location': 'Lalitpur', 'injury': ltp_injury, 'value': ltp_death, 'count': ltp_count})
-        elif location['location'].lower() in bkt_location:
+            maplocation.append(
+                {'location': 'Lalitpur', 'injury': ltp_injury, 'value': ltp_death, 'count': ltp_count})
+        elif location['location'].lower() in bkt_location or location['location'] == "bhaktapur":
             bkt_death += location['death']
             bkt_injury += location['injury']
             bkt_count += location['count']
-            maplocations.append({'location': 'Bhaktapur', 'injury': bkt_injury, 'value': bkt_death, 'count': bkt_count})
             barlocations.append({'location': 'Bhaktapur', 'injury': bkt_injury, 'value': bkt_death})
+            maplocation.append(
+                {'location': 'Bhaktapur', 'injury': bkt_injury, 'value': bkt_death, 'count': bkt_count})
         elif location['location'].lower() in outside_location:
-            maplocations.append({'location': location['location'].capitalize(), 'value': location['death'],
-                             'injury': location['injury'],'count': location['count']})
+            maplocation.append({'location': location['location'].capitalize(), 'value': location['death'],
+                                 'injury': location['injury'], 'count': location['count']})
             barlocations.append({'location': location['location'].capitalize(), 'value': location['death'],
                                  'injury': location['injury']})
         else:
             pass
-    return (barlocations, maplocations)
 
-# def vehicletypecheck(query):
-#     newquery = query.filter(vehicle_type__icontains=search)
-#main function
-def location(request):
-    listoflocation, ktmlocationlist, ltplocationlist, bktlocationlist = selectparameters()
-    vehicle_types = ['two wheeler', 'three wheeler' , 'four wheeler']
-    #all necessary queries
-    yearlist = rssdata.objects.values('year').order_by('year').annotate(count=Count('year'))
-    locationlist = rssdata.objects.values('location').order_by('location').annotate(count=Count('location')).annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no'))
-    tablelocationlist = rssdata.objects.all().values('location', 'year', 'month', 'vehicleone',
-                                                   'vehicletwo', 'date').order_by('location').annotate(count=Count('location')).annotate(deathno=Sum('death_no')).annotate(injuryno=Sum('injury_no'))
-    vehiclelist = rssdata.objects.values('vehicleone').order_by('vehicleone').annotate(count=Count('vehicleone'))
-    vehiclelisttwo = rssdata.objects.values('vehicletwo').order_by('vehicletwo').annotate(count=Count('vehicletwo'))
-    monthlist = rssdata.objects.values('month').order_by('month').annotate(count=Count('month'))
+
+    for mlocation in maplocation:
+        rate = int(mlocation['count']/len(maplocation)*100)
+        maplocations.append(
+            {'location': mlocation['location'], 'injury': mlocation['injury'], 'death': mlocation['value'],
+             'count': mlocation['count'], 'rate': rate})
+
+    red = int(25/100*len(maplocations))
+    yellow = int(10/100* len(maplocations))
+    return red, yellow, barlocations, maplocations
+
+
+def vehicleparameters():
+
+    """ provide vehicle related data to select parameter"""
+
+    """initialization of array"""
+    vehicledata = []
+    vehicletype = []
+    vehicletwowheeler = []
+    vehiclethreewheeler = []
+    vehiclefourwheeler = []
+
+    """required queryset"""
     vehicletypelist = rssdata.objects.values('vehicle_type')
-    datelistinc = rssdata.objects.values('date').order_by('date').annotate(count=Count('date'))
-    date = datelistinc[0]['date']
+    vehiclelistone = rssdata.objects.values('vehicleone').order_by('vehicleone').annotate(count=Count('vehicleone'))
+    vehiclelisttwo = rssdata.objects.values('vehicletwo').order_by('vehicletwo').annotate(count=Count('vehicletwo'))
 
+    """required search parameters"""
+    vehicle_types = ['two wheeler', 'three wheeler', 'four wheeler']
     three_wheeler = ['tempo', 'three-wheeler', 'three wheeler']
 
     two_wheeler = ['bike', 'scooter', 'scooty', 'motorbike', 'motorcycle', 'two-wheeler', 'two wheeler', 'moped']
 
     four_wheeler = ['bus', 'car', 'truck', 'tipper', 'zeep', 'container', 'SUV', 'tractor', 'moped', 'lorry',
-        'minivan', 'minibus', 'trolley', 'four-wheeler', 'four wheeler', 'jeep']
+                    'minivan', 'minibus', 'trolley', 'four-wheeler', 'four wheeler', 'jeep']
 
-    #initializing list
-    vehicledata = []
-    tablelocation = []
-    vehicletype = []
-    vehicletwowheeler =[]
-    vehiclethreewheeler = []
-    vehiclefourwheeler = []
-
+    """ vehicle type lieke 2-3-4 wheeler in database"""
     for newv in vehicletypelist:
         for v in vehicle_types:
             if v in newv['vehicle_type']:
                 if v not in vehicletype:
                     vehicletype.append(v)
 
-    #if select option doesnot match show data to user
-    for loc in tablelocationlist:
-        if len(loc['location']) >2:
-            tablelocation.append({'location': loc['location'].capitalize(), 'deathno': loc['deathno'],
-                             'injuryno': loc['injuryno'], 'date': loc['date'], 'year': loc['year'], 'month': loc['month'],
-                                  'vehicleone': loc['vehicleone'], 'vehicletwo': loc['vehicletwo']})
-
-    #provide data to select tag in vehicle column
-    for data in vehiclelist:
+    """ make combine list of vehicle data from vehicle one and vehicle two"""
+    for data in vehiclelistone:
         try:
             if len(data['vehicleone']) > 2:
                 vehicledata.append(data['vehicleone'])
@@ -321,7 +168,7 @@ def location(request):
             pass
     for newdata in vehiclelisttwo:
         try:
-            if len(newdata['vehicletwo'])>2:
+            if len(newdata['vehicletwo']) > 2:
                 if newdata['vehicletwo'] in vehicledata:
                     pass
                 else:
@@ -329,6 +176,7 @@ def location(request):
         except:
             pass
 
+    """ assign vehicles to 2-3-4 categories"""
     for vdata in vehicledata:
         if vdata in two_wheeler:
             vehicletwowheeler.append(vdata)
@@ -336,197 +184,170 @@ def location(request):
             vehiclethreewheeler.append(vdata)
         if vdata in four_wheeler:
             vehiclefourwheeler.append(vdata)
-    valueslist = []
+
+    return vehicletype, vehicletwowheeler, vehiclethreewheeler, vehiclefourwheeler
+
+
+def location(request):
+    """ main function to control all the call all the subfunctions"""
+
+    """ list of locations for select tag"""
+    listoflocation, ktmlocationlist, ltplocationlist, bktlocationlist = parameters()
+
+    """ list of vehicles for select tag"""
+    vehicletype, vehicletwowheeler, vehiclethreewheeler, vehiclefourwheeler = vehicleparameters()
+
+    """ yearlist for select tag"""
+    yearlist = rssdata.objects.values('year').order_by('year').annotate(count=Count('year'))
+
+    """ monthlist for select tag"""
+    months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+              "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
+    """ this is to get months in calender order"""
+    monthlists = rssdata.objects.values('month').order_by('date').annotate(count=Count('month'))
+    monthlist = []
+    for month in monthlists:
+        if month['month'] in months and month['month'] not in monthlist:
+            monthlist.append(month['month'])
+
+    """ starting and ending point for date from and date to"""
+    datelistinc = rssdata.objects.values('date').order_by('date').annotate(count=Count('date'))
+    date = datelistinc[0]['date']
     todaydate = datetime.datetime.now().date()
+
+    """ location list to show initial data in visualization table """
+    locationlist = rssdata.objects.values('location').order_by('location')\
+        .annotate(count=Count('location')).annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no'))
+
+    valueslist = []
+
     # working in search query
     if request.POST:
+            """ above values are taken so that select tag could have this value 
+            even when submit"""
             vehicletypeinfo = request.POST.get('vehicletype', None)
-            yearinfo =  request.POST.get('year', None)
+            yearinfo = request.POST.get('year', None)
             locationinfo = request.POST.get('location', None)
             monthinfo = request.POST.get('month', None)
-            valueslist.append({'vehicletwoinfo': request.POST.get('vehicle_two', None),
-                               'vehiclethreeinfo': request.POST.get('vehicle_three', None),
-                               'vehiclefourinfo': request.POST.get('vehicle_four', None),
-                               'vehicletypeinfo': request.POST.get('vehicletype', None),
-                               'yearinfo': request.POST.get('year', None),
-                               'locationinfo': request.POST.get('location', None),
-                               'ktmlocationinfo': request.POST.get('ktmlocation', None),
-                               'ltplocationinfo': request.POST.get('ltplocation', None),
-                               'datefrom' : request.POST.get('from', None),
-                               'dateto': request.POST.get('to', None),
-                               'bktlocationinfo': request.POST.get('bktlocation', None),
-                               'monthinfo': request.POST.get('month', None)})
+            dateto = request.POST.get('to', None)
+            datefrom = request.POST.get('from', None)
 
-            newlocationlist, filterlocation, information, totalno, countlist = getqueries(valueslist, ktmlocationlist,ltplocationlist,bktlocationlist)
+            """ assign user input to a list"""
+            valueslist.append({'vehicletwoinfo': request.POST.get('vehicle_two', None), 'vehiclethreeinfo': request.POST.get('vehicle_three', None),
+                               'vehiclefourinfo': request.POST.get('vehicle_four', None), 'vehicletypeinfo': vehicletypeinfo,
+                               'yearinfo': yearinfo,  'locationinfo': locationinfo,'ktmlocationinfo': request.POST.get('ktmlocation', None),
+                               'ltplocationinfo': request.POST.get('ltplocation', None), 'bktlocationinfo': request.POST.get('bktlocation', None),
+                               'datefrom': datefrom, 'dateto': dateto, 'monthinfo': monthinfo})
 
-            barlocations , maplocations = finalquery(countlist)
-            max = 0
-            for location in maplocations:
-                if location['count'] > max:
-                    max = location['count']
-            diffList = []
-            diffcount = []
-            # for location in maplocations:
-            for i in range(0, len(maplocations)):
-                diff = max - maplocations[i]['count']
-                if diff not in diffcount:
-                    if diff > 9:
-                        diff = 10
-                        diffcount.append(diff)
-                        diffList.append({'difference': diff, 'counts': maplocations[i]['count']})
-                    else:
-                        diffcount.append(diff)
-                        diffList.append({'difference': diff, 'counts': maplocations[i]['count']})
+            """ get required query for filter"""
+            query = Query(valueslist, ktmlocationlist, ltplocationlist, bktlocationlist)
+            newlocationlist, information, totalno, countlist = query.getqueries()
 
-            if (len(filterlocation) == 0):
+            """ get values in required format """
+            red, yellow, barlocations, maplocations = finalquery(countlist)
+
+            """ if querylength is zero """
+            if (len(barlocations) == 0):
                 context = {
-                    'locationlist': tablelocation,
-                    'listoflocation': listoflocation,
-                    'ktm_location': ktmlocationlist,
-                    'ltp_location': ltplocationlist,
-                    'bkt_location': bktlocationlist,
-                    'monthlist': monthlist,
-                    'vehicletwo': vehicletwowheeler,
-                    'vehiclethree': vehiclethreewheeler,
-                    'vehiclefour': vehiclefourwheeler,
-                    'yearlist': yearlist,
-                    'monthvalue': monthinfo,
-                    'yearvalue': yearinfo,
-                    'vehicletype': vehicletype,
-                    'locationvalue': locationinfo,
-                    'vehiclevalue': vehicletypeinfo,
-                    'today':todaydate,
-                    'start': date,
+                    'listoflocation': listoflocation, 'ktm_location': ktmlocationlist, 'ltp_location': ltplocationlist,
+                    'bkt_location': bktlocationlist,'vehicletwo': vehicletwowheeler,'vehiclethree': vehiclethreewheeler,
+                    'vehiclefour': vehiclefourwheeler,'vehicletype': vehicletype,
+                    'yearlist': yearlist,'monthlist': monthlist, 'today': todaydate, 'start': date,
+                    'monthvalue': monthinfo,'yearvalue': yearinfo, 'locationvalue': locationinfo, 'vehiclevalue': vehicletypeinfo, 'datetovalue': dateto,
+                    'datefromvalue': datefrom,
                 }
                 return render(request, "findlocation.html", context)
+
+            """ if querylength is greater than 0"""
             for location in barlocations:
-                if location['value']==0 and location['injury'] ==0:
+
+                """ if both injury and death are zero then 
+                it cannot be shown in bar graph"""
+                if location['value'] == 0 and location['injury'] == 0:
                     context = {
+                        'listoflocation': listoflocation, 'ktm_location': ktmlocationlist,'ltp_location': ltplocationlist,
+                        'bkt_location': bktlocationlist, 'vehicletwo': vehicletwowheeler, 'vehiclethree': vehiclethreewheeler,
+                        'vehiclefour': vehiclefourwheeler, 'vehicletype': vehicletype,
+                        'yearlist': yearlist, 'monthlist': monthlist, 'today': todaydate, 'start': date,
+                        'monthvalue': monthinfo, 'yearvalue': yearinfo, 'locationvalue': locationinfo,
+                        'vehiclevalue': vehicletypeinfo, 'datetovalue': dateto, 'datefromvalue': datefrom,
                         'locationinfos': newlocationlist,
-                        'listoflocation': listoflocation,
-                        'ktm_location': ktmlocationlist,
-                        'ltp_location': ltplocationlist,
-                        'bkt_location': bktlocationlist,
-                        'monthlist': monthlist,
                         'totalno': totalno,
-                        'vehicletwo': vehicletwowheeler,
-                        'vehiclethree': vehiclethreewheeler,
-                        'vehiclefour': vehiclefourwheeler,
-                        'yearlist': yearlist,
                         'info': information,
-                        'monthvalue': monthinfo,
-                        'vehicletype': vehicletype,
-                        'yearvalue': yearinfo,
-                        'vehiclevalue': vehicletypeinfo,
-                        'locationvalue': locationinfo,
-                        'today': todaydate,
-                        'start': date,
                         'checkparam': "none",
                     }
                     return render(request, "location.html", context)
+
+            """ it is for bar graph and nepal map"""
             context = {
-                'differences': diffList,
-                'max': max,
+                'listoflocation': listoflocation, 'ktm_location': ktmlocationlist, 'ltp_location': ltplocationlist,
+                'bkt_location': bktlocationlist, 'vehicletwo': vehicletwowheeler, 'vehiclethree': vehiclethreewheeler,
+                'vehiclefour': vehiclefourwheeler, 'vehicletype': vehicletype,
+                'yearlist': yearlist, 'monthlist': monthlist, 'today': todaydate, 'start': date,
+                'monthvalue': monthinfo, 'yearvalue': yearinfo, 'locationvalue': locationinfo,
+                'vehiclevalue': vehicletypeinfo, 'datetovalue': dateto, 'datefromvalue': datefrom,
                 'locationinfos': newlocationlist,
                 'location_data': json.dumps(barlocations),
-                'listoflocation': listoflocation,
-                'ktm_location': ktmlocationlist,
-                'ltp_location': ltplocationlist,
-                'bkt_location': bktlocationlist,
-                'monthlist': monthlist,
                 'totalno': totalno,
-                'vehicletwo': vehicletwowheeler,
-                'vehiclethree': vehiclethreewheeler,
-                'vehiclefour': vehiclefourwheeler,
-                'yearlist': yearlist,
                 'info': information,
-                'monthvalue': monthinfo,
-                'vehicletype': vehicletype,
-                'yearvalue': yearinfo,
-                'vehiclevalue': vehicletypeinfo,
-                'locationvalue': locationinfo,
                 'newdata': json.dumps(maplocations),
-                'today': todaydate,
-                'start': date
+                'red': red, 'yellow': yellow
             }
             return render(request, "location.html", context)
 
-
-
     totalno = len(locationlist)
-    barlocations, maplocations = finalquery(locationlist)
-
-    max = 0
-    for location in maplocations:
-        if location['count']>max:
-            max = location['count']
-    diffList = []
-    diffcount =[]
-    # for location in maplocations:
-    for i in range(0, len(maplocations)):
-        diff = max - maplocations[i]['count']
-        if diff not in diffcount:
-            if diff > 9:
-                diff = 10
-                diffcount.append(diff)
-                diffList.append({'difference': diff, 'counts': maplocations[i]['count']})
-            else:
-                diffcount.append(diff)
-                diffList.append({'difference': diff, 'counts': maplocations[i]['count']})
-    print diffList
-
-
+    red, yellow, barlocations, maplocations = finalquery(locationlist)
+    print maplocations
     context = {
-        'differences': diffList,
-        'max': max,
-        'locationinfos': tablelocation,
+        'listoflocation': listoflocation, 'ktm_location': ktmlocationlist, 'ltp_location': ltplocationlist,
+        'bkt_location': bktlocationlist, 'vehicletwo': vehicletwowheeler, 'vehiclethree': vehiclethreewheeler,
+        'vehiclefour': vehiclefourwheeler, 'vehicletype': vehicletype,
+        'yearlist': yearlist, 'monthlist': monthlist, 'today': todaydate, 'start': date,
         'location_data': json.dumps(barlocations),
-        'listoflocation': listoflocation,
-        'ktm_location': ktmlocationlist,
-        'ltp_location': ltplocationlist,
-        'bkt_location' : bktlocationlist,
-        'monthlist' : monthlist,
         'totalno': totalno,
-        'vehicletwo': vehicletwowheeler,
-        'vehiclethree': vehiclethreewheeler,
-        'vehiclefour': vehiclefourwheeler,
-        'yearlist': yearlist,
-        'vehicletype': vehicletype,
         'newdata': json.dumps(maplocations),
-        'today': todaydate,
-        'start' : date,
-        'locationvalue': "Kathmandu",
+        'red': red, 'yellow': yellow,
     }
     return render(request, "location.html", context)
+
+
+def getLat(location):
+    g = geocoder.google(location)
+    return location, g.lat, g.lng
+
 
 #query for kathmandu valley map
 def index(request):
     location = rssdata.objects.values('location').order_by('location').annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no')).annotate(count=Count('location'))
     totalno = rssdata.objects.values('date').aggregate(total=Count('date'))
+    datelistinc = rssdata.objects.values('date').order_by('date').annotate(count=Count('date'))
+    datefrom = datelistinc[0]['date']
+    dateto = datelistinc[len(datelistinc)-1]['date']
     latitude = []
-
     for locations in location:
         if locations['location'] is not None:
             if (len(locations['location']) > 2):
-                loc = locations['location']
-                g = geocoder.google(loc)
-                if g.lat is not None:
-                    latitude.append(
-                        {'location': loc, 'latitude': g.lat, 'longitude': g.lng, 'death': locations['death'],
-                         'injury': locations['injury'], 'count': locations['count']})
+                location, lat, lng = getLat(locations['location'])
+                while lat == None:
+                    location, lat, lng = getLat(locations['location'])
+                latitude.append(
+                            {'location': location, 'latitude': lat, 'longitude': lng, 'death': locations['death'],
+                                'injury': locations['injury'], 'count': locations['count']})
+
+
 
                 # geolocator = Nominatim()
                 # g = geolocator.geocode(loc)
                 # latitude.append({'location': loc, 'latitude': g.latitude, 'longitude': g.longitude, 'death': locations['death'],
                 #                      'injury': locations['injury']})
 
-    print(latitude)
 
     context = {
-        # 'personal_detail': json.dumps(datas),
-        # 'data': data,
         'latitude': latitude,
         'totalno': totalno,
+        'datefrom': datefrom,
+        'dateto': dateto,
     }
     return render(request, "heatmap.html", context)
 
@@ -536,7 +357,7 @@ def searchnumber(request):
 
     tablevehicle = []
     vehiclenolist = []
-    vehicletable = []
+    smalllist = []
     # if vehicle no search is not found then data base is shown
     for loc in tablevehiclelist:
         if len(loc['vehicle_no']) > 2:
@@ -545,37 +366,60 @@ def searchnumber(request):
     for vehicle in tablevehicle:
         newv = vehicle['vehicleno']
         newv = unicode(newv).encode('ascii')
-        word = re.findall(r'[A-Za-z]{1,2}\s[0-9]{0,1}\s[A-Za-z]{2,4}\s[0-9]{2,4}', newv)
+        word = re.findall(r'[A-Za-z]{1,3}\s[0-9]{0,1}\s[A-Za-z]{2,4}\s[0-9]{2,4}', newv)
         for w in word:
             if w not in vehiclenolist:
                 vehiclenolist.append(w)
+                smalllist.append(w.lower())
+    vehiclenolist.sort()
 
     if request.POST:
-        search =  request.POST.get('query', None)
-        if search in vehiclenolist:
-            queryset_list = rssdata.objects.filter(vehicle_no__icontains=search).values('location', 'date', 'death_no',
+        search = request.POST.get('location', None) or request.POST.get('query', None)
+        if search.lower() in smalllist:
+            queryset_list = rssdata.objects.filter(Q(vehicle_no__icontains=search)).values('location', 'date', 'death_no',
                                                                                     'injury_no', 'vehicle_no')
+
+            latitude = []
+            tabled = []
+            for locations in queryset_list:
+                if locations['location'] is not None:
+                    if (len(locations['location']) > 2):
+                        location, lat, lng = getLat(locations['location'])
+                        i=0
+                        while lat == None and i<5:
+                            location, lat, lng = getLat(locations['location'])
+                            i+=1
+                        if lat is not None:
+                            latitude.append(
+                                    {'location': locations['location'], 'latitude': lat, 'longitude': lng, 'death': locations['death_no'],
+                                     'injury': locations['injury_no'], 'date': locations['date'], 'vehicle_involved': locations['vehicle_no']})
+                            context = {
+                                'location_data': latitude,
+                                'search': search,
+                                'vehicledata': vehiclenolist,
+                            }
+                            return render(request, "search.html", context)
+                    # if location is not present then only return the tabular value
+                    else:
+                        tabled.append(
+                            {'location': locations['location'], 'death': locations['death_no'], 'injury': locations['injury_no'], 'date': locations['date'],
+                             'vehicle_involved': locations['vehicle_no']})
+                        context = {
+                            'table_data': tabled,
+                            'search': search,
+                            'vehicledata': vehiclenolist,
+                        }
+                        return render(request, "search.html", context)
+
+
+        else:
             context = {
-                'location_data': queryset_list,
-                'search': search,
+                'nodetail': search,
+                'vehicledata': vehiclenolist,
             }
             return render(request, "search.html", context)
-        else:
-            queryset_list = rssdata.objects.filter(vehicle_no__icontains=search).values('vehicle_no')
-            for vehicle in vehiclenolist:
-                for v in queryset_list:
-                    if vehicle in v['vehicle_no']:
-                        vehicletable.append(vehicle)
-            if len(queryset_list) == 0:
-                context = {
-                    'nodetail': search,
-                }
-                return render(request, "search.html", context)
-            else:
-                context = {
-                    'vehicledata': vehicletable,
-                    'search': search,
-                }
-                return render(request, "search.html", context)
 
-    return render(request, "search.html")
+    context = {
+        'vehicledata': vehiclenolist,
+    }
+    return render(request, "search.html", context)

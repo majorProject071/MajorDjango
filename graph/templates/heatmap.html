@@ -6,11 +6,8 @@
 
 {% block content %}
 
-<div class="selectmap">
-    <a href="{% url 'graph:location' %}"><button>Back to Previous</button></a>
-</div>
-
-<h2>Accident Death in Kathmandu Valley</h2>
+<br>
+<h2>Accident Death in Kathmandu Valley from {{ datefrom }} to {{ dateto }}</h2>
 
 <div id="map">
 </div>

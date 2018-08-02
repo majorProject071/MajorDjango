@@ -227,7 +227,7 @@ display: none;
             {% endif %}
             <option value="1">Select Month</option>
             {% for month in monthlist %}
-            <option value="{{ month.month }}">{{ month.month }}</option>
+            <option value="{{ month }}">{{ month }}</option>
             {% endfor %}
         </select>
         <select name="from" onclick="dateList()" id="fromdate">

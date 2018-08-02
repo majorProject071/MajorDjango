@@ -93,3 +93,223 @@ html, body {
 .fa:hover {
     opacity: 0.7;
 }
+
+body {
+  font: 10px sans-serif;
+  width: 100%;
+}
+
+.search{
+width:40%;
+margin-top:5%;
+margin-left: 30%;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+table{
+margin-left: 15%;
+width: 75%;
+text-align: center;
+}
+
+th,td{
+padding: 1% 2%;
+}
+
+.searchbutton{
+margin-left: 30%;
+font-size: 18px;
+width: 30%;
+margin-bottom: 5%;
+}
+
+.accidentvehicles{
+display:none;
+margin-left: 30%;
+font-size: 14px;
+margin-top: 2%;
+}
+ #map {
+        height: 70%;
+        width:70%;
+        margin-left: 15%;
+      }
+#vehicleno{
+width: 50%;
+text-align: center;
+}
+
+h4, #searchoption {
+  overflow: hidden;
+  text-align: center;
+  width: 50%;
+  margin-left: 15%;
+}
+
+#searchoption:before,
+#searchoption:after {
+  background-color: #000;
+  content: "";
+  display: inline-block;
+  height: 1px;
+  position: relative;
+  vertical-align: middle;
+  width: 50%;
+}
+
+#searchoption:before {
+  right: 0.5em;
+  margin-left: -50%;
+}
+
+#searchoption:after {
+  left: 0.5em;
+  margin-right: -50%;
+}
+
+#summary{
+   font-size: 14px;
+}
+#id_news_link{
+width: 100%;
+ font-size: 14px;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.bar {
+  fill: steelblue;
+}
+
+.x.axis path {
+  display: none;
+}
+.title-text{
+font-size:24px;
+font-weight: 600;
+padding: 3% 20%;
+}
+.search{
+width:30%;
+float: right;
+}
+h2{
+margin-left:15%;
+font-size:24px;
+margin-bottom: 2%;
+margin-top: 2%;
+}
+.select{
+margin-left:15%;
+margin-bottom: 3%;
+font-size: 14px;
+}
+
+#locationmap{
+float: left;
+border: 2px solid grey;
+margin-left: 15%;
+padding: 1% 1%;
+display: inline;
+}
+#map{
+float: left;
+display: none;
+    margin-top: 5%;
+    text-align: center;
+    border: 2px solid grey;
+    margin-left: 15%;
+    width: 70%;
+    height: 650px;
+}
+#vehicle_two,  #vehicle_three, #vehicle_four, #ltp_location, #bkt_location, #ktm_location {
+display: none;
+}
+
+#location_info, #vehicle_info, #year, #month, #fromdate, #todate
+{
+position : inherit;
+}
+
+#buttons{
+width: 600px;
+margin-left: 15%;
+}
+#result{
+width: 100%;
+
+}
+
+.button-map{
+float: left;
+margin-top:5%;
+margin-left: 5%;
+margin-bottom: 5%;
+padding: 1% 1%;
+
+
+}
+.button-ktm{
+float: left;
+margin-top:5%;
+margin-left: 5%;
+margin-bottom: 5%;
+padding: 1% 1%;
+}
+
+.button-bar{
+float: left;
+margin-top:5%;
+margin-left: 5%;
+margin-bottom: 5%;
+padding: 1% 1%;
+display: none;
+}
+
+.colortable{
+margin-bottom: 5%;
+display: none;}
+
+.datatable{
+    margin-left: 15%;
+    float: left;
+    margin-top:2%;
+    width: 70%;
+ }
+ .tableclass{
+ width: 100%;
+ }
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+table{
+width: 50%;
+}
+
+th,td{
+padding: 0.5% 1%;
+}
+
+.kathmandu{
+float: right;
+margin-right: 10%;
+margin-top: -5%;
+font-size: 18px;
+}
+.calender{
+display: none;
+}
+
+.button-make{
+
+font-size: 22px;
+}

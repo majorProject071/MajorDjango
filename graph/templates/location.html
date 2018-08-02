@@ -5,149 +5,6 @@
 
 {% block content %}
 
-<style>
-
-body {
-  font: 10px sans-serif;
-  width: 100%;
-}
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-.bar {
-  fill: steelblue;
-}
-
-.x.axis path {
-  display: none;
-}
-.title-text{
-font-size:24px;
-font-weight: 600;
-padding: 3% 20%;
-}
-.search{
-width:30%;
-float: right;
-}
-h2{
-margin-left:15%;
-font-size:24px;
-margin-bottom: 2%;
-margin-top: 2%;
-}
-.select{
-margin-left:15%;
-margin-bottom: 3%;
-font-size: 14px;
-}
-
-#locationmap{
-float: left;
-border: 2px solid grey;
-margin-left: 15%;
-padding: 1% 1%;
-display: inline;
-}
-#map{
-float: left;
-display: none;
-    margin-top: 5%;
-    text-align: center;
-    border: 2px solid grey;
-    margin-left: 15%;
-    width: 70%;
-    height: 650px;
-}
-#vehicle_two,  #vehicle_three, #vehicle_four, #ltp_location, #bkt_location, #ktm_location {
-display: none;
-}
-
-#location_info, #vehicle_info, #year, #month, #fromdate, #todate
-{
-position : inherit;
-}
-
-#buttons{
-width: 600px;
-margin-left: 15%;
-}
-#result{
-width: 100%;
-
-}
-
-.button-map{
-float: left;
-margin-top:5%;
-margin-left: 5%;
-margin-bottom: 5%;
-padding: 1% 1%;
-
-
-}
-.button-ktm{
-float: left;
-margin-top:5%;
-margin-left: 5%;
-margin-bottom: 5%;
-padding: 1% 1%;
-}
-
-.button-bar{
-float: left;
-margin-top:5%;
-margin-left: 5%;
-margin-bottom: 5%;
-padding: 1% 1%;
-display: none;
-}
-
-.colortable{
-margin-bottom: 5%;
-display: none;}
-
-.datatable{
-    margin-left: 15%;
-    float: left;
-    margin-top:2%;
-    width: 70%;
- }
- .tableclass{
- width: 100%;
- }
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-table{
-width: 50%;
-}
-
-th,td{
-padding: 0.5% 1%;
-}
-
-.kathmandu{
-float: right;
-margin-right: 10%;
-margin-top: -5%;
-font-size: 18px;
-}
-.calender{
-display: none;
-}
-
-.button-make{
-
-font-size: 22px;
-}
-</style>
 <h2>Accidents in Nepal {{ info }} </h2>
 
 {% if checkparam %}
@@ -161,7 +18,7 @@ font-size: 22px;
         <select name="location" id="location_info" onclick="removeValue()">
             {% if locationvalue %}
             {% if locationvalue != "1" %}
-            <option value="1" class="valueremove">{{ locationvalue|safe }}</option>
+            <option value="{{ locationvalue|safe }}" class="valueremove">{{ locationvalue|safe }}</option>
             {% endif %}
             {% endif %}
             <option value="1" onclick="selectLocation()">Select Location</option>
@@ -244,7 +101,7 @@ font-size: 22px;
             {% endif %}
             <option value="1">Select Month</option>
             {% for month in monthlist %}
-            <option value="{{ month.month }}">{{ month.month }}</option>
+            <option value="{{ month }}">{{ month }}</option>
             {% endfor %}
         </select>
         <select name="from" onclick="dateList()" id="fromdate">
@@ -265,7 +122,7 @@ font-size: 22px;
                                      min="2010-01-01" max='{{ today|date:"Y-m-d" }}'/></div>
 
 
-        <button type="submit" class="btn btn-success">Success</button>
+        <button type="submit" class="btn btn-success">Submit</button>
 
     </form>
 </div>
@@ -280,143 +137,23 @@ font-size: 22px;
             <tr>
                 <th>color</th>
                 <th>Indication</th>
-                <th>Number of Accident</th>
-
+                <th style="text-align: center">Number of accidents</th>
             </tr>
-
-            {% for diff in differences %}
-
-            {% if diff.difference == 0 %}
             <tr>
-
                 <td style="background:red"></td>
-                <td> High Alert</td>
-                <td> {{ max }}</td>
-
-
+                <td>High Alert</td>
+                <td>greater or equal to{{ red }}</td>
             </tr>
-            {% endif %}
-            {% endfor %}
-            {% for diff in differences %}
-            {% if diff.difference == 1 %}
             <tr>
-
-                <td style="background:rgb(200,100,100)"></td>
-                <td>-</td>
-                <td> {{ diff.counts }}</td>
-
-
+                <td style="background:yellow"></td>
+                <td> Moderate</td>
+                <td>greater than equal to {{ yellow}} and less than {{ red }}</td>
             </tr>
-            {% endif %}
-            {% endfor %}
-            {% for diff in differences %}
-            {% if diff.difference == 2 %}
             <tr>
-
-                <td style="background:rgb(150,150,150)"></td>
-                <td>-</td>
-                <td> {{ diff.counts }}</td>
-
-
-            </tr>
-            {% endif %}
-            {% endfor %}
-            {% for diff in differences %}
-            {% if diff.difference == 3 %}
-            <tr>
-
-                <td style="background:rgb(50,50,50)"></td>
-                <td>Medium Alert</td>
-                <td> {{ diff.counts }}</td>
-
-
-            </tr>
-            {% endif %}
-            {% endfor %}
-            {% for diff in differences %}
-            {% if diff.difference == 4 %}
-            <tr>
-
-                <td style="background:rgb(250,250,0)"></td>
-                <td>-</td>
-                <td> {{ diff.counts }}</td>
-
-
-            </tr>
-            {% endif %}
-            {% endfor %}
-            {% for diff in differences %}
-            {% if diff.difference == 5 %}
-            <tr>
-
-                <td style="background:rgb(150,150,0)"></td>
-                <td>-</td>
-                <td> {{ diff.counts }}</td>
-
-
-            </tr>
-            {% endif %}
-            {% endfor %}
-            {% for diff in differences %}
-            {% if diff.difference == 6 %}
-            <tr>
-
-                <td style="background:rgb(0,250,250)"></td>
-                <td>-</td>
-                <td> {{ diff.counts }}</td>
-
-
-            </tr>
-            {% endif %}
-            {% endfor %}
-            {% for diff in differences %}
-            {% if diff.difference == 7 %}
-            <tr>
-
-                <td style="background:rgb(0,100,100)"></td>
+                <td style="background:green"></td>
                 <td>Low</td>
-                <td> {{ diff.counts }}</td>
-
-
+                <td>less than {{ yellow}} </td>
             </tr>
-            {% endif %}
-            {% endfor %}
-            {% for diff in differences %}
-            {% if diff.difference == 8 %}
-            <tr>
-
-                <td style="background:rgb(0,0,250)"></td>
-                <td>-</td>
-                <td> {{ diff.counts }}</td>
-
-
-            </tr>
-            {% endif %}
-            {% endfor %}
-            {% for diff in differences %}
-            {% if diff.difference == 9 %}
-            <tr>
-
-                <td style="background:rgb(0,250,0)"></td>
-                <td>-</td>
-                <td> {{ diff.counts }}</td>
-
-
-            </tr>
-            {% endif %}
-            {% endfor %}
-            {% for diff in differences %}
-            {% if diff.difference > 9 %}
-            <tr>
-
-                <td style="background:rgb(250,250,250)"></td>
-                <td>-</td>
-                <td> {{ diff.counts }}</td>
-
-
-            </tr>
-            {% endif %}
-            {% endfor %}
 
         </table>
     </div>
@@ -424,33 +161,33 @@ font-size: 22px;
     <div id="tooltip" class="hidden">
         <p><span id="value"></span></p>
     </div>
-    <table class="datatable">
-        <tr>
-            <th>Location</th>
-            <th>Date</th>
-            <th>Year</th>
-            <th>Month</th>
-            <th>Vehicle one</th>
-            <th>Vehicle Two</th>
-            <th>Injury</th>
-            <th>Death</th>
-        </tr>
-        {% for location in locationinfos %}
-        <tr class="datarow">
+    <!--<table class="datatable">-->
+        <!--<tr>-->
+            <!--<th>Location</th>-->
+            <!--<th>Date</th>-->
+            <!--<th>Year</th>-->
+            <!--<th>Month</th>-->
+            <!--<th>Vehicle one</th>-->
+            <!--<th>Vehicle Two</th>-->
+            <!--<th>Injury</th>-->
+            <!--<th>Death</th>-->
+        <!--</tr>-->
+        <!--{% for location in locationinfos %}-->
+        <!--<tr class="datarow">-->
 
-            <td>{{ location.location }}</td>
-            <td>{{ location.date }}</td>
-            <td>{{ location.year }}</td>
-            <td>{{ location.month }}</td>
-            <td>{{ location.vehicleone }}</td>
-            <td>{{ location.vehicletwo }}</td>
-            <td>{{ location.injuryno }}</td>
-            <td>{{ location.deathno }}</td>
+            <!--<td>{{ location.location }}</td>-->
+            <!--<td>{{ location.date }}</td>-->
+            <!--<td>{{ location.year }}</td>-->
+            <!--<td>{{ location.month }}</td>-->
+            <!--<td>{{ location.vehicleone }}</td>-->
+            <!--<td>{{ location.vehicletwo }}</td>-->
+            <!--<td>{{ location.injuryno }}</td>-->
+            <!--<td>{{ location.deathno }}</td>-->
 
-        </tr>
-        {% endfor %}
+        <!--</tr>-->
+        <!--{% endfor %}-->
 
-    </table>
+    <!--</table>-->
 
 </div>
 <script type="text/javascript">
@@ -460,7 +197,7 @@ var total = {{ totalno }}
 var data = {{ location_data|safe }}
 
 var margin = {top: 20, right: 20, bottom: 30, left: 20},
-    width = 350 + total*50,
+    width = 300 + total*50,
     height = 415;
 var x0 = d3.scale.ordinal()
     .rangeRoundBands([2, width], .1);
@@ -524,7 +261,8 @@ state.selectAll("text")
   .attr("dx", "15")
   .style("font-size", "12px")
   .attr("height", function(d) { return y(d.value); })
-  .text(function(d, i) { return d.value; });
+  .text(function(d, i) {
+    if (d.value >0){return d.value; }});
 
 state.selectAll("rect")
       .data(function(d) { return d.ages; })
@@ -572,16 +310,17 @@ var svg = d3.select("#map").append("svg").attr("width", width).attr("height", he
 d3.json("https://raw.githubusercontent.com/aayushrijal/Nepal-district-topojson/master/nepal-districts.topojson", function(error, ok) {
 	var counties = topojson.feature(ok, ok.objects.districts);
     var data = {{ newdata|safe }};
-        var valueById = {};
+        var deathById = {};
         var districtById = {};
         var countById = {};
         var injuryById = {};
+        var rateById = {};
         data.forEach(function(d){
-            valueById[d.location] = d.value;
+            deathById[d.location] = d.death;
             districtById[d.location] = d.location;
             countById[d.location] = d.count;
             injuryById[d.location] = d.injury;
-            var max = Math.max.apply(Math, data.map(function(d){return d.count;}));
+            rateById[d.location] = d.rate;
     	svg.append("g")
             .attr("class", "country")
             .selectAll("path")
@@ -607,7 +346,7 @@ d3.json("https://raw.githubusercontent.com/aayushrijal/Nepal-district-topojson/m
               .style("font-size", "14px")
               .attr("class", "mylabel")//adding a label class
               .text(function() {
-                var stats =  "Death:"+ "" +valueById[d.properties.DISTRICT]+"\n"+ "and" +"Injury:"+ "" +injuryById[d.properties.DISTRICT]+ ".";
+                var stats =  "Death:"+ "" +deathById[d.properties.DISTRICT]+"\n"+ "and" +"Injury:"+ "" +injuryById[d.properties.DISTRICT]+ ".";
                 return (stats);
               }
               );
@@ -626,39 +365,14 @@ d3.json("https://raw.githubusercontent.com/aayushrijal/Nepal-district-topojson/m
             d3.selectAll(".mylabel").remove()
           })
             .style("fill", function(d) {
-                if(countById[d.properties.DISTRICT]==max){
-                    return "rgb(255,0,0)";
+                if(rateById[d.properties.DISTRICT] >= 25 ){
+                    return "red";
                 }
-
-                else if(countById[d.properties.DISTRICT]==max-1){
-                    return "rgb(200,100,100)";
+                else if(rateById[d.properties.DISTRICT] < 25 && rateById[d.properties.DISTRICT] >= 10 ){
+                    return "yellow";
                 }
-                else if(countById[d.properties.DISTRICT]==max-2 ){
-                    return "rgb(150,150,150)";
-                }
-                else if(countById[d.properties.DISTRICT]==max-3 ){
-                    return "rgb(50,50,50)";
-                }
-                else if(countById[d.properties.DISTRICT]==max-4 ){
-                    return "rgb(250,250,0)";
-                }
-                else if(countById[d.properties.DISTRICT]==max-5){
-                    return "rgb(150,150,0)";
-                }
-                else if(countById[d.properties.DISTRICT]==max-6 ){
-                    return "rgbrgb(0,250,250";
-                }
-                else if(countById[d.properties.DISTRICT]==max-7 ){
-                    return "rgb(0,100,100)";
-                }
-                else if(countById[d.properties.DISTRICT]==max-8 ){
-                    return "rgb(0,0,250)";
-                }
-                else if(countById[d.properties.DISTRICT]==max-9){
-                    return "rgb(0,255,0)";
-                }
-                else if(countById[d.properties.DISTRICT]>max-9){
-                    return "rgb(255,255,255)";
+                else if(rateById[d.properties.DISTRICT] < 10 ){
+                    return "green";
                 }
 
 
@@ -685,13 +399,7 @@ d3.json("https://raw.githubusercontent.com/aayushrijal/Nepal-district-topojson/m
         <button onclick="getGraph()" class="button-make"> BarGraph</button>
     </div>
     {% endif %}
-    {% if locationvalue == "Kathmandu" or locationvalue == "Lalitpur" or locationvalue == "Bhaktapur" %}
-<div class="button-ktm">
-        <a href="{% url 'graph:index' %}">
-        <button class="button-make">Kathmandu Map</button>
-</a>
-    </div>
-{% endif %}
+    
 </div>
 <script>
     function selectLocation(){
