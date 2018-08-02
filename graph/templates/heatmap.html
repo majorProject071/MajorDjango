@@ -68,7 +68,7 @@ margin-bottom: 2%;
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
           zoom: 12,
-          center: {lat: 27.7172, lng: 85.3240},
+          center: { lat: 27.7172, lng: 85.3240},
           mapTypeId: 'roadmap'
         });
 
@@ -113,7 +113,7 @@ margin-bottom: 2%;
 
             markers.push(marker);
 
-            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+            google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
                 return function() {
                     infowindow.setContent(locations[i][0]);
                     infowindow.open(map, marker);
