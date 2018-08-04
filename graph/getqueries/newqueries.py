@@ -25,6 +25,8 @@ class Query:
         distinctlocations = []
         querieslist = []
         countlist = []
+        filterlist = []
+        alldate = []
 
         """take one information at a time and filter it with user input"""
         for info in self.valueslist:
@@ -78,8 +80,11 @@ class Query:
             if info['dateto'] != '1':
                 allinformation = allinformation.filter(date__range=(info['datefrom'], info['dateto']))
 
+
+
         """extract all the distincts location from query so that you can easily
          group them to find total death and injury number"""
+        print(allinformation)
 
         for samelocation in allinformation:
             """ check if location is not null"""
@@ -90,6 +95,7 @@ class Query:
                     distinctlocations.append(samelocation['location'])
             else:
                 pass
+
 
         """ now use that location name and find their death and injury"""
         for distlocation in distinctlocations:
@@ -102,10 +108,11 @@ class Query:
                 injury += queries['injuryno']
                 count += queries['count']
             querieslist.append({'location': distlocation.capitalize(), 'death': death, 'injury': injury})
-            countlist.append({'location': distlocation.capitalize(), 'death': death, 'injury': injury, 'count': count})
+            countlist.append({'location': distlocation.capitalize(), 'count': count})
+            filterlist.append({'location': distlocation.capitalize(), 'death': death, 'injury': injury, 'count': count})
 
         """ return back"""
-        return querieslist, information, len(querieslist), countlist
+        return querieslist, information, len(filterlist), countlist, filterlist
 
 
 
@@ -132,7 +139,6 @@ class Query:
 
         elif location == 'Lalitpur':
             locationlist = allinformation.filter(location="lalitpur")
-            print (len(locationlist))
             for z in range(0, len(self.ltplocationlist)):
                 if z == 0 and len(locationlist) == 0:
                     locationlist = allinformation.filter(location=self.ltplocationlist[0]['location'].lower())

@@ -1,0 +1,317 @@
+{% extends "base.html" %}
+{% block title %} News Information Extraciton {% endblock title %}
+
+{% block nav_index_nepal %} class="nav-link active btn-primary" {% endblock nav_index_nepal%}
+
+{% block content %}
+
+<h2>Accidents in Nepal {{ info }} </h2>
+
+<div class="select">
+    <form action="" method="post" name="myform">
+
+        {% csrf_token %}
+
+        <select name="ktmlocation" id="ktm_location">
+            <option value="1">Kathmandu Locations</option>
+            {% for location in ktm_location %}
+            <option value="{{ location.location }}" onclick="selectLocation()">{{ location.location }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="ltplocation" id="ltp_location">
+            <option value="1">Lalitpur Locations</option>
+            {% for location in ltp_location %}
+            <option value="{{ location.location }}" onclick="selectLocation()">{{ location.location }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="bktlocation" id="bkt_location">
+            <option value="1"> Bhaktapur Locations</option>
+            {% for location in bkt_location %}
+            <option value="{{ location.location }}" onclick="selectLocation()">{{ location.location }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="vehicletype" id="vehicle_info" onclick="removeValue()">
+            {% if vehiclevalue %}
+            {% if vehiclevalue != "1" %}
+            <option value="1" class="valueremove">{{ vehiclevalue|safe }}</option>
+            {% endif %}
+            {% endif %}
+            <option value="1" onclick="selectVehicle()">Select Vehicle Type</option>
+            {% for vehicle_type in vehicletype %}
+            <option value="{{ vehicle_type }}" onclick="selectVehicle()">{{ vehicle_type }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="vehicle_three" id="vehicle_three">
+            <option value="1">Select Vehicle</option>
+            {% for vehicle in vehiclethree %}
+            <option value="{{ vehicle }}">{{ vehicle }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="vehicle_two" id="vehicle_two">
+            <option value="1">Select Vehicle</option>
+            {% for vehicle in vehicletwo %}
+            <option value="{{ vehicle }}">{{ vehicle }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="vehicle_four" id="vehicle_four">
+            <option value="1">Select Vehicle</option>
+            {% for vehicle in vehiclefour %}
+            <option value="{{ vehicle }}">{{ vehicle }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="year" onclick="removeValue()" id="#year">
+            {% if yearvalue %}
+            {% if yearvalue != "1" %}
+            <option value="1" class="valueremove">{{ yearvalue|safe }}</option>
+            {% endif %}
+            {% endif %}
+            <option value="1">Select Year</option>
+            {% for year in yearlist %}
+            <option value="{{ year.year }}">{{ year.year }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="month" onclick="removeValue()" id="#month">
+            {% if monthvalue %}
+            {% if monthvalue != "1" %}
+            <option value="1" class="valueremove">{{ monthvalue|safe }}</option>
+            {% endif %}
+            {% endif %}
+            <option value="1">Select Month</option>
+            {% for month in monthlist %}
+            <option value="{{ month }}">{{ month }}</option>
+            {% endfor %}
+        </select>
+        <select name="from" onclick="dateList()" id="fromdate">
+            <option value="1">DateFrom</option>
+
+        </select>
+        <div class="calender"><input type="date" id="from" name="from"
+                                     value='{{ start }}'
+                                     min="2010-01-01" max='{{ today|date:"Y-m-d" }}'/></div>
+
+        <select name="to" onclick="dateList()" id="todate">
+
+            <option value="1">DateTo</option>
+
+        </select>
+        <div class="calender"><input type="date" id="to" name="to"
+                                     value='{{ today|date:"Y-m-d" }}'
+                                     min="2010-01-01" max='{{ today|date:"Y-m-d" }}'/></div>
+
+
+        <button type="submit" class="btn btn-success">Submit</button>
+
+    </form>
+</div>
+{% if allinformation %}
+<h2>No injury or death register for this data search.</h2>
+<div class="datatable">
+    <table>
+        <tr>
+            <th>location</th>
+            <th>Vehicle Type</th>
+            <th>Vehicle One</th>
+            <th>Vehicle Two</th>
+            <th>Date</th>
+            <th>Year <button onclick="">&#9652;</button></th>
+            <th>Month</th>
+        </tr>
+        {% for information in allinformation %}
+        {% if  information.location != "[]" %}
+        <tr>
+            <td>{{ information.location }}</td>
+            <td>{{ information.vehicle_type }}</td>
+            <td>{{ information.vehicleone }}</td>
+            <td>{{ information.vehicletwo }}</td>
+            <td>{{ information.date }}</td>
+            <td>{{ information.year }}</td>
+            <td>{{ information.month }}</td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </table>
+</div>
+{% endif %}
+{% if not allinformation%}
+<div id="result">
+    {% if not checkparam %}
+    <div id="map">
+        <table class="colortable">
+            <tr>
+                <th>color</th>
+                <th>Indication</th>
+                <th style="text-align: center">Number of accidents</th>
+            </tr>
+            <tr>
+                <td style="background:red"></td>
+                <td>HighAlert</td>
+                <td>greater or equal to{{ red }}</td>
+            </tr>
+            <tr>
+                <td style="background:yellow"></td>
+                <td> Moderate</td>
+                <td>greater than equal to {{ yellow}} and less than {{ red }}</td>
+            </tr>
+            <tr>
+                <td style="background:green"></td>
+                <td>Low</td>
+                <td>less than {{ yellow}} </td>
+            </tr>
+
+        </table>
+    </div>
+    {% endif %}
+
+</div>
+
+<script type="text/javascript">
+      var width = 900, height = 500;
+var divNode = d3.select('#map').node();
+var projection = d3.geo.mercator()
+								.scale(5300)
+								.translate([width / 2, height / 2])
+								.center([83.985593872070313, 28.465876770019531]);
+var path = d3.geo.path().projection(projection);
+var svg = d3.select("#map").append("svg").attr("width", width).attr("height", height);
+d3.json("https://raw.githubusercontent.com/aayushrijal/Nepal-district-topojson/master/nepal-districts.topojson", function(error, ok) {
+	var counties = topojson.feature(ok, ok.objects.districts);
+    var data = {{ newdata|safe }};
+        var deathById = {};
+        var districtById = {};
+        var countById = {};
+        var injuryById = {};
+        var rateById = {};
+        data.forEach(function(d){
+            deathById[d.location] = d.death;
+            districtById[d.location] = d.location;
+            countById[d.location] = d.count;
+            injuryById[d.location] = d.injury;
+            rateById[d.location] = d.rate;
+    	svg.append("g")
+            .attr("class", "country")
+            .selectAll("path")
+            .data(counties.features)
+            .enter()
+            .append("path")
+            .attr("d", path)
+            .on("mouseover", function(d) {
+            if(countById[d.properties.DISTRICT]){
+               d3.select(this.parentNode).append("text")
+              .attr("x", "230") // margin
+              .attr("y", "400") // vertical-align
+              .style("font-size", "14px")
+              .attr("class", "mylabel")//adding a label class
+              .text(function() {
+                var data = "District:"+districtById[d.properties.DISTRICT]+ "." ;
+                return (data);
+              }
+              );
+               d3.select(this.parentNode).append("text")
+              .attr("x", "230") // margin
+              .attr("y", "420") // vertical-align
+              .style("font-size", "14px")
+              .attr("class", "mylabel")//adding a label class
+              .text(function() {
+                var stats =  "Death:"+ "" +deathById[d.properties.DISTRICT]+"\n"+ "and" +"Injury:"+ "" +injuryById[d.properties.DISTRICT]+ ".";
+                return (stats);
+              }
+              );
+              d3.select(this.parentNode).append("text")
+              .attr("x", "230") // margin
+              .attr("y", "440") // vertical-align
+              .style("font-size", "14px")
+              .attr("class", "mylabel")//adding a label class
+              .text(function() {
+                var data = "No of Accident:"+countById[d.properties.DISTRICT]+ "." ;
+                return (data);
+              }
+              );
+	        }})
+	        .on("mouseout",function() {
+            d3.selectAll(".mylabel").remove()
+          })
+            .style("fill", function(d) {
+                if(rateById[d.properties.DISTRICT] >= 25 ){
+                    return "red";
+                }
+                else if(rateById[d.properties.DISTRICT] < 25 && rateById[d.properties.DISTRICT] > 10 ){
+                    return "yellow";
+                }
+                else if(rateById[d.properties.DISTRICT] < 10 ){
+                    return "green";
+                }
+
+
+    		return "#ccc";
+    	});
+    	//county borders
+    	svg.append("path").datum(topojson.mesh(ok, ok.objects.districts, function(a, b) {
+    		return a !== b;
+    	})).attr("class", "county-border").attr("d", path);
+    });
+
+});
+
+
+
+
+</script>
+{% endif %}
+<script>
+
+    function selectVehicle(){
+    var locationinfo=document.getElementById('vehicle_info').value;
+    console.log(locationinfo);
+        if (locationinfo == 'two wheeler'){
+        $("#vehicle_two").show();
+        $("#vehicle_three").hide();
+        $("#vehicle_four").hide();
+        }
+        else if (locationinfo == 'three wheeler'){
+        $("#vehicle_two").hide();
+        $("#vehicle_three").show();
+        $("#vehicle_four").hide();
+        }
+        else if (locationinfo == 'four wheeler'){
+        $("#vehicle_two").hide();
+        $("#vehicle_three").hide();
+        $("#vehicle_four").show();
+        }
+        else{
+        $("#vehicle_two").hide();
+        $("#vehicle_three").hide();
+        $("#vehicle_four").hide();
+        }
+    }
+
+    function removeValue(){
+
+    $(".valueremove").hide();
+    }
+
+    function dateList(){
+    if ($(".calender").is(":visible")){
+        $(".calender").hide();
+     }
+     else{
+        $(".calender").show();
+     }
+    }
+
+
+
+
+</script>
+
+
+</body>
+
+{% endblock content %}

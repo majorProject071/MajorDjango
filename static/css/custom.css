@@ -35,9 +35,6 @@ input{
 input[type=text]:focus {
     border: 3px solid #555;
 }
-table td{
-  font-weight: bold;
-}
 /*.nav > li > a {
     position: relative;
     display: block;
@@ -99,6 +96,8 @@ body {
   width: 100%;
 }
 
+
+
 .search{
 width:40%;
 margin-top:5%;
@@ -110,13 +109,12 @@ table, th, td {
     border-collapse: collapse;
 }
 table{
-margin-left: 15%;
 width: 75%;
 text-align: center;
 }
 
-th,td{
-padding: 1% 2%;
+.listed{
+font-size: 12px;
 }
 
 .searchbutton{
@@ -201,6 +199,9 @@ padding: 3% 20%;
 width:30%;
 float: right;
 }
+.searchb{
+margin-left:25%;
+}
 h2{
 margin-left:15%;
 font-size:24px;
@@ -220,9 +221,16 @@ margin-left: 15%;
 padding: 1% 1%;
 display: inline;
 }
+
+.countbar{
+float: left;
+border: 2px solid grey;
+margin-left: 15%;
+padding: 1% 1%;
+display: inline;
+}
 #map{
 float: left;
-display: none;
     margin-top: 5%;
     text-align: center;
     border: 2px solid grey;
@@ -276,7 +284,13 @@ display: none;
 
 .colortable{
 margin-bottom: 5%;
-display: none;}
+}
+
+.datastable{
+    float: left;
+    margin-top:2%;
+    width: 70%;
+ }
 
 .datatable{
     margin-left: 15%;
@@ -291,13 +305,13 @@ table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
 }
-table{
-width: 50%;
-}
+
 
 th,td{
 padding: 0.5% 1%;
 }
+
+
 
 .kathmandu{
 float: right;
@@ -312,4 +326,28 @@ display: none;
 .button-make{
 
 font-size: 22px;
+}
+
+body {
+  background-color: #F1F3F3
+}
+.axis {
+	font: 12px sans-serif;
+}
+.axis path,
+.axis line {
+  fill: none;
+  stroke-width: 1px;
+  shape-rendering: crispEdges;
+}
+
+.texttool {
+  position: absolute;
+  display: none;
+  min-width: 80px;
+  height: auto;
+  background: none repeat scroll 0 0 #ffffff;
+  border: 1px solid #6F257F;
+  padding: 10px;
+  text-align: center;
 }

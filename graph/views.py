@@ -9,6 +9,7 @@ from getqueries.newqueries import Query
 import geocoder
 import datetime
 import re
+import math
 
 
 def parameters():
@@ -83,35 +84,40 @@ def finalquery(countlist):
     maplocations = []
     barlocations = []
     maplocation = []
+    barcountlocations = []
 
     """ now return query for map location and bar location."""
     for location in countlist:
-        if location['location'].lower() in ktm_location or location['location'] == "kathmandu":
+        if location['location'].lower() in ktm_location or location['location'].lower() == "kathmandu":
             ktm_death += location['death']
             ktm_injury += location['injury']
             ktm_count += location['count']
-            barlocations.append({'location': 'Kathmandu', 'injury': ktm_injury, 'value': ktm_death})
+            barlocations.append({'location': 'Kathmandu', 'injury': ktm_injury, 'death': ktm_death})
             maplocation.append(
-                {'location': 'Kathmandu', 'injury': ktm_injury, 'value': ktm_death, 'count': ktm_count})
-        elif location['location'].lower() in ltp_location or location['location'] == "lalitpur":
+                {'location': 'Kathmandu', 'injury': ktm_injury, 'death': ktm_death, 'count': ktm_count})
+            barcountlocations.append({'location': 'Kathmandu', 'count': ktm_count})
+        elif location['location'].lower() in ltp_location or location['location'].lower() == "lalitpur":
             ltp_death += location['death']
             ltp_injury += location['injury']
             ltp_count += location['count']
-            barlocations.append({'location': 'Lalitpur', 'injury': ltp_injury, 'value': ltp_death})
+            barlocations.append({'location': 'Lalitpur', 'injury': ltp_injury, 'death': ltp_death})
             maplocation.append(
-                {'location': 'Lalitpur', 'injury': ltp_injury, 'value': ltp_death, 'count': ltp_count})
-        elif location['location'].lower() in bkt_location or location['location'] == "bhaktapur":
+                {'location': 'Lalitpur', 'injury': ltp_injury, 'death': ltp_death, 'count': ltp_count})
+            barcountlocations.append({'location': 'Lalitpur', 'count': location['count']})
+        elif location['location'].lower() in bkt_location or location['location'].lower() == "bhaktapur":
             bkt_death += location['death']
             bkt_injury += location['injury']
             bkt_count += location['count']
-            barlocations.append({'location': 'Bhaktapur', 'injury': bkt_injury, 'value': bkt_death})
+            barlocations.append({'location': 'Bhaktapur', 'injury': bkt_injury, 'death': bkt_death})
             maplocation.append(
-                {'location': 'Bhaktapur', 'injury': bkt_injury, 'value': bkt_death, 'count': bkt_count})
+                {'location': 'Bhaktapur', 'injury': bkt_injury, 'death': bkt_death, 'count': bkt_count})
+            barcountlocations.append({'location': 'Bhaktapur', 'count': location['count']})
         elif location['location'].lower() in outside_location:
-            maplocation.append({'location': location['location'].capitalize(), 'value': location['death'],
-                                 'injury': location['injury'], 'count': location['count']})
-            barlocations.append({'location': location['location'].capitalize(), 'value': location['death'],
-                                 'injury': location['injury']})
+            maplocation.append({'location': location['location'].capitalize(), 'death': location['death'],
+                                'injury': location['injury'], 'count': location['count']})
+            barlocations.append({'location': location['location'].capitalize(), 'injury': location['injury'],
+                                 'death': location['death']})
+            barcountlocations.append({'location': location['location'].capitalize(), 'count': location['count']})
         else:
             pass
 
@@ -119,12 +125,12 @@ def finalquery(countlist):
     for mlocation in maplocation:
         rate = int(mlocation['count']/len(maplocation)*100)
         maplocations.append(
-            {'location': mlocation['location'], 'injury': mlocation['injury'], 'death': mlocation['value'],
+            {'location': mlocation['location'], 'injury': mlocation['injury'], 'death': mlocation['death'],
              'count': mlocation['count'], 'rate': rate})
 
-    red = int(25/100*len(maplocations))
-    yellow = int(10/100* len(maplocations))
-    return red, yellow, barlocations, maplocations
+    red = math.ceil(25/100*len(maplocations))
+    yellow = math.ceil(10/100* len(maplocations))
+    return red, yellow, barlocations, maplocations, barcountlocations
 
 
 def vehicleparameters():
@@ -188,7 +194,7 @@ def vehicleparameters():
     return vehicletype, vehicletwowheeler, vehiclethreewheeler, vehiclefourwheeler
 
 
-def location(request):
+def bargraph(request):
     """ main function to control all the call all the subfunctions"""
 
     """ list of locations for select tag"""
@@ -205,11 +211,10 @@ def location(request):
               "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
     """ this is to get months in calender order"""
-    monthlists = rssdata.objects.values('month').order_by('date').annotate(count=Count('month'))
     monthlist = []
-    for month in monthlists:
-        if month['month'] in months and month['month'] not in monthlist:
-            monthlist.append(month['month'])
+    for month in months:
+        if month not in monthlist:
+            monthlist.append(month)
 
     """ starting and ending point for date from and date to"""
     datelistinc = rssdata.objects.values('date').order_by('date').annotate(count=Count('date'))
@@ -242,10 +247,20 @@ def location(request):
 
             """ get required query for filter"""
             query = Query(valueslist, ktmlocationlist, ltplocationlist, bktlocationlist)
-            newlocationlist, information, totalno, countlist = query.getqueries()
+            newlocationlist, information, totalno, countlist,filterlist = query.getqueries()
+            print filterlist
 
-            """ get values in required format """
-            red, yellow, barlocations, maplocations = finalquery(countlist)
+            valleylocations  = ["Kathmandu", "Lalitpur", "Bhaktapur"]
+            if locationinfo not in valleylocations:
+                """ get values in required format """
+                red, yellow, barlocations, maplocations, barcountlocations = finalquery(filterlist)
+                print (barlocations)
+                totalno = len(barlocations)
+            else:
+                barlocations = newlocationlist
+                barcountlocations = countlist
+                print (barcountlocations)
+                totalno = len(barlocations)
 
             """ if querylength is zero """
             if (len(barlocations) == 0):
@@ -264,7 +279,7 @@ def location(request):
 
                 """ if both injury and death are zero then 
                 it cannot be shown in bar graph"""
-                if location['value'] == 0 and location['injury'] == 0:
+                if location['death'] == 0 and location['injury'] == 0:
                     context = {
                         'listoflocation': listoflocation, 'ktm_location': ktmlocationlist,'ltp_location': ltplocationlist,
                         'bkt_location': bktlocationlist, 'vehicletwo': vehicletwowheeler, 'vehiclethree': vehiclethreewheeler,
@@ -273,6 +288,7 @@ def location(request):
                         'monthvalue': monthinfo, 'yearvalue': yearinfo, 'locationvalue': locationinfo,
                         'vehiclevalue': vehicletypeinfo, 'datetovalue': dateto, 'datefromvalue': datefrom,
                         'locationinfos': newlocationlist,
+                        'count_data': json.dumps(barcountlocations),
                         'totalno': totalno,
                         'info': information,
                         'checkparam': "none",
@@ -289,27 +305,133 @@ def location(request):
                 'vehiclevalue': vehicletypeinfo, 'datetovalue': dateto, 'datefromvalue': datefrom,
                 'locationinfos': newlocationlist,
                 'location_data': json.dumps(barlocations),
+                'count_data': json.dumps(barcountlocations),
                 'totalno': totalno,
                 'info': information,
-                'newdata': json.dumps(maplocations),
-                'red': red, 'yellow': yellow
             }
             return render(request, "location.html", context)
 
-    totalno = len(locationlist)
-    red, yellow, barlocations, maplocations = finalquery(locationlist)
-    print maplocations
+    red, yellow, barlocations, maplocations, barcountlocations = finalquery(locationlist)
+    totalno = len(barcountlocations)
     context = {
         'listoflocation': listoflocation, 'ktm_location': ktmlocationlist, 'ltp_location': ltplocationlist,
         'bkt_location': bktlocationlist, 'vehicletwo': vehicletwowheeler, 'vehiclethree': vehiclethreewheeler,
         'vehiclefour': vehiclefourwheeler, 'vehicletype': vehicletype,
         'yearlist': yearlist, 'monthlist': monthlist, 'today': todaydate, 'start': date,
         'location_data': json.dumps(barlocations),
+        'count_data': json.dumps(barcountlocations),
+        'totalno': totalno,
+    }
+    return render(request, "location.html", context)
+
+
+def nepalmap(request):
+    """ list of locations for select tag"""
+    listoflocation, ktmlocationlist, ltplocationlist, bktlocationlist = parameters()
+
+    """ list of vehicles for select tag"""
+    vehicletype, vehicletwowheeler, vehiclethreewheeler, vehiclefourwheeler = vehicleparameters()
+
+    """ yearlist for select tag"""
+    yearlist = rssdata.objects.values('year').order_by('year').annotate(count=Count('year'))
+
+    """ monthlist for select tag"""
+    months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+              "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
+    """ this is to get months in calender order"""
+    monthlist = []
+    for month in months:
+        if month not in monthlist:
+            monthlist.append(month)
+
+    """ starting and ending point for date from and date to"""
+    datelistinc = rssdata.objects.values('date').order_by('date').annotate(count=Count('date'))
+    date = datelistinc[0]['date']
+    todaydate = datetime.datetime.now().date()
+
+    """ location list to show initial data in visualization table """
+    locationlist = rssdata.objects.values('location').order_by('location') \
+        .annotate(count=Count('location')).annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no'))
+
+    valueslist = []
+
+    # working in search query
+    if request.POST:
+        """ above values are taken so that select tag could have this value 
+        even when submit"""
+        vehicletypeinfo = request.POST.get('vehicletype', None)
+        yearinfo = request.POST.get('year', None)
+        locationinfo = "1"
+        monthinfo = request.POST.get('month', None)
+        dateto = request.POST.get('to', None)
+        datefrom = request.POST.get('from', None)
+
+        """ assign user input to a list"""
+        valueslist.append({'vehicletwoinfo': request.POST.get('vehicle_two', None),
+                           'vehiclethreeinfo': request.POST.get('vehicle_three', None),
+                           'vehiclefourinfo': request.POST.get('vehicle_four', None),
+                           'vehicletypeinfo': vehicletypeinfo,
+                           'yearinfo': yearinfo, 'locationinfo': locationinfo,
+                           'ktmlocationinfo': "1", 'ltplocationinfo': "1",'bktlocationinfo': "1",
+                           'datefrom': datefrom, 'dateto': dateto, 'monthinfo': monthinfo})
+
+        """ get required query for filter"""
+        query = Query(valueslist, ktmlocationlist, ltplocationlist, bktlocationlist)
+        newlocationlist, information, totalno, countlist , filterlist= query.getqueries()
+        print information
+
+        """ get values in required format """
+        red, yellow, barlocations, maplocations, barcountlocations = finalquery(filterlist)
+
+        allinformation = rssdata.objects.all().values('location', 'year', 'month', 'vehicleone', 'vehicletwo', 'date',
+                                                      'vehicle_type') \
+            .order_by('date').annotate(count=Count('location')).annotate(deathno=Sum('death_no')).annotate(
+            injuryno=Sum('injury_no'))
+
+        """ if querylength is zero """
+        if (len(maplocations) == 0):
+            context = {
+                'allinformation': allinformation,
+                'listoflocation': listoflocation, 'ktm_location': ktmlocationlist, 'ltp_location': ltplocationlist,
+                'bkt_location': bktlocationlist, 'vehicletwo': vehicletwowheeler, 'vehiclethree': vehiclethreewheeler,
+                'vehiclefour': vehiclefourwheeler, 'vehicletype': vehicletype,
+                'yearlist': yearlist, 'monthlist': monthlist, 'today': todaydate, 'start': date,
+                'monthvalue': monthinfo, 'yearvalue': yearinfo, 'locationvalue': locationinfo,
+                'vehiclevalue': vehicletypeinfo, 'datetovalue': dateto,
+                'datefromvalue': datefrom,
+                'info': information,
+            }
+            return render(request, "nepalmap.html", context)
+
+        """ it is for bar graph and nepal map"""
+        context = {
+            'listoflocation': listoflocation, 'ktm_location': ktmlocationlist, 'ltp_location': ltplocationlist,
+            'bkt_location': bktlocationlist, 'vehicletwo': vehicletwowheeler, 'vehiclethree': vehiclethreewheeler,
+            'vehiclefour': vehiclefourwheeler, 'vehicletype': vehicletype,
+            'yearlist': yearlist, 'monthlist': monthlist, 'today': todaydate, 'start': date,
+            'monthvalue': monthinfo, 'yearvalue': yearinfo, 'locationvalue': locationinfo,
+            'vehiclevalue': vehicletypeinfo, 'datetovalue': dateto, 'datefromvalue': datefrom,
+            'locationinfos': newlocationlist,
+            'totalno': totalno,
+            'info': information,
+            'newdata': json.dumps(maplocations),
+            'red': red, 'yellow': yellow,
+        }
+        return render(request, "nepalmap.html", context)
+
+    totalno = len(locationlist)
+    red, yellow, barlocations, maplocations, barcountlocations = finalquery(locationlist)
+    context = {
+        'listoflocation': listoflocation, 'ktm_location': ktmlocationlist, 'ltp_location': ltplocationlist,
+        'bkt_location': bktlocationlist, 'vehicletwo': vehicletwowheeler, 'vehiclethree': vehiclethreewheeler,
+        'vehiclefour': vehiclefourwheeler, 'vehicletype': vehicletype,
+        'yearlist': yearlist, 'monthlist': monthlist, 'today': todaydate, 'start': date,
         'totalno': totalno,
         'newdata': json.dumps(maplocations),
         'red': red, 'yellow': yellow,
     }
-    return render(request, "location.html", context)
+    return render(request, "nepalmap.html", context)
 
 
 def getLat(location):
