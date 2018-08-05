@@ -5,14 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36890437-8748-435e-8fa3-3ee983d4a965" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/news_extraction/templates/contact_us.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/team/bhuwan.jpg.jpg" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/team/basanta.jpg" afterPath="$PROJECT_DIR$/static/team/basanta.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/team/bhuwan.jpg" afterPath="$PROJECT_DIR$/static/team/bhuwan.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/team/bishal.jpg" afterPath="$PROJECT_DIR$/static/team/bishal.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/team/dip.JPG" afterPath="$PROJECT_DIR$/static/team/dip.JPG" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/news_extraction/templates/about_us.html" afterPath="$PROJECT_DIR$/news_extraction/templates/about_us.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/graph/templates/location.html" afterPath="$PROJECT_DIR$/graph/templates/location.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/custom.css" afterPath="$PROJECT_DIR$/static/css/custom.css" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,7 +18,7 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.41969696">
+    <splitter split-orientation="horizontal" split-proportion="0.5204545">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
@@ -49,22 +43,6 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/../../academics/Nepscan/templates/main/index.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="139">
-                  <caret line="104" column="30" lean-forward="false" selection-start-line="104" selection-start-column="22" selection-end-line="104" selection-end-column="30" />
-                  <folding>
-                    <element signature="n#nav#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                    <element signature="n#header#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                    <element signature="n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                    <element signature="n#section#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-                    <element signature="n#footer#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
           <file leaf-file-name="methods.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/news_extraction/methods.py">
               <provider selected="true" editor-type-id="text-editor">
@@ -83,6 +61,16 @@
                     <marker date="1533477765838" expanded="true" signature="4628:4749" ph="..." />
                     <marker date="1533477765838" expanded="true" signature="4677:4749" ph="..." />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="location.html" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/graph/templates/location.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="14">
+                  <caret line="186" column="68" lean-forward="false" selection-start-line="186" selection-start-column="68" selection-end-line="186" selection-end-column="68" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -151,15 +139,25 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="about_us.html" pinned="false" current-in-tab="true">
+          <file leaf-file-name="about_us.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/news_extraction/templates/about_us.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="276">
-                  <caret line="76" column="51" lean-forward="false" selection-start-line="76" selection-start-column="51" selection-end-line="76" selection-end-column="51" />
+                <state relative-caret-position="176">
+                  <caret line="55" column="56" lean-forward="true" selection-start-line="55" selection-start-column="56" selection-end-line="55" selection-end-column="56" />
                   <folding>
                     <element signature="n#style#0;n#h2#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                     <element signature="n#style#0;n#h2#0;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="custom.css" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/static/css/custom.css">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="162">
+                  <caret line="219" column="17" lean-forward="true" selection-start-line="219" selection-start-column="17" selection-end-line="219" selection-end-column="17" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -205,14 +203,14 @@
         <option value="$PROJECT_DIR$/MajorDjango/settings.py" />
         <option value="$PROJECT_DIR$/news_extraction/models.py" />
         <option value="$PROJECT_DIR$/news_extraction/templates/base.html" />
-        <option value="$PROJECT_DIR$/graph/templates/location.html" />
         <option value="$PROJECT_DIR$/news_extraction/methods.py" />
         <option value="$PROJECT_DIR$/news_extraction/modules/extractor.py" />
         <option value="$PROJECT_DIR$/news_extraction/views.py" />
         <option value="$PROJECT_DIR$/news_extraction/templates/index.html" />
         <option value="$PROJECT_DIR$/news_extraction/modules/location_tree.py" />
-        <option value="$PROJECT_DIR$/static/css/custom.css" />
         <option value="$PROJECT_DIR$/news_extraction/templates/about_us.html" />
+        <option value="$PROJECT_DIR$/static/css/custom.css" />
+        <option value="$PROJECT_DIR$/graph/templates/location.html" />
       </list>
     </option>
   </component>
@@ -263,7 +261,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="news_extraction" />
+              <option name="myItemId" value="graph" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -277,7 +275,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="news_extraction" />
+              <option name="myItemId" value="graph" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -828,14 +826,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/graph/templates/location.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1862">
-          <caret line="133" column="20" lean-forward="false" selection-start-line="133" selection-start-column="20" selection-end-line="133" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/graph/templates/heatmap.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1540">
@@ -857,14 +847,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/news_extraction/modules/location_tree.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="211" column="16" lean-forward="false" selection-start-line="211" selection-start-column="16" selection-end-line="211" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/news_extraction/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
@@ -874,14 +856,6 @@
             <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="false" />
             <element signature="e#1156#1163#1" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/custom.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="107" column="20" lean-forward="false" selection-start-line="107" selection-start-column="20" selection-end-line="107" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -905,8 +879,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../../academics/Nepscan/templates/main/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="104" column="30" lean-forward="false" selection-start-line="104" selection-start-column="22" selection-end-line="104" selection-end-column="30" />
+        <state relative-caret-position="97">
+          <caret line="101" column="16" lean-forward="true" selection-start-line="101" selection-start-column="16" selection-end-line="101" selection-end-column="16" />
           <folding>
             <element signature="n#nav#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#header#0;n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -919,12 +893,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/news_extraction/templates/about_us.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="76" column="51" lean-forward="false" selection-start-line="76" selection-start-column="51" selection-end-line="76" selection-end-column="51" />
+        <state relative-caret-position="176">
+          <caret line="55" column="56" lean-forward="true" selection-start-line="55" selection-start-column="56" selection-end-line="55" selection-end-column="56" />
           <folding>
             <element signature="n#style#0;n#h2#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#h2#0;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/news_extraction/modules/location_tree.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="211" column="16" lean-forward="false" selection-start-line="211" selection-start-column="16" selection-end-line="211" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/custom.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="219" column="17" lean-forward="true" selection-start-line="219" selection-start-column="17" selection-end-line="219" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/graph/templates/location.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="14">
+          <caret line="186" column="68" lean-forward="false" selection-start-line="186" selection-start-column="68" selection-end-line="186" selection-end-column="68" />
+          <folding />
         </state>
       </provider>
     </entry>
