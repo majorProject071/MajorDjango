@@ -6,6 +6,7 @@ import json
 from news_extraction.models import rssdata
 from news_extraction.modules.location_tree import LocationInformation
 from getqueries.newqueries import Query
+from getqueries.linegraph import Graph
 import geocoder
 import datetime
 import re
@@ -248,18 +249,15 @@ def bargraph(request):
             """ get required query for filter"""
             query = Query(valueslist, ktmlocationlist, ltplocationlist, bktlocationlist)
             newlocationlist, information, totalno, countlist,filterlist = query.getqueries()
-            print filterlist
 
             valleylocations  = ["Kathmandu", "Lalitpur", "Bhaktapur"]
             if locationinfo not in valleylocations:
                 """ get values in required format """
                 red, yellow, barlocations, maplocations, barcountlocations = finalquery(filterlist)
-                print (barlocations)
                 totalno = len(barlocations)
             else:
                 barlocations = newlocationlist
                 barcountlocations = countlist
-                print (barcountlocations)
                 totalno = len(barlocations)
 
             """ if querylength is zero """
@@ -289,6 +287,7 @@ def bargraph(request):
                         'vehiclevalue': vehicletypeinfo, 'datetovalue': dateto, 'datefromvalue': datefrom,
                         'locationinfos': newlocationlist,
                         'count_data': json.dumps(barcountlocations),
+                        'location_data': json.dumps(barlocations),
                         'totalno': totalno,
                         'info': information,
                         'checkparam': "none",
@@ -433,6 +432,33 @@ def nepalmap(request):
     }
     return render(request, "nepalmap.html", context)
 
+def linegraph(request):
+    districtlist = ''
+    listoflocation, ktmlocationlist, ltplocationlist, bktlocationlist = parameters()
+
+    linelist = Graph( districtlist)
+    linelocationlist, yearlast= linelist.linequery()
+
+    if request.POST:
+        """ above values are taken so that select tag could have this value 
+        even when submit"""
+        districtlist = request.POST.get('location', None)
+        linelist = Graph(districtlist)
+        linelocationlist, yearlast = linelist.districtquery()
+        context = {
+            'linedata': json.dumps(linelocationlist),
+            'yearlast': yearlast,
+            'districts': listoflocation,
+            'location' : districtlist,
+        }
+        return render(request, "line.html", context)
+
+    context= {
+        'linedata': json.dumps(linelocationlist),
+        'yearlast' : yearlast,
+        'districts': listoflocation,
+    }
+    return render(request, "line.html", context)
 
 def getLat(location):
     g = geocoder.google(location)

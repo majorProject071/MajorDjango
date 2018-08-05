@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^location/$', views.bargraph, name='location'),
     url(r'^searchnumber/$', views.searchnumber, name='search'),
     url(r'^nepal-map/$', views.nepalmap, name='nepal'),
+    url(r'^linegraph/$', views.linegraph, name='linegraph'),
 ]

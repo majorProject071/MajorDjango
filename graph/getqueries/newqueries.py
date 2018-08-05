@@ -84,7 +84,6 @@ class Query:
 
         """extract all the distincts location from query so that you can easily
          group them to find total death and injury number"""
-        print(allinformation)
 
         for samelocation in allinformation:
             """ check if location is not null"""
