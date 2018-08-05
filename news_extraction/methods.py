@@ -54,21 +54,12 @@ def vehicleinfo(news_story):
     return (vehicle0, vehicle1, vehicle_type)
 
 
-
-# def save_record_by_id(news_id):
-#     record = rssdata.objects.get(id=news_id)
-#     news_story = record.body
-#     extracted_data = extract_info(news_story)
-#     record.location = extracted_data.location()
-#     record.save()
-
-
 #scrape rss feed
 def initial_check():
     url_link = "http://fetchrss.com/rss/59549c628a93f872018b4567709026440.xml"
     # get all the links of news title
     links = []
-    text =[]
+    text =[]    
     title = []
     rss = feedparser.parse(url_link)
 

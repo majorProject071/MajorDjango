@@ -4,5 +4,34 @@
 {% block nav_index_about_us %} class="nav-link active btn-primary" {% endblock nav_index_about_us%}
 
 {% block content %}
-ABOUT US.
+<style>
+    .team{
+    float: left;
+    margin-left: 15%;
+    margin-bottom: 5%;
+    text-align: center;
+
+    }
+    .person{
+    height: 300px;
+  width: 300px;
+  background-color: #555;
+  border-radius: 50%;
+    }
+    .git{
+    width: 50px;
+    height: 50px;
+    }
+    .gmail{
+    width: 50px;
+    height: 50px;
+    margin-left: 5%;
+    }
+</style>
+<h2 style="font-size:30px;">Our team</h2>
+<div class="team"><img class="person" src="../static/team/basanta.jpg"/><div class="intro"><h3>Basanta Chaulagain</h3><small>Backend,Django Developer</small><br><a href="https://github.com/BasantaChaulagain"><img class="git" src="../static/team/github.png"></a><a href="https://mail.google.com/mail/?view=cm&fs=1&to=071bct510@pcampus.edu.np"><img class="gmail" src="../static/team/gmail.png"></a></div></div>
+<div class="team"><img class="person" src="../static/team/bhuwan.jpg"/><div class="intro"><h3>Bhuwan Bhatt</h3><small>Data Processing, Data Analysis</small><br><a href="https://github.com/bhattbhuwan13"><img class="git" src="../static/team/github.png"></a><a href="https://mail.google.com/mail/?view=cm&fs=1&to=071bct511@pcampus.edu.np"><img class="gmail" src="../static/team/gmail.png"></a></div></div>
+<div class="team"><img class="person" src="../static/team/bishal.jpg"/><div class="intro"><h3>Bishal Chaulagain</h3><small>Front End</small><br><a href="#"><img class="git" src="../static/team/github.png"></a><a href="#"><img class="gmail" src="../static/team/gmail.png"></a></div></div>
+<div class="team"><img class="person" src="../static/team/dip.JPG"/><div class="intro"><h3>Dipkiran Pradhan Newar</h3><small>Data Visualization, Django Developer, Web Scraping</small><br><a href="https://github.com/Dipkiran"><img class="git" src="../static/team/github.png"></a><a href="https://mail.google.com/mail/?view=cm&fs=1&to=071bct516dip@pcampus.edu.np"><img class="gmail" src="../static/team/gmail.png"></a></div></div>
+
 {% endblock content %}
