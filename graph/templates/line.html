@@ -43,7 +43,7 @@
 
 </style>
 <body>
-<h2>Comparision of total road accidents in Nepal since {{ yearlast }} {{ location }}</h2>
+<h2>Comparison of total road accidents {% if location %} in {{ location }} {% endif %}since {{ last year }}</h2>
 <h2 style="margin-left: 30%;">Choose Districts</h2>
 <div class="select" style="margin-left: 30%;">
     <form action="" method="post" name="myform">
@@ -64,7 +64,7 @@
 
     </form>
 </div>
-<svg width="1000" height="500" style="margin-left: 15%; margin-top: 2%; font-size: 14px;"></svg>
+<svg width="1000" height="500" style="margin-left: 15%; margin-top: 2%; font-size: 14px; border: 2px solid #6F257F;"></svg>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script>
 var data = {{ linedata|safe }}

@@ -37,13 +37,13 @@ font-size: 16px;
 #locationmap{
 display: none;
 }
-
+.location{
+display: none;
+}
 </style>
-<h2>Accidents in Nepal {{ info }} </h2>
+<h2 class="count">District wise Accidents {{ info }} </h2>
 
-{% if checkparam %}
-<h2>No injury or death register for this data search.</h2>
-{% endif %}
+<h2 class="location">District wise casualties {{ info }}</h2>
 <div class="select">
     <form action="" method="post" name="myform">
 
@@ -186,7 +186,7 @@ display: none;
 </div>
 
 <div id="locationmap"></div>
-<svg class="countbar" width="1200" height="600" style="margin-left: 5%;"></svg>
+<svg class="countbar" width="1200" height="600" style="margin-left: 15%; margin-bottom: 5%;"></svg>
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script type="text/javascript">
@@ -301,7 +301,7 @@ var data = {{ count_data|safe }}
 var svg = d3.select(".countbar"),
     margin = {top: 20, right: 20, bottom: 30, left: 50},
     width = 1000,
-    height = 415;
+    height = 450;
 var barwidth = (width-50) / total;
 console.log(barwidth);
 
@@ -428,10 +428,15 @@ var g = svg.append("g")
         console.log(searchinfo);
         if (searchinfo == "Number of Casualties"){
         $(".countbar").hide();
+        $(".location").show();
+        $(".count").hide();
         $("#locationmap").show();
+
         }
         if (searchinfo == "Number of Accidents"){
         $(".countbar").show();
+        $(".count").show();
+        $(".location").hide();
         $("#locationmap").hide();
         }
     }

@@ -111,6 +111,7 @@ table, th, td {
 table{
 width: 75%;
 text-align: center;
+margin-left: 15%;
 }
 
 .listed{
@@ -220,6 +221,7 @@ border: 2px solid grey;
 margin-left: 15%;
 padding: 1% 1%;
 display: inline;
+margin-bottom: 5%;
 }
 
 .countbar{
@@ -232,6 +234,7 @@ display: inline;
 #map{
 float: left;
     margin-top: 5%;
+    margin-bottom: 5%;
     text-align: center;
     border: 2px solid grey;
     margin-left: 15%;
@@ -351,3 +354,4 @@ body {
   padding: 10px;
   text-align: center;
 }
+

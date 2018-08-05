@@ -129,8 +129,8 @@ def finalquery(countlist):
             {'location': mlocation['location'], 'injury': mlocation['injury'], 'death': mlocation['death'],
              'count': mlocation['count'], 'rate': rate})
 
-    red = math.ceil(25/100*len(maplocations))
-    yellow = math.ceil(10/100* len(maplocations))
+    red = int(math.ceil(25/100*len(maplocations)))
+    yellow = int(math.ceil(10/100* len(maplocations)))
     return red, yellow, barlocations, maplocations, barcountlocations
 
 
@@ -249,6 +249,12 @@ def bargraph(request):
             """ get required query for filter"""
             query = Query(valueslist, ktmlocationlist, ltplocationlist, bktlocationlist)
             newlocationlist, information, totalno, countlist,filterlist = query.getqueries()
+            """ if barlocations is zero. display all database to user"""
+            allinformation = rssdata.objects.all().values('location', 'year', 'month', 'vehicleone', 'vehicletwo',
+                                                          'date',
+                                                          'vehicle_type') \
+                .order_by('date').annotate(count=Count('location')).annotate(deathno=Sum('death_no')).annotate(
+                injuryno=Sum('injury_no'))
 
             valleylocations  = ["Kathmandu", "Lalitpur", "Bhaktapur"]
             if locationinfo not in valleylocations:
@@ -263,6 +269,7 @@ def bargraph(request):
             """ if querylength is zero """
             if (len(barlocations) == 0):
                 context = {
+                    'allinformation': allinformation,
                     'listoflocation': listoflocation, 'ktm_location': ktmlocationlist, 'ltp_location': ltplocationlist,
                     'bkt_location': bktlocationlist,'vehicletwo': vehicletwowheeler,'vehiclethree': vehiclethreewheeler,
                     'vehiclefour': vehiclefourwheeler,'vehicletype': vehicletype,
@@ -432,6 +439,7 @@ def nepalmap(request):
     }
     return render(request, "nepalmap.html", context)
 
+
 def linegraph(request):
     districtlist = ''
     listoflocation, ktmlocationlist, ltplocationlist, bktlocationlist = parameters()
@@ -460,19 +468,26 @@ def linegraph(request):
     }
     return render(request, "line.html", context)
 
+
 def getLat(location):
     g = geocoder.google(location)
     return location, g.lat, g.lng
 
 
-#query for kathmandu valley map
-def index(request):
+def kathmandumap(request):
+    """ returns query for kathmandu map"""
+
+    """ all necessary data"""
     location = rssdata.objects.values('location').order_by('location').annotate(death=Sum('death_no')).annotate(injury=Sum('injury_no')).annotate(count=Count('location'))
     totalno = rssdata.objects.values('date').aggregate(total=Count('date'))
     datelistinc = rssdata.objects.values('date').order_by('date').annotate(count=Count('date'))
     datefrom = datelistinc[0]['date']
     dateto = datelistinc[len(datelistinc)-1]['date']
     latitude = []
+
+    """ for each location in database. provide location name 
+    and get latitude and longitude using getLat function"""
+
     for locations in location:
         if locations['location'] is not None:
             if (len(locations['location']) > 2):
@@ -482,15 +497,6 @@ def index(request):
                 latitude.append(
                             {'location': location, 'latitude': lat, 'longitude': lng, 'death': locations['death'],
                                 'injury': locations['injury'], 'count': locations['count']})
-
-
-
-                # geolocator = Nominatim()
-                # g = geolocator.geocode(loc)
-                # latitude.append({'location': loc, 'latitude': g.latitude, 'longitude': g.longitude, 'death': locations['death'],
-                #                      'injury': locations['injury']})
-
-
     context = {
         'latitude': latitude,
         'totalno': totalno,
@@ -501,16 +507,18 @@ def index(request):
 
 
 def searchnumber(request):
+    """ vehicle number search"""
     tablevehiclelist = rssdata.objects.all().values('vehicle_no').order_by('vehicle_no')
 
     tablevehicle = []
     vehiclenolist = []
     smalllist = []
-    # if vehicle no search is not found then data base is shown
+
     for loc in tablevehiclelist:
         if len(loc['vehicle_no']) > 2:
             tablevehicle.append({'vehicleno': loc['vehicle_no']})
 
+    """ extract all vehicles in database"""
     for vehicle in tablevehicle:
         newv = vehicle['vehicleno']
         newv = unicode(newv).encode('ascii')
@@ -524,19 +532,31 @@ def searchnumber(request):
     if request.POST:
         search = request.POST.get('location', None) or request.POST.get('query', None)
         if search.lower() in smalllist:
+            """filter input with search"""
             queryset_list = rssdata.objects.filter(Q(vehicle_no__icontains=search)).values('location', 'date', 'death_no',
                                                                                     'injury_no', 'vehicle_no')
 
             latitude = []
             tabled = []
+
+            """ check if search exactly match with vehicle number. 
+            even if someone types ba in ba 1 cha 2314 then queryset 
+            is return as a feature of icontains. icontains is best as it is case sensitive"""
+
             for locations in queryset_list:
                 if locations['location'] is not None:
-                    if (len(locations['location']) > 2):
+                    """ if location is present in queryset"""
+                    if len(locations['location']) > 2:
                         location, lat, lng = getLat(locations['location'])
-                        i=0
-                        while lat == None and i<5:
+
+                        """ loop for google map until you get lat.
+                        geocoder sometimes return null even when location so
+                        you need to loop it"""
+
+                        while lat == None:
                             location, lat, lng = getLat(locations['location'])
-                            i+=1
+
+                        """ if  latitude then display map and table"""
                         if lat is not None:
                             latitude.append(
                                     {'location': locations['location'], 'latitude': lat, 'longitude': lng, 'death': locations['death_no'],
@@ -547,7 +567,7 @@ def searchnumber(request):
                                 'vehicledata': vehiclenolist,
                             }
                             return render(request, "search.html", context)
-                    # if location is not present then only return the tabular value
+
                     else:
                         tabled.append(
                             {'location': locations['location'], 'death': locations['death_no'], 'injury': locations['injury_no'], 'date': locations['date'],

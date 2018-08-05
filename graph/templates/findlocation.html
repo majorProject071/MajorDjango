@@ -252,12 +252,35 @@ display: none;
     </form>
 </div>
 <div>
-    {% if locationlist %}<h2>Sorry! No accident is registered for your input data.</h2> {% endif %}
-    {% if locationdetail %}<h2> Your Vehicle doesnt register any accident.</h2>
-    <div class="searchbutton">
-    <button onclick="viewvehicleno()"> click to view all vehicles involved in accidents</button>
-    </div>
-</div>{% endif %}
+    <h2>Sorry! No accident is registered for your input data.</h2>
+    <div class="datatable" style="margin-left: 15%;">
+    <table>
+        <tr>
+            <th>location</th>
+            <th>Vehicle Type</th>
+            <th>Vehicle One</th>
+            <th>Vehicle Two</th>
+            <th>Date</th>
+            <th>Year </th>
+            <th>Month</th>
+        </tr>
+        {% for information in allinformation %}
+        {% if  information.location != "[]" %}
+        <tr>
+            <td>{{ information.location }}</td>
+            <td>{{ information.vehicle_type }}</td>
+            <td>{{ information.vehicleone }}</td>
+            <td>{{ information.vehicletwo }}</td>
+            <td>{{ information.date }}</td>
+            <td>{{ information.year }}</td>
+            <td>{{ information.month }}</td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </table>
+</div>
+
+</div>
 <script>
     function selectLocation(){
     var vehicleinfo=document.getElementById('location_info').value;

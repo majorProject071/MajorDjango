@@ -21,9 +21,7 @@
 
         <select name="location" id="vehicleno" onclick="removeValue()">
             {% if search %}
-            {% if location_data %}
             <option value="{{ search }}" id="valueremove" >{{ search }}</option>
-            {% endif %}
             {% endif %}
             {% for vehicle in vehicledata %}
 
@@ -41,7 +39,7 @@
 {% endif %}
 
 
-{% if location_data %} <h2 class="head"> Result of {{ search }}</h2>
+{% if location_data %} <h2 class="head"> Information of vehicles involved in accident. {% if search %}Vehichle Number: {{ search }} {% endif %}</h2>
 
 <table>
     <tr>
