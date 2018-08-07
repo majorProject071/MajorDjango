@@ -8,7 +8,7 @@ from location_tree import LocationInformation
 from spacy.matcher import Matcher
 import en_core_web_sm
 from word2number import w2n
-from spacy.attrs import POS,LOWER,IS_PUNCT,LEMMA
+from spacy.attrs import LEMMA
 
 nlp = en_core_web_sm.load()
 

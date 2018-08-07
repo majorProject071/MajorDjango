@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="36890437-8748-435e-8fa3-3ee983d4a965" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/news_extraction/templates/index.html" afterPath="$PROJECT_DIR$/news_extraction/templates/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/graph/templates/location.html" afterPath="$PROJECT_DIR$/graph/templates/location.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/news_extraction/modules/extractor.py" afterPath="$PROJECT_DIR$/news_extraction/modules/extractor.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,13 +18,13 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.65833336">
+    <splitter split-orientation="horizontal" split-proportion="0.55530304">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/news_extraction/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="266">
+                <state relative-caret-position="-645">
                   <caret line="23" column="25" lean-forward="false" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
                   <folding>
                     <element signature="e#0#35#0" expanded="true" />
@@ -35,8 +36,8 @@
           <file leaf-file-name="location_tree.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/news_extraction/modules/location_tree.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2954">
-                  <caret line="211" column="16" lean-forward="false" selection-start-line="211" selection-start-column="16" selection-end-line="211" selection-end-column="16" />
+                <state relative-caret-position="135">
+                  <caret line="260" column="6" lean-forward="false" selection-start-line="260" selection-start-column="6" selection-end-line="260" selection-end-column="6" />
                   <folding />
                 </state>
               </provider>
@@ -45,8 +46,8 @@
           <file leaf-file-name="methods.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/news_extraction/methods.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="125">
-                  <caret line="101" column="46" lean-forward="true" selection-start-line="101" selection-start-column="46" selection-end-line="101" selection-end-column="46" />
+                <state relative-caret-position="2100">
+                  <caret line="150" column="0" lean-forward="true" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#21#0" expanded="true" />
                   </folding>
@@ -54,24 +55,22 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/news_extraction/templates/index.html">
+          <file leaf-file-name="vehicles_gazetter.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/news_extraction/modules/vehicles_gazetter.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="154">
-                  <caret line="119" column="609" lean-forward="false" selection-start-line="119" selection-start-column="609" selection-end-line="119" selection-end-column="609" />
+                <state relative-caret-position="-84">
+                  <caret line="34" column="8" lean-forward="false" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="8" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="extractor.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="extractor.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/news_extraction/modules/extractor.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2968">
-                  <caret line="222" column="0" lean-forward="false" selection-start-line="222" selection-start-column="0" selection-end-line="222" selection-end-column="0" />
-                  <folding>
-                    <element signature="e#0#37#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="140">
+                  <caret line="10" column="24" lean-forward="false" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -80,14 +79,24 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="urls.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/graph/urls.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="196">
-                  <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+                  <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#32#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="location.html" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/graph/templates/location.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="150">
+                  <caret line="36" column="13" lean-forward="true" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -118,6 +127,8 @@
       <find>table</find>
       <find>bold</find>
       <find>loca</find>
+      <find>locationmap</find>
+      <find>extra</find>
     </findStrings>
     <replaceStrings>
       <replace>strong</replace>
@@ -135,15 +146,15 @@
         <option value="$PROJECT_DIR$/MajorDjango/settings.py" />
         <option value="$PROJECT_DIR$/news_extraction/models.py" />
         <option value="$PROJECT_DIR$/news_extraction/templates/base.html" />
-        <option value="$PROJECT_DIR$/news_extraction/methods.py" />
-        <option value="$PROJECT_DIR$/news_extraction/modules/extractor.py" />
         <option value="$PROJECT_DIR$/news_extraction/views.py" />
         <option value="$PROJECT_DIR$/news_extraction/modules/location_tree.py" />
         <option value="$PROJECT_DIR$/news_extraction/templates/about_us.html" />
         <option value="$PROJECT_DIR$/static/css/custom.css" />
-        <option value="$PROJECT_DIR$/graph/templates/location.html" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/news_extraction/templates/index.html" />
+        <option value="$PROJECT_DIR$/graph/templates/location.html" />
+        <option value="$PROJECT_DIR$/news_extraction/methods.py" />
+        <option value="$PROJECT_DIR$/news_extraction/modules/extractor.py" />
       </list>
     </option>
   </component>
@@ -189,7 +200,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="index&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/templates/index.html&#10;cus&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/static/css/custom.css&#10;inde&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/templates/index.html&#10;ex&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/modules/extractor.py&#10;dataex&#9;null&#9;null&#10;news&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/static/css/news.css&#10;mod&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/models.py&#10;LOCA&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/graph/templates/location.html&#10;lo&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/modules/location_tree.py&#10;base&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/templates/base.html&#10;loca&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/graph/templates/location.html&#10;sea&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/graph/templates/search.html&#10;search.ht&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/graph/templates/search.html&#10;urls&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/graph/urls.py&#10;in&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/templates/index.html&#10;extra&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/modules/extractor.py&#10;sett&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/MajorDjango/settings.py&#10;.html&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/graph/templates/heatmap.html&#10;extractor1&#9;null&#9;null&#10;ext&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/modules/extractor.py&#10;.gitign&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/.gitignore" />
+    <property name="SearchEverywhereHistoryKey" value="sett&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/MajorDjango/settings.py&#10;loca&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/graph/templates/location.html&#10;index&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/templates/index.html&#10;cus&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/static/css/custom.css&#10;inde&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/templates/index.html&#10;ex&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/modules/extractor.py&#10;dataex&#9;null&#9;null&#10;news&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/static/css/news.css&#10;mod&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/models.py&#10;LOCA&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/graph/templates/location.html&#10;lo&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/modules/location_tree.py&#10;base&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/templates/base.html&#10;sea&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/graph/templates/search.html&#10;search.ht&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/graph/templates/search.html&#10;urls&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/graph/urls.py&#10;in&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/templates/index.html&#10;extra&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/modules/extractor.py&#10;.html&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/graph/templates/heatmap.html&#10;extractor1&#9;null&#9;null&#10;ext&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/modules/extractor.py&#10;.gitign&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/.gitignore" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
   </component>
   <component name="RunDashboard">
@@ -317,7 +328,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="-1" width="1366" height="745" extended-state="7" />
+    <frame x="0" y="-1" width="1366" height="745" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19924243" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -561,13 +572,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/news_extraction/modules/vehicles_gazetter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/news_extraction/templates/base1.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="205">
@@ -617,27 +621,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MajorDjango/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1358">
-          <caret line="97" column="0" lean-forward="false" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/news_extraction/modules/extractor1.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="199">
           <caret line="20" column="6" lean-forward="false" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/news_extraction/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="23" column="25" lean-forward="false" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -663,25 +650,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/news_extraction/templates/contact_us.html" />
-    <entry file="file://$PROJECT_DIR$/news_extraction/modules/location_tree.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2954">
-          <caret line="211" column="16" lean-forward="false" selection-start-line="211" selection-start-column="16" selection-end-line="211" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/css/custom.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="219" column="17" lean-forward="true" selection-start-line="219" selection-start-column="17" selection-end-line="219" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/graph/templates/location.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="200" column="19" lean-forward="true" selection-start-line="200" selection-start-column="19" selection-end-line="200" selection-end-column="19" />
         </state>
       </provider>
     </entry>
@@ -693,26 +665,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test.py" />
-    <entry file="file://$PROJECT_DIR$/news_extraction/modules/extractor.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2968">
-          <caret line="222" column="0" lean-forward="false" selection-start-line="222" selection-start-column="0" selection-end-line="222" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/graph/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../academics/Nepscan/templates/main/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="167">
@@ -721,20 +673,80 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/graph/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/graph/templates/location.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="36" column="13" lean-forward="true" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/news_extraction/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="129">
+          <caret line="108" column="32" lean-forward="true" selection-start-line="108" selection-start-column="32" selection-end-line="108" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MajorDjango/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="72" column="1" lean-forward="true" selection-start-line="72" selection-start-column="1" selection-end-line="72" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/news_extraction/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-645">
+          <caret line="23" column="25" lean-forward="false" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/news_extraction/methods.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="101" column="46" lean-forward="true" selection-start-line="101" selection-start-column="46" selection-end-line="101" selection-end-column="46" />
+        <state relative-caret-position="2100">
+          <caret line="150" column="0" lean-forward="true" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/news_extraction/templates/index.html">
+    <entry file="file://$PROJECT_DIR$/news_extraction/modules/location_tree.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="119" column="609" lean-forward="false" selection-start-line="119" selection-start-column="609" selection-end-line="119" selection-end-column="609" />
+        <state relative-caret-position="135">
+          <caret line="260" column="6" lean-forward="false" selection-start-line="260" selection-start-column="6" selection-end-line="260" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/news_extraction/modules/vehicles_gazetter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-84">
+          <caret line="34" column="8" lean-forward="false" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/news_extraction/modules/extractor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="10" column="24" lean-forward="false" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
           <folding />
         </state>
       </provider>
