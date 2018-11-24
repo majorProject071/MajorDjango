@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36890437-8748-435e-8fa3-3ee983d4a965" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MajorDjango/local_settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MajorDjango/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/MajorDjango/settings.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,15 +17,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/news_extraction/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" selection-start-line="20" selection-end-line="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="location_tree.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/news_extraction/modules/location_tree.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -55,11 +47,32 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="requirements.txt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="requirements.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/requirements.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="195">
               <caret line="63" column="14" selection-start-line="63" selection-start-column="14" selection-end-line="63" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MajorDjango/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="139" lean-forward="true" selection-start-line="139" selection-end-line="139" />
+              <folding>
+                <element signature="e#310#319#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="local_settings.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/MajorDjango/local_settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="11" column="1" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -69,15 +82,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state>
               <caret column="25" selection-start-column="25" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="location.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/graph/templates/location.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2790">
-              <caret line="186" selection-start-line="186" selection-end-line="186" />
             </state>
           </provider>
         </entry>
@@ -115,6 +119,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -145,7 +150,6 @@
         <option value="$PROJECT_DIR$/news_extraction/templates/base1.html" />
         <option value="$PROJECT_DIR$/static/css/news.css" />
         <option value="$PROJECT_DIR$/graph/templates/search.html" />
-        <option value="$PROJECT_DIR$/MajorDjango/settings.py" />
         <option value="$PROJECT_DIR$/news_extraction/models.py" />
         <option value="$PROJECT_DIR$/news_extraction/templates/base.html" />
         <option value="$PROJECT_DIR$/news_extraction/views.py" />
@@ -159,14 +163,16 @@
         <option value="$PROJECT_DIR$/Procfile" />
         <option value="$PROJECT_DIR$/runtime.txt" />
         <option value="$PROJECT_DIR$/requirements.txt" />
+        <option value="$PROJECT_DIR$/MajorDjango/settings.py" />
+        <option value="$PROJECT_DIR$/MajorDjango/local_settings.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="67" />
-    <option name="y" value="6" />
-    <option name="width" value="1543" />
-    <option name="height" value="888" />
+    <option name="x" value="466" />
+    <option name="y" value="90" />
+    <option name="width" value="1364" />
+    <option name="height" value="737" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -182,6 +188,11 @@
           <expand>
             <path>
               <item name="MajorDjango" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MajorDjango" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MajorDjango" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MajorDjango" type="462c0819:PsiDirectoryNode" />
               <item name="MajorDjango" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -263,7 +274,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="57" y="-4" width="1543" height="904" extended-state="6" />
+    <frame x="57" y="24" width="1543" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19276316" />
@@ -273,7 +284,7 @@
       <window_info anchor="bottom" id="Python Console" order="8" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4939302" weight="0.2976" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.59637773" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.22281879" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49390244" weight="0.48548388" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -348,7 +359,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/.major/local/lib/python2.7/site-packages/django/utils/functional.py" />
     <entry file="file://$USER_HOME$/.major/local/lib/python2.7/site-packages/django/urls/resolvers.py" />
     <entry file="file://$PROJECT_DIR$/../senior-django-news-extraction/news/models.py" />
     <entry file="file://$PROJECT_DIR$/../senior-django-news-extraction/rss/models.py" />
@@ -477,13 +487,6 @@
     <entry file="file://$PROJECT_DIR$/static/css/news.css">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/MajorDjango/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1358">
-          <caret line="97" selection-start-line="97" selection-end-line="97" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/news_extraction/modules/extractor1.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="199">
@@ -605,6 +608,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="63" column="14" selection-start-line="63" selection-start-column="14" selection-end-line="63" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MajorDjango/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="139" lean-forward="true" selection-start-line="139" selection-end-line="139" />
+          <folding>
+            <element signature="e#310#319#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MajorDjango/local_settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="1" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
         </state>
       </provider>
     </entry>

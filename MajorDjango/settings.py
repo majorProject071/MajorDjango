@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
-
+import dj_database_url
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'p67cuc+d#p9-w*v_29!cojyp8i-_q$s&nd90rysszm=i0zdu*q'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -85,15 +85,9 @@ WSGI_APPLICATION = 'MajorDjango.wsgi.application'
 #     }
 # }
 
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'news_extraction',
-        'USER': 'myprojectuser',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
+    'default': dj_database_url.config(),
 }
 
 
@@ -142,3 +136,12 @@ CACHES = {
       'LOCATION': '/var/tmp/django_cache',
    }
 }
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass
