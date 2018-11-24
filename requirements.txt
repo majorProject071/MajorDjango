@@ -61,7 +61,6 @@ pathlib==1.0.1
 pbr==1.9.1
 Pillow==5.1.0
 plac==0.9.6
-practNLPTools==1.0
 preshed==1.0.0
 psycopg2==2.6.2
 pycrypto==2.6.1
