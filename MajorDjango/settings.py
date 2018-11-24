@@ -25,7 +25,7 @@ SECRET_KEY = 'p67cuc+d#p9-w*v_29!cojyp8i-_q$s&nd90rysszm=i0zdu*q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [' https://calm-peak-94506.herokuapp.com/ ','128.0.0.1']
 
 
 # Application definition
