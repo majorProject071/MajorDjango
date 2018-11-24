@@ -59,7 +59,6 @@ pandas==0.23.3
 passlib==1.6.2
 pathlib==1.0.1
 pbr==1.9.1
-pgadmin4==1.4
 Pillow==5.1.0
 plac==0.9.6
 practNLPTools==1.0
