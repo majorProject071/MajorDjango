@@ -7,7 +7,7 @@ outside_locations = []
 
 nepal = Node("nepal", parent=None)
 
-jhapa = Node("jhapa", parent=nepal)
+jhapa = Node("", parent=nepal)
 ilam = Node("ilam", parent=nepal)
 panchthar = Node("panchthar", parent=nepal)
 taplejung = Node("taplejung", parent=nepal)
@@ -40,14 +40,15 @@ rasuwa = Node("rasuwa", parent=nepal)
 sindhupalchok = Node("sindhupalchok", parent=nepal)
 bara = Node("bara", parent=nepal)
 parsa = Node("parsa", parent=nepal)
-rautahat = Node("rautahat", prent=nepal)
+rautahat = Node("rautahat", parent=nepal)
+chitwan = Node("chitawan", parent=nepal)
 chitawan = Node("chitawan", parent=nepal)
 makwanpur = Node("makwanpur", parent=nepal)
 gorkha = Node("gorkha", parent=nepal)
 kaski = Node("kaski", parent=nepal)
 lamjung = Node("lamjung", parent=nepal)
 syangja = Node("syangja", parent=nepal)
-tanahu = Node("tanahu", parent=nepal)
+tanahun = Node("tanahun", parent=nepal)
 manang = Node("manang", parent=nepal)
 kapilvastu = Node("kapilvastu", parent=nepal)
 nawalparasi = Node("nawalparasi", parent=nepal)
@@ -85,7 +86,6 @@ baitadi = Node("baitadi", parent=nepal)
 darchula = Node("darchula", parent=nepal)
 
 chabahil = Node("chabahil", parent=kathmandu)
-babar_mahal = Node("babar mahal", parent=kathmandu)
 sukedhara = Node("sukedhara", parent=kathmandu)
 dhumbarahi = Node("dhumbarahi", parent=kathmandu)
 maharajgunj = Node("maharajgunj", parent=kathmandu)
@@ -122,7 +122,6 @@ chobhar = Node("chobhar", parent=kathmandu)
 nakhkhu = Node("nakhkhu", parent=kathmandu)
 nayabasti = Node("nayabasti", parent=kathmandu)
 kusunti = Node("kusunti", parent=lalitpur)
-lalitpur = Node("patan", parent=lalitpur)
 satdobato = Node("satdobato", parent=lalitpur)
 khumaltar = Node("khumaltar", parent=lalitpur)
 gwarko = Node("gwarko", parent=lalitpur)
@@ -149,7 +148,6 @@ kumarigal = Node("kumarigal", parent=kathmandu)
 old_baneshwor = Node("old baneshwor", parent=kathmandu)
 new_baneshwor = Node("new baneshwor", parent=kathmandu)
 baneshwor = Node("baneshwor", parent=kathmandu)
-bijulibazaar = Node("bijulibazaar", parent=kathmandu)
 bhimsengola = Node("bhimsengola", parent=kathmandu)
 mahadevsthan = Node("mahadevsthan", parent=kathmandu)
 anamnagar = Node("anamnagar", parent=kathmandu)
@@ -161,8 +159,6 @@ shantinagar = Node("shantinagar", parent=kathmandu)
 hanumansthan = Node("hanumansthan", parent=kathmandu)
 singhadurbar = Node("singhadurbar", parent=kathmandu)
 thapathali = Node("thapathali", parent=kathmandu)
-maitighar = Node("maitighar", parent=kathmandu)
-babarmahal = Node("babarmahal", parent=kathmandu)
 jwagal = Node("jwagal", parent=lalitpur)
 kupandole = Node("kupondole", parent=lalitpur)
 kupondole = Node("kupondole", parent=lalitpur)
@@ -252,7 +248,6 @@ siddhitol = Node("siddhitol", parent=kathmandu)
 pragatinagar = Node("pragatinagar", parent=kathmandu)
 lokanthali = Node("lokanthali", parent=kathmandu)
 kausaltar = Node("kausaltar", parent=bhaktapur)
-bhaktapur = Node("bhaktapur", parent=bhaktapur)
 gatthaghar = Node("gatthaghar", parent=bhaktapur)
 thimi = Node("thimi", parent=bhaktapur)
 changunarayan = Node("changunarayan", parent=bhaktapur)
@@ -262,23 +257,20 @@ class LocationInformation:
 
     def all_ktm_locations(self):
         for row in RenderTree(kathmandu):
-            if row.node.name not in ktm_locations:
-                if row.node.parent == kathmandu:
-                    ktm_locations.append(row.node.name)
+            if row.node.parent == kathmandu:
+                ktm_locations.append(row.node.name)
         return ktm_locations
 
     def all_ltp_locations(self):
         for row in RenderTree(lalitpur):
-            if row.node.name not in ltp_locations:
-                if row.node.parent == lalitpur:
-                    ltp_locations.append(row.node.name)
+            if row.node.parent == lalitpur:
+                ltp_locations.append(row.node.name)
         return ltp_locations
 
     def all_bkt_locations(self):
         for row in RenderTree(bhaktapur):
-            if row.node.name not in bkt_locations:
-                if row.node.parent == bhaktapur:
-                    bkt_locations.append(row.node.name)
+            if row.node.parent == bhaktapur:
+                bkt_locations.append(row.node.name)
         return bkt_locations
 
     def all_locations(self):

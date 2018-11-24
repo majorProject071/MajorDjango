@@ -7,7 +7,6 @@ from nltk.stem import WordNetLemmatizer
 from practnlptools.tools import Annotator
 
 from .word_num import text2int
-from news_extraction.modules.location_tree import LocationInformation
 
 # instances
 annotator = Annotator()
@@ -19,43 +18,27 @@ injuryverb = ['injure', 'sustain', 'critical', 'hurt', 'wound', 'harm', 'trauma'
 verbs = []
 
 # death extracting function
-ktm_location = LocationInformation().all_ktm_locations()
-bkt_location = LocationInformation().all_bkt_locations()
-ltp_location = LocationInformation().all_ltp_locations()
-outside_location = LocationInformation().all_locations()
 
-all_location = ktm_location + bkt_location + ltp_location + outside_location
 
 def death_no(sentlist):
     death = "None"
     for sent in sentlist:
         if death == "None":
-            try:
-                srlList = annotator.getAnnotations(sent)['srl']
-                if srlList ==[]:
-                    return "None"
-                for dic in srlList:
-                    for text in dic:
-                        if "V" in text:
-                            dic[text] = lemmatizer.lemmatize(dic[text], 'v')
-                            verbs.append(dic[text])
-                for dic in srlList:
-                    for text in dic:
-                        if dic[text] in deathverb:
-                            if "A1" in dic:
-                                for location in all_location:
-                                    if "A0" in dic:
-                                        death = dic["A0"].lower()
-                                        return death
-                                    if location in dic["A1"].lower():
-                                        death = "one"
-                                        return death
-                                death = dic["A1"]
-                                return death
-                            else:
-                                death = "None"
-            except:
-                death= "None"
+            srlList = annotator.getAnnotations(sent)['srl']
+            # print(srlList)
+            # sys.exit()
+            for dic in srlList:
+                for text in dic:
+                    if "V" in text:
+                        dic[text] = lemmatizer.lemmatize(dic[text], 'v')
+                        verbs.append(dic[text])
+            for dic in srlList:
+                for text in dic:
+                    if dic[text] in deathverb:
+                        if "A0" in dic:
+                            death = dic["A0"]
+                        else:
+                            death = dic['A1']
 
         else:
             break
@@ -69,33 +52,23 @@ def injury_no(sentlist):
     injury = "None"
     for sent in sentlist:
         if injury == "None":
-            try:
-                srlList = annotator.getAnnotations(sent)['srl']
-                if srlList == []:
-                    return "None"
-                for dic in srlList:
-                    for text in dic:
-                        if text == "V":
-                            dic[text] = lemmatizer.lemmatize(dic[text], 'v')
-                            verbs.append(dic[text])
-                for dic in srlList:
-                    for text in dic:
-                        if dic[text] in injuryverb:
-                            print dic[text]
-                            if "A0" in dic:
-                                injury = dic["A0"].lower()
-                                return injury
-                            elif "A1" in dic:
-                                for location in all_location:
-                                    if location in dic["A1"].lower():
-                                        injury = "one"
-                                        return injury
-                                injury = dic["A1"].lower()
-                                return injury
-                            else:
-                                injury = "None"
-            except:
-                injury = "None"
+            srlList = annotator.getAnnotations(sent)['srl']
+            # print(srlList)
+            for dic in srlList:
+                for text in dic:
+                    if text == "V":
+                        dic[text] = lemmatizer.lemmatize(dic[text], 'v')
+                        verbs.append(dic[text])
+                        for dic in srlList:
+                            for text in dic:
+                                if dic[text] in injuryverb:
+                                    if "A0" in dic:
+                                        injury = dic["A0"]
+                                        # This indentation was backward
+                                    elif "A1" in dic:
+                                        injury = dic["A1"]
+                                    else:
+                                        injury ="None"
 
         else:
             break

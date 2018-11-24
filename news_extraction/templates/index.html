@@ -95,7 +95,6 @@ console.log("hello");
     {% if article.id != None %}
     accidentNews[{{article.id}}] = {
         location : "{{ article.location }}",
-        cause : "{{ article.cause }}",
         death : "{{ article.death }}",
         death_no : "{{ article.death_no }}",
         injury:"{{ article.injury}}",
@@ -117,7 +116,7 @@ console.log("hello");
     $('.head').each(function(){
       $(this).click(function(){
         var news = accidentNews[this.id];
-        $('#summary').replaceWith("<div id='summary'><h2> Extracted items </h2> <p><strong> Death: </strong>" + news.death +  "</p>        <p><strong> Death Number: </strong>" + news.death_no +  "</p>        <p><strong> Injury: </strong>" + news.injury +"</p>        <p><strong> Injury Number: </strong>" + news.injury_no +"</p>        <p><strong> Vehicles: </strong>" + news.vehicleone + ", " + news.vehicletwo +"</p> <p><strong> Vehicle Numbers: </strong>" + news.vehicle_no +"</p>    <p><strong> Vehicle Type: </strong>" + news.vehicle_type +"</p>    <p><strong>Location: </strong>" + news.location +"</p>  <p><strong>Cause: </strong>" + news.cause +"</p>       <p><strong> Date: </strong>"+ news.date +"</p>        <p><strong> Day: </strong>"+ news.day +"</p>        <h4>Full news</h4>"+ news.body+ "</div>");
+        $('#summary').replaceWith("<div id='summary'><h2> Extracted items </h2> <p><strong> Death: </strong>" + news.death +  "</p>        <p><strong> Death Number: </strong>" + news.death_no +  "</p>        <p><strong> Injury: </strong>" + news.injury +"</p>        <p><strong> Injury Number: </strong>" + news.injury_no +"</p>        <p><strong> Vehicles: </strong>" + news.vehicleone + ", " + news.vehicletwo +"</p> <p><strong> Vehicle Numbers: </strong>" + news.vehicle_no +"</p>    <p><strong> Vehicle Type: </strong>" + news.vehicle_type +"</p>    <p><strong>Location: </strong>" + news.location +"</p>      <p><strong> Date: </strong>"+ news.date +"</p>        <p><strong> Day: </strong>"+ news.day +"</p>        <h4>Full news</h4>"+ news.body+ "</div>");
   });
 
   $('#no').click(function () {
