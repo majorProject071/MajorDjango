@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36890437-8748-435e-8fa3-3ee983d4a965" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/runtime.txt" beforeDir="false" afterPath="$PROJECT_DIR$/runtime.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -164,8 +164,8 @@
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="67" />
     <option name="y" value="6" />
-    <option name="width" value="1366" />
-    <option name="height" value="773" />
+    <option name="width" value="1543" />
+    <option name="height" value="888" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -192,7 +192,7 @@
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SearchEverywhereHistoryKey" value="cus&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/static/css/custom.css&#10;inde&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/templates/index.html&#10;ex&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/modules/extractor.py&#10;dataex&#9;null&#9;null&#10;news&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/static/css/news.css&#10;mod&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/models.py&#10;LOCA&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/graph/templates/location.html&#10;lo&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/modules/location_tree.py&#10;base&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/templates/base.html&#10;loca&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/graph/templates/location.html&#10;sea&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/graph/templates/search.html&#10;search.ht&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/graph/templates/search.html&#10;urls&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/graph/urls.py&#10;in&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/templates/index.html&#10;extra&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/modules/extractor.py&#10;sett&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/MajorDjango/settings.py&#10;.html&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/graph/templates/heatmap.html&#10;extractor1&#9;null&#9;null&#10;ext&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/news_extraction/modules/extractor.py&#10;.gitign&#9;FILE&#9;file:///media/basanta/main/work/MajorDjango/.gitignore" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/django" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
