@@ -12,6 +12,7 @@ class Graph:
 
     def linequery(self):
         yearlistdata = rssdata.objects.values('year').order_by('year').annotate(count=Count('year'))
+        print(yearlistdata)
         linelistquery = []
         for query in yearlistdata:
             linelistquery.append({'year': query['year'], 'value': query['count']})

@@ -132,7 +132,7 @@ def extract(link, news_story, title):
                      )
 
     record.save()
-    # return record.id
+    return record.id
     # # news_id = record.id
     # # save_record_by_id(news_id)
 
@@ -147,6 +147,7 @@ def manual_extract(link):
     news = ''
     article = soup.find("div", {"class": "content-wrapper"}).findAll('p')
     title = soup.find("div", {"class": "no-space"}).h1
+    print(title)
 
     for element in article:
         for e in element.findAll(text=True):
@@ -154,6 +155,3 @@ def manual_extract(link):
                 article_text.append(e)
 
     return (link, str(article_text), title.text)
-
-
-

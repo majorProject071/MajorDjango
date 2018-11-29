@@ -11,6 +11,8 @@ import geocoder
 import datetime
 import re
 import math
+import googlemaps
+from datetime import datetime
 
 
 def parameters():
@@ -230,7 +232,7 @@ def bargraph(request):
 
     # working in search query
     if request.POST:
-            """ above values are taken so that select tag could have this value 
+            """ above values are taken so that select tag could have this value
             even when submit"""
             vehicletypeinfo = request.POST.get('vehicletype', None)
             yearinfo = request.POST.get('year', None)
@@ -282,7 +284,7 @@ def bargraph(request):
             """ if querylength is greater than 0"""
             for location in barlocations:
 
-                """ if both injury and death are zero then 
+                """ if both injury and death are zero then
                 it cannot be shown in bar graph"""
                 if location['death'] == 0 and location['injury'] == 0:
                     context = {
@@ -364,7 +366,7 @@ def nepalmap(request):
 
     # working in search query
     if request.POST:
-        """ above values are taken so that select tag could have this value 
+        """ above values are taken so that select tag could have this value
         even when submit"""
         vehicletypeinfo = request.POST.get('vehicletype', None)
         yearinfo = request.POST.get('year', None)
@@ -445,12 +447,16 @@ def linegraph(request):
     listoflocation, ktmlocationlist, ltplocationlist, bktlocationlist = parameters()
 
     linelist = Graph( districtlist)
+    print("hello")
     linelocationlist, yearlast= linelist.linequery()
 
+
     if request.POST:
-        """ above values are taken so that select tag could have this value 
+        """ above values are taken so that select tag could have this value
         even when submit"""
         districtlist = request.POST.get('location', None)
+        print("hello")
+        print(districtlist)
         linelist = Graph(districtlist)
         linelocationlist, yearlast = linelist.districtquery()
         context = {
@@ -470,8 +476,13 @@ def linegraph(request):
 
 
 def getLat(location):
-    g = geocoder.google(location)
-    return location, g.lat, g.lng
+    gmaps = googlemaps.Client(key='AIzaSyB0jbM6o1NAMZPhtlexx521CAj5VaQg_I4')
+
+    geocode_result = gmaps.geocode(location)
+    lat = geocode_result[0]['geometry']['location']['lat']
+    lng = geocode_result[0]['geometry']['location']['lng']
+
+    return location, lat, lng
 
 
 def kathmandumap(request):
@@ -485,15 +496,17 @@ def kathmandumap(request):
     dateto = datelistinc[len(datelistinc)-1]['date']
     latitude = []
 
-    """ for each location in database. provide location name 
+
+    """ for each location in database. provide location name
     and get latitude and longitude using getLat function"""
 
     for locations in location:
-        if locations['location'] is not None:
+        # if locations['location'] in ktmlocationlist or locations['location'] in valleylist:
             if (len(locations['location']) > 2):
                 location, lat, lng = getLat(locations['location'])
                 while lat == None:
                     location, lat, lng = getLat(locations['location'])
+                print(location, lat, lng)
                 latitude.append(
                             {'location': location, 'latitude': lat, 'longitude': lng, 'death': locations['death'],
                                 'injury': locations['injury'], 'count': locations['count']})
@@ -539,8 +552,8 @@ def searchnumber(request):
             latitude = []
             tabled = []
 
-            """ check if search exactly match with vehicle number. 
-            even if someone types ba in ba 1 cha 2314 then queryset 
+            """ check if search exactly match with vehicle number.
+            even if someone types ba in ba 1 cha 2314 then queryset
             is return as a feature of icontains. icontains is best as it is case sensitive"""
 
             for locations in queryset_list:
