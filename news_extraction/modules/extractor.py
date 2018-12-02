@@ -92,6 +92,7 @@ class DataExtractor:
         """ Gets the day of mishap.
         """
         day_regex = re.compile('\w+day')
+        print(complete_news)
         day = day_regex.findall(complete_news)[0]
         # print("The day when the accident occured is: \n"+day)
         return day
@@ -240,5 +241,3 @@ class DataExtractor:
 
         if month in summer:
             return ("summer")
-
-

@@ -12,7 +12,6 @@ import datetime
 import re
 import math
 import googlemaps
-from datetime import datetime
 
 
 def parameters():
@@ -92,25 +91,28 @@ def finalquery(countlist):
     """ now return query for map location and bar location."""
     for location in countlist:
         if location['location'].lower() in ktm_location or location['location'].lower() == "kathmandu":
-            ktm_death += location['death']
-            ktm_injury += location['injury']
-            ktm_count += location['count']
+            ktm_death = ktm_death + location['death']
+            if location['injury']:
+                ktm_injury = ktm_injury + location['injury']
+            ktm_count = ktm_count + location['count']
             barlocations.append({'location': 'Kathmandu', 'injury': ktm_injury, 'death': ktm_death})
             maplocation.append(
                 {'location': 'Kathmandu', 'injury': ktm_injury, 'death': ktm_death, 'count': ktm_count})
             barcountlocations.append({'location': 'Kathmandu', 'count': ktm_count})
         elif location['location'].lower() in ltp_location or location['location'].lower() == "lalitpur":
-            ltp_death += location['death']
-            ltp_injury += location['injury']
-            ltp_count += location['count']
+            ltp_death = ltp_death + location['death']
+            if location['injury']:
+                ltp_injury = ltp_injury + location['injury']
+            ltp_count = ltp_count + location['count']
             barlocations.append({'location': 'Lalitpur', 'injury': ltp_injury, 'death': ltp_death})
             maplocation.append(
                 {'location': 'Lalitpur', 'injury': ltp_injury, 'death': ltp_death, 'count': ltp_count})
             barcountlocations.append({'location': 'Lalitpur', 'count': location['count']})
         elif location['location'].lower() in bkt_location or location['location'].lower() == "bhaktapur":
-            bkt_death += location['death']
-            bkt_injury += location['injury']
-            bkt_count += location['count']
+            bkt_death = bkt_death + location['death']
+            if location['injury']:
+                bkt_injury = bkt_injury + location['injury']
+            bkt_count = bkt_count + location['count']
             barlocations.append({'location': 'Bhaktapur', 'injury': bkt_injury, 'death': bkt_death})
             maplocation.append(
                 {'location': 'Bhaktapur', 'injury': bkt_injury, 'death': bkt_death, 'count': bkt_count})
