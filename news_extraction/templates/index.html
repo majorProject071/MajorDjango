@@ -13,7 +13,7 @@
             <li class='listed' style='list-style:none;'>
               <p id={{ article.id }} class="head"> <a href="#" style="color:#4b0082">{{article.header}}:</a><br>
               <a>{{article.date}}</a>
-                  <div class="source"><bold>Source: </bold><p>{{ article.source }}</p></div>
+
             </p>
             </li>
           </ul>
@@ -61,7 +61,7 @@
 .listed{
   background-color: #a2cf6e;
   color:#000;
-  padding: 5px;
+  padding: 20px;
   border-radius: 15px;
   margin: 5px;
   float: left;
@@ -117,7 +117,7 @@ console.log("hello");
       $(this).click(function(){
         var news = accidentNews[this.id];
         $('#summary').replaceWith("<div id='summary'><h2> Extracted items </h2> <p><strong> Death: </strong>" + news.death +  "</p>        <p><strong> Death Number: </strong>" + news.death_no +  "</p>        <p><strong> Injury: </strong>" + news.injury +"</p>        <p><strong> Injury Number: </strong>" + news.injury_no +"</p>        <p><strong> Vehicles: </strong>" + news.vehicleone + ", " + news.vehicletwo +"</p> <p><strong> Vehicle Numbers: </strong>" + news.vehicle_no +"</p>    <p><strong> Vehicle Type: </strong>" + news.vehicle_type +"</p>    <p><strong>Location: </strong>" + news.location +"</p>      <p><strong> Date: </strong>"+ news.date +"</p>        <p><strong> Day: </strong>"+ news.day +"</p>        <h4>Full news</h4>"+ news.body+ "</div>");
-  });
+  }); 
 
   $('#no').click(function () {
     $('#summary').replaceWith("<h2 id='summary'> No Summary Information</h2>");

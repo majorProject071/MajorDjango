@@ -19,7 +19,7 @@ class Query:
         """ import all information from database """
         allinformation = rssdata.objects.all().values('location', 'year', 'month', 'vehicleone','vehicletwo','date','vehicle_type')\
             .order_by('location').annotate(count=Count('location')).annotate(deathno=Sum('death_no')).annotate(injuryno=Sum('injury_no'))
-
+        print(allinformation)
         """list and string definition"""
         information = ''
         distinctlocations = []
@@ -104,7 +104,8 @@ class Query:
             count = 0
             for queries in newqueries:
                 death += queries['deathno']
-                injury += queries['injuryno']
+                if queries['injuryno']:
+                    injury += queries['injuryno']
                 count += queries['count']
             querieslist.append({'location': distlocation.capitalize(), 'death': death, 'injury': injury})
             countlist.append({'location': distlocation.capitalize(), 'count': count})
@@ -155,4 +156,5 @@ class Query:
                         location=self.bktlocationlist[z]['location'].lower()) | locationlist
         else:
             locationlist = allinformation.filter(location=location.lower())
+        print(locationlist)
         return locationlist

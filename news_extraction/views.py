@@ -4,10 +4,11 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from forms import NameForm
 from .models import *
 from methods import *
+from django.db.models import Q
 
 def index(request):
     initial_check()
-    news_list = rssdata.objects.all().order_by("-id")
+    news_list = rssdata.objects.all().order_by("-date")
     page = request.GET.get('page', 1)
 
     paginator = Paginator(news_list, 5)
@@ -61,3 +62,11 @@ def about_us(request):
 
 def contact_us(request):
     return render(request, 'contact_us.html')
+
+def searchquery(request):
+    if request.POST:
+        query = request.POST.get('query', None)
+        querylist = rssdata.objects.values('body').filter(Q(body__icontains=query))
+
+        return render(request, 'searchquery.html',{'searchquery':querylist,
+                                                    'query':query,})

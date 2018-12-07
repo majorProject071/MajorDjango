@@ -94,17 +94,12 @@ def initial_check():
             extract(links[i], news_story, title[i])
 
 def extract(link, news_story, title):
-    # a = re.search(r'[A-Z]\w+\s\d+[,.]\s\d+', news_story)
-    # print (a)
-    # num = a.start()
-    # news_story = news_story[num:]
     if isinstance(news_story, str):
         news = Tokenize(unicode(news_story, 'utf-8'))
     else:
         news = Tokenize(news_story)
 
     month, year, date = news.get_date(link)
-    print(date)
     splited_sentences = nltk.sent_tokenize(news_story)
     tokenized_words = news.split_words()
     tagger = Tagger(tokenized_words)

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %} News Information Extraciton {% endblock title %}
+
+{% block nav_index_about_us %} class="nav-link active btn-primary" {% endblock nav_index_about_us%}
+
+{% block content %}
+<h1 style=" margin-top:2%; margin-left: 5%; margin-right: 5%;"> Result for : {{query}}</h1>
+{% for search in searchquery %}
+<p style="font-size:14px; margin-top:2%; margin-left: 5%; margin-right: 5%;">{{ search.body }}</p><br>
+{% endfor %}
+{% endblock content %}
