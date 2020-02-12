@@ -13,7 +13,7 @@ datefinder==0.6.1
 decorator==4.3.0
 dill==0.2.7.1
 dj-database-url==0.5.0
-Django==1.9
+Django==1.11.28
 django-heroku==0.3.1
 extras==0.0.3
 ez-setup==0.9
