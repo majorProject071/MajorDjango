@@ -88,7 +88,7 @@ unittest2==1.1.0
 urllib3==1.22
 wcwidth==0.1.7
 webencodings==0.5.1
-Werkzeug==0.9.6
+Werkzeug==0.15.3
 whitenoise==4.1.2
 word2number==1.1
 wrapt==1.10.11
